@@ -1,0 +1,12 @@
+<input
+  type="tel"
+  class="form-control"
+  [(ngModel)]="value"
+  [placeholder]="placeholder ?? ''"
+  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+  (change)="handleOnChange($event)"
+  (click)="handleOnClick($event)"
+  (blur)="handleOnBlur()"
+  (focus)="handleOnFocus()"
+>
+<span class="validity"></span>

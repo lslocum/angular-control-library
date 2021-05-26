@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -27,6 +30,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
             "scripts": [],
@@ -96,6 +100,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -124,6 +129,37 @@
             "production": {
               "devServerTarget": "angular-control-library:serve:production"
             }
+          }
+        }
+      }
+    },
+    "controls": {
+      "projectType": "library",
+      "root": "projects/controls",
+      "sourceRoot": "projects/controls/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/controls/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/controls/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/controls/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/controls/src/test.ts",
+            "tsConfig": "projects/controls/tsconfig.spec.json",
+            "karmaConfig": "projects/controls/karma.conf.js"
           }
         }
       }

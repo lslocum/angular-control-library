@@ -1,0 +1,52 @@
+<h1>Form Control with Initial Value</h1>
+<div [formGroup]="formGroupWithInitialValue" class="form-group">
+  <lib-phone [placeholder]="'Textbox'" formControlName="textbox"></lib-phone>
+</div>
+<div class="status">
+  Form Group Status: {{ formGroupWithInitialValue.status }}
+  <br />
+  Form Group Value: {{ formGroupWithInitialValue.value | json }}
+  <br />
+</div>
+
+<h1>Form Control Without Initial Value</h1>
+<div [formGroup]="formGroupWithoutInitialValue" class="form-group">
+  <lib-phone formControlName="textbox"></lib-phone>
+</div>
+<div class="status">
+  Form Group Status: {{ formGroupWithoutInitialValue.status }}
+  <br />
+  Form Group Value: {{ formGroupWithoutInitialValue.value | json }}
+  <br />
+  Form Group Pristine: {{ formGroupWithoutInitialValue.pristine }}
+</div>
+
+<h1>Required</h1>
+<div [formGroup]="requiredFormGroup" class="form-group">
+  <lib-phone [placeholder]="'Required'" formControlName="textbox"></lib-phone>
+</div>
+<div class="status">
+  Form Group Status: {{ requiredFormGroup.status }}
+  <br />
+  Form Group Value: {{ requiredFormGroup.value | json }}
+  <br />
+  Form Group Pristine: {{ formGroupWithoutInitialValue.pristine }}
+  <br />
+  Form Group Errors: {{ requiredFormGroup.errors | json }}
+</div>
+
+<h1>Disabled</h1>
+<div [formGroup]="disabledFormGroup" class="form-group">
+  <lib-phone
+    [isDisabled]="true"
+    [placeholder]="'Textbox'"
+    formControlName="textbox"
+  ></lib-phone>
+</div>
+<div class="status">
+  Form Group Status: {{ disabledFormGroup.status }}
+  <br />
+  Form Group Value: {{ disabledFormGroup.value | json }}
+  <br />
+  Form Group Pristine: {{ formGroupWithoutInitialValue.pristine }}
+</div>
