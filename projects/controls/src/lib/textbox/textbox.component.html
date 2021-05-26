@@ -1,11 +1,22 @@
-<input
-  type="text"
-  class="form-control"
-  [(ngModel)]="value"
-  [placeholder]="placeholder ?? ''"
-  (change)="handleOnChange($event)"
-  (click)="handleOnClick($event)"
-  (blur)="handleOnBlur()"
-  (focus)="handleOnFocus()"
-/>
-<span class="validity"></span>
+<div class="form-control" [class.required]="required">
+  <label>{{ label }}</label>
+  <input
+    type="text"
+    [disabled]="disabled"
+    [required]="required"
+    [minlength]="minlength"
+    [maxlength]="maxlength"
+    [pattern]="pattern"
+    [placeholder]="placeholder"
+    [(ngModel)]="value"
+    (input)="onChange()"
+    (change)="onChange()"
+    (blur)="onTouchedCallback()"
+  />
+
+  <div class="error-message" *ngIf="showError">
+    <ng-container *ngFor="let error of errors">
+        {{ error }}
+    </ng-container>
+  </div>
+</div>

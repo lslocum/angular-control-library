@@ -5,7 +5,6 @@ import { tap } from 'rxjs/operators';
 @Component({
   selector: 'app-textbox-demo',
   templateUrl: './textbox-demo.component.html',
-  styleUrls: ['./textbox-demo.component.scss'],
 })
 export class TextboxDemoComponent implements OnInit {
   formGroupWithInitialValue: FormGroup;
@@ -27,11 +26,7 @@ export class TextboxDemoComponent implements OnInit {
     });
 
     this.disabledFormGroup = new FormGroup({
-      textbox: new FormControl('I am disabled'),
+      textbox: new FormControl({ value: 'I am disabled', disabled: true }),
     });
-  }
-
-  changes(event){
-    debugger;
   }
 }

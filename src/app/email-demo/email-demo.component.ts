@@ -4,7 +4,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-email-demo',
   templateUrl: './email-demo.component.html',
-  styleUrls: ['./email-demo.component.scss'],
 })
 export class EmailDemoComponent implements OnInit {
   formGroupWithInitialValue: FormGroup;
@@ -18,7 +17,7 @@ export class EmailDemoComponent implements OnInit {
     });
 
     this.formGroupWithoutInitialValue = new FormGroup({
-      email: new FormControl(),
+      email: new FormControl('', Validators.email),
     });
 
     this.requiredFormGroup = new FormGroup({
@@ -26,7 +25,7 @@ export class EmailDemoComponent implements OnInit {
     });
 
     this.disabledFormGroup = new FormGroup({
-      email: new FormControl('I am disabled', Validators.email),
+      email: new FormControl({value: 'I am disabled', disabled: true}, Validators.email),
     });
   }
 }

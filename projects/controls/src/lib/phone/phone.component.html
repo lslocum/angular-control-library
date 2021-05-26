@@ -1,12 +1,21 @@
-<input
-  type="tel"
-  class="form-control"
-  [(ngModel)]="value"
-  [placeholder]="placeholder ?? ''"
-  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-  (change)="handleOnChange($event)"
-  (click)="handleOnClick($event)"
-  (blur)="handleOnBlur()"
-  (focus)="handleOnFocus()"
->
-<span class="validity"></span>
+<div class="form-control" [class.required]="required">
+  <label>{{ label }}</label>
+  <input
+    type="tel"
+    [required]="required"
+    [disabled]="disabled"
+    [minlength]="minlength"
+    [maxlength]="maxlength"
+    [placeholder]="placeholder"
+    [(ngModel)]="value"
+    (input)="onChange()"
+    (change)="onChange()"
+    (blur)="onTouchedCallback()"
+  />
+
+  <div class="error-message" *ngIf="showError">
+    <ng-container *ngFor="let error of errors">
+      {{ error }}
+    </ng-container>
+  </div>
+</div>

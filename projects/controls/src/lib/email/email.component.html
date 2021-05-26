@@ -1,26 +1,23 @@
-<input #email
-  emailValidator
-  type="email"
-  class="form-control"
-  [name]="formControlName"
-  [(ngModel)]="value"
-  minlength="7"
-  [placeholder]="placeholder ?? ''"
-  (change)="handleOnChange($event)"
-  (click)="handleOnClick($event)"
-  (blur)="handleOnBlur()"
-  (focus)="handleOnFocus()"
-  #control="ngModel"
->
-<span class="validity"></span>
-
-<div
-  *ngIf="control.invalid && (control.dirty || control.touched)"
-  class="alert"
->
-
-  <div *ngIf="control.errors?.minlength">
-    Email address must be at least 7 characters long.
+<div class="form-control" [class.required]="required">
+    <label>{{ label }}</label>
+    <input
+      type="email"
+      [required]="required"
+      [disabled]="disabled"
+      [minlength]="minlength"
+      [maxlength]="maxlength"
+      [pattern]="pattern"
+      [placeholder]="placeholder"
+      [(ngModel)]="value"
+      (input)="onChange()"
+      (change)="onChange()"
+      (blur)="onTouchedCallback()"
+    />
+  
+    <div class="error-message" *ngIf="showError">
+      <ng-container *ngFor="let error of errors">
+          {{ error }}
+      </ng-container>
+    </div>
   </div>
-  <div *ngIf="control.errors?.forbiddenName">Name cannot be Bob.</div>
-</div>
+  

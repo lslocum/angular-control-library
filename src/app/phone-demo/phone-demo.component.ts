@@ -4,7 +4,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-phone-demo',
   templateUrl: './phone-demo.component.html',
-  styleUrls: ['./phone-demo.component.scss'],
 })
 export class PhoneDemoComponent implements OnInit {
   formGroupWithInitialValue: FormGroup;
@@ -14,19 +13,19 @@ export class PhoneDemoComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroupWithInitialValue = new FormGroup({
-      textbox: new FormControl('6204316000', Validators.pattern(validPhoneNumberPattern)),
+      phone: new FormControl('6204316000', Validators.pattern(validPhoneNumberPattern)),
     });
 
     this.formGroupWithoutInitialValue = new FormGroup({
-      textbox: new FormControl('', Validators.pattern(validPhoneNumberPattern)),
+      phone: new FormControl('', Validators.pattern(validPhoneNumberPattern)),
     });
 
     this.requiredFormGroup = new FormGroup({
-      textbox: new FormControl('', Validators.required),
+      phone: new FormControl('', Validators.required),
     });
 
     this.disabledFormGroup = new FormGroup({
-      textbox: new FormControl('911', Validators.pattern(validPhoneNumberPattern)),
+      phone: new FormControl({value: '911', disabled: true}, Validators.pattern(validPhoneNumberPattern)),
     });
   }
 }

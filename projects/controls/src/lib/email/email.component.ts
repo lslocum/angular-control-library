@@ -7,14 +7,17 @@ import {
   Input,
   OnChanges,
   OnInit,
+  Optional,
   Output,
   Renderer2,
+  Self,
   SimpleChange,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import {
   ControlValueAccessor,
+  NgControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   Validators,
@@ -24,59 +27,60 @@ import {
   selector: 'lib-email',
   templateUrl: './email.component.html',
   styleUrls: ['./email.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => EmailComponent),
-      multi: true,
-    },
-  ],
 })
-export class EmailComponent implements ControlValueAccessor, AfterViewInit {
-  @Input() formControlName: string;
-  @Input() isDisabled: boolean = false;
-  @Input() placeholder: string;
+export class EmailComponent implements ControlValueAccessor {
+  @Input() label: string;
+  @Input() placeholder: string = '';
+  @Input() required = false;
+  @Input() disabled = false;
+  @Input() minlength = 7;
+  @Input() maxlength;
+  @Input() pattern;
 
-  @Output() blur: EventEmitter<void> = new EventEmitter();
-  @Output() click: EventEmitter<any> = new EventEmitter();
-  @Output() change: EventEmitter<string> = new EventEmitter();
-  @Output() focus: EventEmitter<void> = new EventEmitter();
-
-  @ViewChild('email') email: ElementRef;
-
-  ngClass: string = '';
   value = '';
-  control;
+  errorMessages = new Map();
 
-  onChangeCallback = (e) => {};
+  onChangeCallback = (_: any) => {};
   onTouchedCallback = () => {};
 
-  constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
+  get showError(): boolean {
+    let shouldShowErrors = false;
 
-  ngAfterViewInit(): void {
-    console.log('on init', this.isDisabled);
-    this.setDisabledState(this.isDisabled);
+    if (this.control) {
+      const { dirty, touched, invalid } = this.control;
+      shouldShowErrors = invalid ? dirty || touched : false;
+    }
+
+    return shouldShowErrors;
   }
 
-  handleOnBlur(): void {
-    this.onTouchedCallback();
-    this.blur.emit();
+  get errors(): Array<string> {
+    let errorsToShow = [];
+
+    if (this.control) {
+      const { errors } = this.control;
+      errorsToShow = Object.keys(errors).map((key) =>
+        this.errorMessages.has(key)
+          ? this.errorMessages.get(key)()
+          : <string>errors[key] || key
+      );
+    }
+
+    return errorsToShow;
   }
 
-  handleOnChange($event: any): void {
-    const value = $event.currentTarget.value;
-    this.writeValue(value);
+  constructor(@Self() @Optional() public control: NgControl) {
+    this.control && (this.control.valueAccessor = this);
 
-    this.onChangeCallback(value);
-    this.change.emit(value);
-  }
-
-  handleOnClick($event: any): void {
-    this.click.emit($event);
-  }
-
-  handleOnFocus(): void {
-    this.focus.emit();
+    this.errorMessages.set('required', () => `${this.label} is required.`);
+    this.errorMessages.set(
+      'minlength',
+      () => `Please enter at least ${this.minlength} characters.`
+    );
+    this.errorMessages.set(
+      'email',
+      () => `Please enter a valid email.`
+    );
   }
 
   registerOnChange(fn: any): void {
@@ -88,13 +92,14 @@ export class EmailComponent implements ControlValueAccessor, AfterViewInit {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    if (isDisabled) {
-      debugger;
-    }
-    this.renderer.setProperty(this.email.nativeElement, 'disabled', isDisabled);
+    this.disabled = isDisabled;
   }
 
   writeValue(value: string): void {
-    this.value = value ? value : '';
+    this.value = value;
+  }
+
+  onChange() {
+    this.onChangeCallback(this.value);
   }
 }

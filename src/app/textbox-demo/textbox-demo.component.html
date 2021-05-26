@@ -1,55 +1,152 @@
 <h1>Form Control with Initial Value</h1>
 <div [formGroup]="formGroupWithInitialValue" class="form-group">
   <lib-textbox
-    [placeholder]="'Textbox'"
+    name="textbox"
+    label="User Name"
+    placeholder="Enter user name"
+    minlength="3"
+    maxlength="10"
+    pattern="[A-Za-z]+"
+    [required]="false"
     formControlName="textbox"
-  ></lib-textbox>
+  >
+  </lib-textbox>
 </div>
-<div class="status">
-  Form Group Status: {{ formGroupWithInitialValue.status }}
-  <br />
-  Form Group Value: {{ formGroupWithInitialValue.value | json }}
-  <br />
+<div class="wrapper">
+  <div class="options">
+    <label>minlength:</label><span> 3</span>
+    <br />
+    <label>maxlength:</label><span> 10</span>
+    <br />
+    <label>required:</label><span> false</span>
+    <br />
+    <label>disabled:</label><span> false</span>
+    <br />
+    <label>pattern:</label><span> [A-Za-z]+ (only letters)</span>
+    <br/>
+    <label>label:</label><span> User Name</span>
+    <br />
+    <label>placeholder:</label><span> Enter user name</span>
+  </div>
+  <div class="status">
+    <label>Form Group Status:</label><span> {{ formGroupWithInitialValue.get("textbox").status }}</span>
+    <br />
+    <label>Form Group Value:</label><span> {{ formGroupWithInitialValue.value | json }}</span>
+    <br />
+    <label>Form Group Pristine:</label><span> {{ formGroupWithInitialValue.pristine }}</span>
+    <br />
+    <label>Form Group Errors:</label><span>
+    {{ formGroupWithInitialValue.get("textbox").errors | json }}</span>
+  </div>
 </div>
 
 <h1>Form Control Without Initial Value</h1>
 <div [formGroup]="formGroupWithoutInitialValue" class="form-group">
-  <lib-textbox formControlName="textbox"></lib-textbox>
+  <lib-textbox
+    label="User Name"
+    placeholder="Enter user name"
+    [required]="false"
+    formControlName="textbox"
+  ></lib-textbox>
 </div>
-<div class="status">
-  Form Group Status: {{ formGroupWithoutInitialValue.status }}
-  <br />
-  Form Group Value: {{ formGroupWithoutInitialValue.value | json }}
-  <br />
-  Form Group Pristine: {{ formGroupWithoutInitialValue.pristine }}
-</div>
+<div class="wrapper">
+    <div class="options">
+      <label>minlength:</label><span> n/a</span>
+      <br />
+      <label>maxlength:</label><span> n/a</span>
+      <br />
+      <label>required:</label><span> false</span>
+      <br />
+      <label>disabled:</label><span> false</span>
+      <br />
+      <label>pattern:</label><span> n/a</span>
+      <br/>
+      <label>label:</label><span> User Name</span>
+      <br />
+      <label>placeholder:</label><span> Enter user name</span>
+    </div>
+    <div class="status">
+      <label>Form Group Status:</label><span> {{ formGroupWithoutInitialValue.get("textbox").status }}</span>
+      <br />
+      <label>Form Group Value:</label><span> {{ formGroupWithoutInitialValue.value | json }}</span>
+      <br />
+      <label>Form Group Pristine:</label><span> {{ formGroupWithoutInitialValue.pristine }}</span>
+      <br />
+      <label>Form Group Errors:</label><span>
+      {{ formGroupWithoutInitialValue.get("textbox").errors | json }}</span>
+    </div>
+  </div>
 
 <h1>Required</h1>
 <div [formGroup]="requiredFormGroup" class="form-group">
   <lib-textbox
-    [placeholder]="'Required'"
+    label="User Name"
+    placeholder="Enter user name"
+    [required]="true"
     formControlName="textbox"
-    (blur)="changes($event)"
   ></lib-textbox>
 </div>
-<div class="status">
-  Form Group Status: {{ requiredFormGroup.status }}
-  <br />
-  Form Group Value: {{ requiredFormGroup.value | json }}
-  <br />
-  Form Group Pristine: {{ formGroupWithoutInitialValue.pristine }}
-  <br />
-  Form Group Errors: {{ requiredFormGroup.errors | json }}
-</div>
+<div class="wrapper">
+    <div class="options">
+      <label>minlength:</label><span> n/a</span>
+      <br />
+      <label>maxlength:</label><span> n/a</span>
+      <br />
+      <label>required:</label><span> true</span>
+      <br />
+      <label>disabled:</label><span> false</span>
+      <br />
+      <label>pattern:</label><span> n/a</span>
+      <br/>
+      <label>label:</label><span> User Name</span>
+      <br />
+      <label>placeholder:</label><span> Enter user name</span>
+    </div>
+    <div class="status">
+      <label>Form Group Status:</label><span> {{ requiredFormGroup.get("textbox").status }}</span>
+      <br />
+      <label>Form Group Value:</label><span> {{ requiredFormGroup.value | json }}</span>
+      <br />
+      <label>Form Group Pristine:</label><span> {{ requiredFormGroup.pristine }}</span>
+      <br />
+      <label>Form Group Errors:</label><span>
+      {{ requiredFormGroup.get("textbox").errors | json }}</span>
+    </div>
+  </div>
 
 <h1>Disabled</h1>
 <div [formGroup]="disabledFormGroup" class="form-group">
-  <lib-textbox [isDisabled]="true" formControlName="textbox"></lib-textbox>
+  <lib-textbox
+    label="User Name"
+    placeholder="Enter user name"
+    [required]="false"
+    formControlName="textbox"
+  ></lib-textbox>
 </div>
-<div class="status">
-  Form Group Status: {{ disabledFormGroup.status }}
-  <br />
-  Form Group Value: {{ disabledFormGroup.value | json }}
-  <br />
-  Form Group Pristine: {{ formGroupWithoutInitialValue.pristine }}
-</div>
+<div class="wrapper">
+    <div class="options">
+      <label>minlength:</label><span> n/a</span>
+      <br />
+      <label>maxlength:</label><span> n/a</span>
+      <br />
+      <label>required:</label><span> false</span>
+      <br />
+      <label>disabled:</label><span> true</span>
+      <br />
+      <label>pattern:</label><span> n/a</span>
+      <br/>
+      <label>label:</label><span> User Name</span>
+      <br />
+      <label>placeholder:</label><span> Enter user name</span>
+    </div>
+    <div class="status">
+      <label>Form Group Status:</label><span> {{ disabledFormGroup.get("textbox").status }}</span>
+      <br />
+      <label>Form Group Value:</label><span> {{ disabledFormGroup.value | json }}</span>
+      <br />
+      <label>Form Group Pristine:</label><span> {{ disabledFormGroup.pristine }}</span>
+      <br />
+      <label>Form Group Errors:</label><span>
+      {{ disabledFormGroup.get("textbox").errors | json }}</span>
+    </div>
+  </div>

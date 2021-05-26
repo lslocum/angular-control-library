@@ -1,64 +1,61 @@
-import {
-  Component,
-  EventEmitter,
-  forwardRef,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'lib-phone',
   templateUrl: './phone.component.html',
   styleUrls: ['./phone.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PhoneComponent),
-      multi: true,
-    },
-  ],
 })
 export class PhoneComponent implements ControlValueAccessor {
-  @Input() controlName!: string;
-  @Input() isDisabled: boolean = false;
-  @Input() placeholder: string;
+  @Input() label: string;
+  @Input() placeholder: string = '';
+  @Input() required = false;
+  @Input() disabled = false;
+  @Input() minlength = 10;
+  @Input() maxlength = 12;
+  @Input() pattern = '[0-9]{3}[0-9]{3}[0-9]{4}';
 
-  @Output() blur: EventEmitter<void> = new EventEmitter();
-  @Output() click: EventEmitter<any> = new EventEmitter();
-  @Output() change: EventEmitter<string> = new EventEmitter();
-  @Output() focus: EventEmitter<void> = new EventEmitter();
-
-  ngClass: string = '';
   value = '';
+  errorMessages = new Map();
 
-  onChangeCallback = (e) => {};
+  onChangeCallback = (_: any) => {};
   onTouchedCallback = () => {};
 
-  ngOnInit(): void {
-    this.setDisabledState(this.isDisabled);
+  get showError(): boolean {
+    let shouldShowErrors = false;
+
+    if (this.control) {
+      const { dirty, touched, invalid } = this.control;
+      shouldShowErrors = invalid ? dirty || touched : false;
+    }
+
+    return shouldShowErrors;
   }
 
-  handleOnBlur(): void {
-    this.onTouchedCallback();
-    this.blur.emit();
+  get errors(): Array<string> {
+    let errorsToShow = [];
+
+    if (this.control) {
+      const { errors } = this.control;
+      errorsToShow = Object.keys(errors).map((key) =>
+        this.errorMessages.has(key)
+          ? this.errorMessages.get(key)()
+          : <string>errors[key] || key
+      );
+    }
+
+    return errorsToShow;
   }
 
-  handleOnChange($event: any): void {
-    const value = $event.currentTarget.value;
-    this.writeValue(value);
+  constructor(@Self() @Optional() public control: NgControl) {
+    this.control && (this.control.valueAccessor = this);
 
-    this.onChangeCallback(value);
-    this.change.emit(value);
-  }
-
-  handleOnClick($event: any): void {
-    this.click.emit($event);
-  }
-
-  handleOnFocus(): void {
-    this.focus.emit();
+    this.errorMessages.set('required', () => `${this.label} is required.`);
+    this.errorMessages.set(
+      'minlength',
+      () => `Please enter at least ${this.minlength} characters.`
+    );
+    this.errorMessages.set('pattern', () => `Invalid phone number.`);
   }
 
   registerOnChange(fn: any): void {
@@ -70,25 +67,27 @@ export class PhoneComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.disabled = isDisabled;
+  }
+
+  onChange() {
+    this.writeValue(this.value);
+    this.onChangeCallback(this.value.replace(/\D/g, ''));
   }
 
   writeValue(value: string): void {
     const formattedValue = formatPhoneNumber(value);
     this.value = formattedValue ? formattedValue : null;
-    console.log('this.value', this.value);
   }
 }
 
 function formatPhoneNumber(value: string): string {
   // remove all mask characters (keep only numeric)
   let newValue = value.replace(/\D/g, '');
-  console.log('stripped number "', newValue, '"');
 
   if (newValue.length == 0) {
     newValue = '';
-  }
-  else if (newValue.length <= 3) {
+  } else if (newValue.length <= 3) {
     newValue = newValue.replace(/^(\d{0,3})/, '$1');
   } else if (newValue.length <= 6) {
     newValue = newValue.replace(/^(\d{0,3})(\d{0,3})/, '$1-$2');
