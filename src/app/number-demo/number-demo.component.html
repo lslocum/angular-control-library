@@ -1,0 +1,184 @@
+<h1>Form Control with Initial Value</h1>
+<div [formGroup]="formGroupWithInitialValue" class="form-group">
+  <lib-number
+    [formControlName]="formControlName"
+    id="numberWithValue"
+    [name]="formControlName"
+    [label]="label"
+    [placeholder]="placeholder"
+    [required]="false"
+    [min]="min"
+    [max]="max"
+    [step]="step"
+  >
+  </lib-number>
+</div>
+<div class="wrapper">
+  <div class="options">
+    <label>label:</label><span> {{ label }}</span>
+    <br />
+    <label>placeholder:</label><span> {{ placeholder }}</span>
+    <br />
+    <label>required:</label><span> false</span>
+    <br />
+    <label>disabled:</label><span> false</span>
+    <br />
+    <label>min:</label><span> {{ min }}</span>
+    <br />
+    <label>max:</label><span> {{ max }}</span>
+    <br />
+    <label>step:</label><span> {{ step }}</span>
+  </div>
+  <div class="status">
+    <label>Form Group Status:</label
+    ><span> {{ formGroupWithInitialValue.get(formControlName).status }}</span>
+    <br />
+    <label>Form Group Value:</label
+    ><span> {{ formGroupWithInitialValue.value | json }}</span>
+    <br />
+    <label>Form Group Pristine:</label
+    ><span> {{ formGroupWithInitialValue.pristine }}</span>
+    <br />
+    <label>Form Control Errors:</label
+    ><span>
+      {{ formGroupWithInitialValue.get(formControlName).errors | json }}</span
+    >
+  </div>
+</div>
+
+<h1>Form Control Without Initial Value</h1>
+<div [formGroup]="formGroupWithoutInitialValue" class="form-group">
+  <lib-number
+    [formControlName]="formControlName"
+    id="numberWithoutValue"
+    [name]="formControlName"
+    [label]="label"
+    [placeholder]="placeholder"
+    [required]="false"
+    [step]="step"
+  >
+  </lib-number>
+</div>
+<div class="wrapper">
+  <div class="options">
+    <label>label:</label><span> {{ label }}</span>
+    <br />
+    <label>placeholder:</label><span> {{ placeholder }}</span>
+    <br />
+    <label>required:</label><span> false</span>
+    <br />
+    <label>disabled:</label><span> false</span>
+    <br />
+    <label>minlength:</label><span> n/a</span>
+    <br />
+    <label>max:</label><span> n/a</span>
+    <br />
+    <label>step:</label><span> {{ step }}</span>
+  </div>
+  <div class="status">
+    <label>Form Group Status:</label
+    ><span>
+      {{ formGroupWithoutInitialValue.get(formControlName).status }}</span
+    >
+    <br />
+    <label>Form Group Value:</label
+    ><span> {{ formGroupWithoutInitialValue.value | json }}</span>
+    <br />
+    <label>Form Group Pristine:</label
+    ><span> {{ formGroupWithoutInitialValue.pristine }}</span>
+    <br />
+    <label>Form Group Errors:</label
+    ><span>
+      {{
+        formGroupWithoutInitialValue.get(formControlName).errors | json
+      }}</span
+    >
+  </div>
+</div>
+
+<h1>Required</h1>
+<div [formGroup]="requiredFormGroup" class="form-group">
+  <lib-number
+    [formControlName]="formControlName"
+    id="numberRequired"
+    [name]="formControlName"
+    [label]="label"
+    [placeholder]="placeholder"
+    [required]="true"
+  >
+  </lib-number>
+</div>
+<div class="wrapper">
+  <div class="options">
+    <label>label:</label><span> {{ label }}</span>
+    <br />
+    <label>placeholder:</label><span> {{ placeholder }}</span>
+    <br />
+    <label>required:</label><span> true</span>
+    <br />
+    <label>disabled:</label><span> false</span>
+    <br />
+    <label>minlength:</label><span> n/a</span>
+    <br />
+    <label>max:</label><span> n/a</span>
+    <br />
+    <label>step:</label><span> default (1)</span>
+  </div>
+  <div class="status">
+    <label>Form Group Status:</label
+    ><span> {{ requiredFormGroup.get(formControlName).status }}</span>
+    <br />
+    <label>Form Group Value:</label
+    ><span> {{ requiredFormGroup.value | json }}</span>
+    <br />
+    <label>Form Group Pristine:</label
+    ><span> {{ requiredFormGroup.pristine }}</span>
+    <br />
+    <label>Form Group Errors:</label
+    ><span> {{ requiredFormGroup.get(formControlName).errors | json }}</span>
+  </div>
+</div>
+
+<h1>Disabled</h1>
+<div [formGroup]="disabledFormGroup" class="form-group">
+  <lib-number
+    [formControlName]="formControlName"
+    id="numberRequired"
+    [name]="formControlName"
+    [label]="label"
+    [placeholder]="placeholder"
+    [required]="false"
+    [disabled]="true"
+  >
+  </lib-number>
+</div>
+<div class="wrapper">
+  <div class="options">
+    <label>label:</label><span> {{ label }}</span>
+    <br />
+    <label>placeholder:</label><span> {{ placeholder }}</span>
+    <br />
+    <label>required:</label><span> false</span>
+    <br />
+    <label>disabled:</label><span> true</span>
+    <br />
+    <label>minlength:</label><span> n/a</span>
+    <br />
+    <label>max:</label><span> n/a</span>
+    <br />
+    <label>step:</label><span> default (1)</span>
+  </div>
+  <div class="status">
+    <label>Form Group Status:</label
+    ><span> {{ disabledFormGroup.status }}</span>
+    <br />
+    <label>Form Group Value:</label
+    ><span> {{ disabledFormGroup.value | json }}</span>
+    <br />
+    <label>Form Group Pristine:</label
+    ><span> {{ disabledFormGroup.pristine }}</span>
+    <br />
+    <label>Form Control Errors:</label
+    ><span> {{ disabledFormGroup.get(formControlName).errors | json }}</span>
+  </div>
+</div>

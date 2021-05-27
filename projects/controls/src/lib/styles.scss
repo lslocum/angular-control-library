@@ -10,6 +10,10 @@
 
   .my-input {
     max-width: 250px;
+
+    &.my-number{
+      max-width: 100px;
+    }
   }
 
   .my-input,
