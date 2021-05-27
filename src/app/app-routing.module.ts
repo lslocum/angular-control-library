@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'email', loadChildren: () => import('./email-demo/email-demo.module').then(m => m.EmailDemoModule) },
   { path: 'textarea', loadChildren: () => import('./textarea-demo/textarea-demo.module').then(m => m.TextareaDemoModule) },
   { path: 'checkbox', loadChildren: () => import('./checkbox-demo/checkbox-demo.module').then(m => m.CheckboxDemoModule) },
+  { path: 'date', loadChildren: () => import('./date-demo/date-demo.module').then(m => m.DateDemoModule) },
 ];
 
 @NgModule({
