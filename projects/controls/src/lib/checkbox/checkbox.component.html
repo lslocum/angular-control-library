@@ -1,0 +1,14 @@
+<div class="form-control">
+  <label [for]="name">{{ label }}</label>
+  <input
+    type="checkbox"
+    [id]="id"
+    [name]="name"
+    [disabled]="disabled"
+    [(ngModel)]="value"
+    (input)="onChange()"
+    (change)="onChange()"
+    (blur)="onTouchedCallback()"
+    class="my-checkbox"
+  />
+</div>
