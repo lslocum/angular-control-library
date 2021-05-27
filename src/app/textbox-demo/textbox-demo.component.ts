@@ -12,6 +12,13 @@ export class TextboxDemoComponent implements OnInit {
   requiredFormGroup: FormGroup;
   disabledFormGroup: FormGroup;
 
+  formControlName = 'textbox';
+  label = 'User Name';
+  placeholder = 'Enter user name';
+  minlength = '3';
+  maxlength = '10';
+  pattern = '[A-Za-z]+';
+
   ngOnInit(): void {
     this.formGroupWithInitialValue = new FormGroup({
       textbox: new FormControl('value'),

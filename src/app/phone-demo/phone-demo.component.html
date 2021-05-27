@@ -1,27 +1,30 @@
 <h1>Form Control with Initial Value</h1>
 <div [formGroup]="formGroupWithInitialValue" class="form-group">
   <lib-phone
+    [formControlName]="formControlName"
+    id="phoneWithValue"
     name="phone"
-    label="Cell Phone"
-    placeholder="555-555-5555"
+    [label]="label"
+    [placeholder]="placeholder"
     [required]="false"
-    formControlName="phone"
   >
   </lib-phone>
 </div>
 <div class="wrapper">
   <div class="options">
-    <label>minlength:</label><span> 10</span>
+    <label>id:</label><span> phoneWithValue</span>
     <br />
-    <label>maxlength:</label><span> 10</span>
+    <label>label:</label><span> {{ label }}</span>
+    <br />
+    <label>placeholder:</label><span> {{ placeholder }}</span>
+    <br />
+    <label>Default minlength:</label><span> 10</span>
+    <br />
+    <label>Default maxlength:</label><span> 10</span>
     <br />
     <label>required:</label><span> false</span>
     <br />
     <label>disabled:</label><span> false</span>
-    <br />
-    <label>label:</label><span> Cell Phone</span>
-    <br />
-    <label>placeholder:</label><span> 555-555-5555</span>
   </div>
   <div class="status">
     <label>Form Group Status:</label
@@ -41,27 +44,30 @@
 <h1>Form Control Without Initial Value</h1>
 <div [formGroup]="formGroupWithoutInitialValue" class="form-group">
   <lib-phone
+    [formControlName]="formControlName"
+    id="phoneWithoutValue"
     name="phone"
-    label="Cell Phone"
-    placeholder="555-555-5555"
+    [label]="label"
+    [placeholder]="placeholder"
     [required]="false"
-    formControlName="phone"
   >
   </lib-phone>
 </div>
 <div class="wrapper">
   <div class="options">
-    <label>minlength:</label><span> 10</span>
+    <label>id:</label><span> phoneWithoutValue</span>
     <br />
-    <label>maxlength:</label><span> 10</span>
+    <label>label:</label><span> {{ label }}</span>
+    <br />
+    <label>placeholder:</label><span> {{ placeholder }}</span>
+    <br />
+    <label>Default minlength:</label><span> 10</span>
+    <br />
+    <label>Default maxlength:</label><span> 10</span>
     <br />
     <label>required:</label><span> false</span>
     <br />
     <label>disabled:</label><span> false</span>
-    <br />
-    <label>label:</label><span> Cell Phone</span>
-    <br />
-    <label>placeholder:</label><span> 555-555-5555</span>
   </div>
   <div class="status">
     <label>Form Group Status:</label
@@ -73,35 +79,42 @@
     <label>Form Group Pristine:</label
     ><span> {{ formGroupWithoutInitialValue.pristine }}</span>
     <br />
-    <label>Form Group Errors:</label
-    ><span> {{ formGroupWithoutInitialValue.get('phone').errors | json }}</span>
+    <label>Form Control Errors:</label
+    ><span>
+      {{
+        formGroupWithoutInitialValue.get(formControlName).errors | json
+      }}</span
+    >
   </div>
 </div>
 
 <h1>Required</h1>
 <div [formGroup]="requiredFormGroup" class="form-group">
   <lib-phone
+    [formControlName]="formControlName"
+    id="phoneRequired"
     name="phone"
-    label="Cell Phone"
-    placeholder="555-555-5555"
+    [label]="label"
+    [placeholder]="placeholder"
     [required]="true"
-    formControlName="phone"
   >
   </lib-phone>
 </div>
 <div class="wrapper">
   <div class="options">
-    <label>minlength:</label><span> 10</span>
+    <label>id:</label><span> phoneRequired</span>
     <br />
-    <label>maxlength:</label><span> 10</span>
+    <label>label:</label><span> {{ label }}</span>
+    <br />
+    <label>placeholder:</label><span> {{ placeholder }}</span>
+    <br />
+    <label>Default minlength:</label><span> 10</span>
+    <br />
+    <label>Default maxlength:</label><span> 10</span>
     <br />
     <label>required:</label><span> true</span>
     <br />
     <label>disabled:</label><span> false</span>
-    <br />
-    <label>label:</label><span> Cell Phone</span>
-    <br />
-    <label>placeholder:</label><span> 555-555-5555</span>
   </div>
   <div class="status">
     <label>Form Group Status:</label
@@ -120,17 +133,24 @@
 
 <h1>Disabled</h1>
 <div [formGroup]="disabledFormGroup" class="form-group">
-    <lib-phone
+  <lib-phone
+    [formControlName]="formControlName"
+    id="phoneDisabled"
     name="phone"
-    label="Cell Phone"
-    placeholder="555-555-5555"
+    [label]="label"
+    [placeholder]="placeholder"
     [required]="false"
-    formControlName="phone"
   >
   </lib-phone>
 </div>
 <div class="wrapper">
   <div class="options">
+    <label>id:</label><span> phoneDisabled</span>
+    <br />
+    <label>label:</label><span> {{ label }}</span>
+    <br />
+    <label>placeholder:</label><span> {{ placeholder }}</span>
+    <br />
     <label>minlength:</label><span> 10</span>
     <br />
     <label>maxlength:</label><span> 10</span>
@@ -138,10 +158,6 @@
     <label>required:</label><span> false</span>
     <br />
     <label>disabled:</label><span> true</span>
-    <br />
-    <label>label:</label><span> Cell Phone</span>
-    <br />
-    <label>placeholder:</label><span> 555-555-5555</span>
   </div>
   <div class="status">
     <label>Form Group Status:</label

@@ -11,6 +11,11 @@ export class EmailDemoComponent implements OnInit {
   requiredFormGroup: FormGroup;
   disabledFormGroup: FormGroup;
 
+  placeholder = 'fred@theneighborhood.com';
+  label = 'Email';
+  minlength = '7';
+  formControlName = 'email';
+
   ngOnInit(): void {
     this.formGroupWithInitialValue = new FormGroup({
       email: new FormControl('fred@neighbor.com', Validators.email),
@@ -25,7 +30,10 @@ export class EmailDemoComponent implements OnInit {
     });
 
     this.disabledFormGroup = new FormGroup({
-      email: new FormControl({value: 'I am disabled', disabled: true}, Validators.email),
+      email: new FormControl(
+        { value: 'I am disabled', disabled: true },
+        Validators.email
+      ),
     });
   }
 }

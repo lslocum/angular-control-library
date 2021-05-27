@@ -1,22 +1,25 @@
 <div class="form-control" [class.required]="required">
-  <label>{{ label }}</label>
+  <label [for]="name">{{ label }}</label>
   <input
     type="text"
+    [id]="id"
+    [name]="name"
+    [placeholder]="placeholder"
     [disabled]="disabled"
     [required]="required"
     [minlength]="minlength"
     [maxlength]="maxlength"
     [pattern]="pattern"
-    [placeholder]="placeholder"
     [(ngModel)]="value"
     (input)="onChange()"
     (change)="onChange()"
     (blur)="onTouchedCallback()"
+    class="my-input"
   />
 
   <div class="error-message" *ngIf="showError">
     <ng-container *ngFor="let error of errors">
-        {{ error }}
+      {{ error }}
     </ng-container>
   </div>
 </div>

@@ -2,20 +2,21 @@ import { Component, Input, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
-  selector: 'lib-textbox',
-  templateUrl: './textbox.component.html',
-  styleUrls: ['./textbox.component.scss'],
+  selector: 'lib-textarea',
+  templateUrl: './textarea.component.html',
+  styleUrls: ['./textarea.component.scss'],
 })
-export class TextboxComponent implements ControlValueAccessor {
+export class TextareaComponent implements ControlValueAccessor {
   @Input() id: string;
   @Input() name: string;
   @Input() label: string;
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
-  @Input() minlength: number = 0;
+  @Input() cols: number;
+  @Input() rows: number;
+  @Input() wrap: 'hard' | 'soft';
   @Input() maxlength: number;
-  @Input() pattern: string;
 
   value = '';
   errorMessages = new Map();
@@ -54,12 +55,8 @@ export class TextboxComponent implements ControlValueAccessor {
 
     this.errorMessages.set('required', () => `${this.label} is required.`);
     this.errorMessages.set(
-      'minlength',
-      () => `Please enter at least ${this.minlength} characters.`
-    );
-    this.errorMessages.set(
-      'pattern',
-      () => `Invalid data. Please check requirements.`
+      'maxlength',
+      () => `Please enter no more than ${this.maxlength} characters.`
     );
   }
 

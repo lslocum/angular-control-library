@@ -1,27 +1,5 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  forwardRef,
-  Input,
-  OnChanges,
-  OnInit,
-  Optional,
-  Output,
-  Renderer2,
-  Self,
-  SimpleChange,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
-import {
-  ControlValueAccessor,
-  NgControl,
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
-  Validators,
-} from '@angular/forms';
+import { Component, Input, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'lib-email',
@@ -29,13 +7,14 @@ import {
   styleUrls: ['./email.component.scss'],
 })
 export class EmailComponent implements ControlValueAccessor {
+  @Input() id: string;
+  @Input() name: string;
   @Input() label: string;
   @Input() placeholder: string = '';
-  @Input() required = false;
-  @Input() disabled = false;
-  @Input() minlength = 7;
-  @Input() maxlength;
-  @Input() pattern;
+  @Input() required: boolean = false;
+  @Input() disabled: boolean = false;
+  @Input() minlength: number = 7;
+  @Input() maxlength: number;
 
   value = '';
   errorMessages = new Map();
@@ -77,10 +56,7 @@ export class EmailComponent implements ControlValueAccessor {
       'minlength',
       () => `Please enter at least ${this.minlength} characters.`
     );
-    this.errorMessages.set(
-      'email',
-      () => `Please enter a valid email.`
-    );
+    this.errorMessages.set('email', () => `Please enter a valid email.`);
   }
 
   registerOnChange(fn: any): void {

@@ -1,17 +1,18 @@
 <h1>Form Control with Initial Value</h1>
 <div [formGroup]="formGroupWithInitialValue" class="form-group">
-  <lib-textbox
+  <lib-textarea
     [formControlName]="formControlName"
-    id="textboxWithValue"
+    id="textareaWithValue"
     [name]="formControlName"
     [label]="label"
     [placeholder]="placeholder"
     [required]="false"
-    [minlength]="minlength"
-    [maxlength]="maxlength"
-    [pattern]="pattern"
+    [disabled]="false"
+    [cols]="cols"
+    [rows]="rows"
+    [wrap]="hardWrap"
   >
-  </lib-textbox>
+  </lib-textarea>
 </div>
 <div class="wrapper">
   <div class="options">
@@ -23,11 +24,13 @@
     <br />
     <label>disabled:</label><span> false</span>
     <br />
-    <label>minlength:</label><span> {{ minlength }}</span>
+    <label>maxlength:</label><span> n/a</span>
     <br />
-    <label>maxlength:</label><span> {{ maxlength }}</span>
+    <label>cols:</label><span> {{ cols }}</span>
     <br />
-    <label>pattern:</label><span> {{ pattern }} (only letters)</span>
+    <label>rows:</label><span> {{ rows }}</span>
+    <br />
+    <label>wrap:</label><span> {{ hardWrap }}</span>
   </div>
   <div class="status">
     <label>Form Group Status:</label
@@ -48,15 +51,20 @@
 
 <h1>Form Control Without Initial Value</h1>
 <div [formGroup]="formGroupWithoutInitialValue" class="form-group">
-  <lib-textbox
+  <lib-textarea
     [formControlName]="formControlName"
-    id="textboxWithoutValue"
+    id="textareaWithValue"
     [name]="formControlName"
     [label]="label"
     [placeholder]="placeholder"
     [required]="false"
+    [disabled]="false"
+    [cols]="cols"
+    [rows]="rows"
+    [wrap]="hardWrap"
+    [maxlength]="maxlength"
   >
-  </lib-textbox>
+  </lib-textarea>
 </div>
 <div class="wrapper">
   <div class="options">
@@ -68,11 +76,13 @@
     <br />
     <label>disabled:</label><span> false</span>
     <br />
-    <label>minlength:</label><span> n/a</span>
+    <label>maxlength:</label><span> {{ maxlength }}</span>
     <br />
-    <label>maxlength:</label><span> n/a</span>
+    <label>cols:</label><span> {{ cols }}</span>
     <br />
-    <label>pattern:</label><span> n/a</span>
+    <label>rows:</label><span> {{ rows }}</span>
+    <br />
+    <label>wrap:</label><span> {{ hardWrap }}</span>
   </div>
   <div class="status">
     <label>Form Group Status:</label
@@ -97,15 +107,17 @@
 
 <h1>Required</h1>
 <div [formGroup]="requiredFormGroup" class="form-group">
-  <lib-textbox
+  <lib-textarea
     [formControlName]="formControlName"
-    id="textboxRequired"
+    id="textareaWithValue"
     [name]="formControlName"
     [label]="label"
     [placeholder]="placeholder"
     [required]="true"
+    [disabled]="false"
+    [wrap]="softWrap"
   >
-  </lib-textbox>
+  </lib-textarea>
 </div>
 <div class="wrapper">
   <div class="options">
@@ -117,11 +129,13 @@
     <br />
     <label>disabled:</label><span> false</span>
     <br />
-    <label>minlength:</label><span> n/a</span>
-    <br />
     <label>maxlength:</label><span> n/a</span>
     <br />
-    <label>pattern:</label><span> n/a</span>
+    <label>cols:</label><span> n/a</span>
+    <br />
+    <label>rows:</label><span> n/a</span>
+    <br />
+    <label>wrap:</label><span> {{ softWrap }}</span>
   </div>
   <div class="status">
     <label>Form Group Status:</label
@@ -140,16 +154,16 @@
 
 <h1>Disabled</h1>
 <div [formGroup]="disabledFormGroup" class="form-group">
-  <lib-textbox
+  <lib-textarea
     [formControlName]="formControlName"
-    id="textboxRequired"
+    id="textareaWithValue"
     [name]="formControlName"
     [label]="label"
     [placeholder]="placeholder"
     [required]="false"
-    [disabled]="true"
+    [disabled]="false"
   >
-  </lib-textbox>
+  </lib-textarea>
 </div>
 <div class="wrapper">
   <div class="options">
@@ -159,13 +173,15 @@
     <br />
     <label>required:</label><span> false</span>
     <br />
-    <label>disabled:</label><span> true</span>
-    <br />
-    <label>minlength:</label><span> n/a</span>
+    <label>disabled:</label><span> false</span>
     <br />
     <label>maxlength:</label><span> n/a</span>
     <br />
-    <label>pattern:</label><span> n/a</span>
+    <label>cols:</label><span> n/a</span>
+    <br />
+    <label>rows:</label><span> n/a</span>
+    <br />
+    <label>wrap:</label><span> n/a</span>
   </div>
   <div class="status">
     <label>Form Group Status:</label

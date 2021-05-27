@@ -7,13 +7,15 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
   styleUrls: ['./phone.component.scss'],
 })
 export class PhoneComponent implements ControlValueAccessor {
+  @Input() id: string;
+  @Input() name: string;
   @Input() label: string;
   @Input() placeholder: string = '';
-  @Input() required = false;
-  @Input() disabled = false;
-  @Input() minlength = 10;
-  @Input() maxlength = 12;
-  @Input() pattern = '[0-9]{3}[0-9]{3}[0-9]{4}';
+  @Input() required: boolean = false;
+  @Input() disabled: boolean = false;
+  @Input() minlength: number = 10;
+  @Input() maxlength: number = 12;
+  @Input() pattern: string = '[0-9]{3}[0-9]{3}[0-9]{4}';
 
   value = '';
   errorMessages = new Map();

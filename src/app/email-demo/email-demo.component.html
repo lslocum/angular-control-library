@@ -1,148 +1,177 @@
 <h1>Form Control with Initial Value</h1>
 <div [formGroup]="formGroupWithInitialValue" class="form-group">
   <lib-email
-    name="email"
-    label="Email"
-    placeholder="fred@theneighborhood.com"
-    minlength="3"
+    [formControlName]="formControlName"
+    id="emailWithValue"
+    [name]="formControlName"
+    [label]="label"
+    [placeholder]="placeholder"
     [required]="false"
-    formControlName="email"
+    [minlength]="minlength"
   >
   </lib-email>
 </div>
 <div class="wrapper">
   <div class="options">
-    <label>minlength:</label><span> 7</span>
+    <label>id:</label><span> emailWithValue</span>
     <br />
-    <label>maxlength:</label><span> n/a</span>
+    <label>label:</label><span> {{ label }} </span>
+    <br />
+    <label>placeholder:</label><span> {{ placeholder }}</span>
     <br />
     <label>required:</label><span> false</span>
     <br />
     <label>disabled:</label><span> false</span>
-    <br/>
-    <label>label:</label><span> Email</span>
     <br />
-    <label>placeholder:</label><span> bob@thebuilder.com</span>
+    <label>minlength:</label><span> {{ minlength }}</span>
+    <br />
+    <label>maxlength:</label><span> n/a</span>
   </div>
   <div class="status">
-    <label>Form Group Status:</label><span> {{ formGroupWithInitialValue.get("email").status }}</span>
+    <label>Form Group Status:</label
+    ><span> {{ formGroupWithInitialValue.get(formControlName).status }}</span>
     <br />
-    <label>Form Group Value:</label><span> {{ formGroupWithInitialValue.value | json }}</span>
+    <label>Form Group Value:</label
+    ><span> {{ formGroupWithInitialValue.value | json }}</span>
     <br />
-    <label>Form Group Pristine:</label><span> {{ formGroupWithInitialValue.pristine }}</span>
+    <label>Form Group Pristine:</label
+    ><span> {{ formGroupWithInitialValue.pristine }}</span>
     <br />
-    <label>Form Group Errors:</label><span>
-    {{ formGroupWithInitialValue.get("email").errors | json }}</span>
+    <label>Form Group Errors:</label
+    ><span>
+      {{ formGroupWithInitialValue.get(formControlName).errors | json }}</span
+    >
   </div>
 </div>
 
 <h1>Form Control Without Initial Value</h1>
 <div [formGroup]="formGroupWithoutInitialValue" class="form-group">
   <lib-email
-    label="Email"
-    placeholder="bob@thebuilder.com"
+    [formControlName]="formControlName"
+    id="emailWithoutValue"
+    [name]="formControlName"
+    [label]="label"
+    [placeholder]="placeholder"
     [required]="false"
-    formControlName="email"
   ></lib-email>
 </div>
 <div class="wrapper">
-    <div class="options">
-      <label>minlength:</label><span> 7</span>
-      <br />
-      <label>maxlength:</label><span> n/a</span>
-      <br />
-      <label>required:</label><span> false</span>
-      <br />
-      <label>disabled:</label><span> false</span>
-      <br />
-      <label>pattern:</label><span> n/a</span>
-      <br/>
-      <label>label:</label><span> Email</span>
-      <br />
-      <label>placeholder:</label><span> bob@thebuilder.com</span>
-    </div>
-    <div class="status">
-      <label>Form Group Status:</label><span> {{ formGroupWithoutInitialValue.get("email").status }}</span>
-      <br />
-      <label>Form Group Value:</label><span> {{ formGroupWithoutInitialValue.value | json }}</span>
-      <br />
-      <label>Form Group Pristine:</label><span> {{ formGroupWithoutInitialValue.pristine }}</span>
-      <br />
-      <label>Form Group Errors:</label><span>
-      {{ formGroupWithoutInitialValue.get("email").errors | json }}</span>
-    </div>
+  <div class="options">
+    <label>id:</label><span> emailWithoutValue</span>
+    <br />
+    <label>label:</label><span> {{ label }} </span>
+    <br />
+    <label>placeholder:</label><span> {{ placeholder }}</span>
+    <br />
+    <label>required:</label><span> false</span>
+    <br />
+    <label>disabled:</label><span> false</span>
+    <br />
+    <label>minlength:</label><span> {{ minlength }}</span>
+    <br />
+    <label>maxlength:</label><span> n/a</span>
   </div>
+  <div class="status">
+    <label>Form Group Status:</label
+    ><span>
+      {{ formGroupWithoutInitialValue.get(formControlName).status }}</span
+    >
+    <br />
+    <label>Form Group Value:</label
+    ><span> {{ formGroupWithoutInitialValue.value | json }}</span>
+    <br />
+    <label>Form Group Pristine:</label
+    ><span> {{ formGroupWithoutInitialValue.pristine }}</span>
+    <br />
+    <label>Form Group Errors:</label
+    ><span>
+      {{
+        formGroupWithoutInitialValue.get(formControlName).errors | json
+      }}</span
+    >
+  </div>
+</div>
 
 <h1>Required</h1>
 <div [formGroup]="requiredFormGroup" class="form-group">
   <lib-email
-    label="Email"
-    placeholder="bob@thebuilder.com"
+    [formControlName]="formControlName"
+    id="emailRequired"
+    [name]="formControlName"
+    [label]="label"
+    [placeholder]="placeholder"
     [required]="true"
-    formControlName="email"
   ></lib-email>
 </div>
 <div class="wrapper">
-    <div class="options">
-      <label>minlength:</label><span> 7</span>
-      <br />
-      <label>maxlength:</label><span> n/a</span>
-      <br />
-      <label>required:</label><span> true</span>
-      <br />
-      <label>disabled:</label><span> false</span>
-      <br />
-      <label>pattern:</label><span> n/a</span>
-      <br/>
-      <label>label:</label><span> Email</span>
-      <br />
-      <label>placeholder:</label><span> bob@thebuilder.com</span>
-    </div>
-    <div class="status">
-      <label>Form Group Status:</label><span> {{ requiredFormGroup.get("email").status }}</span>
-      <br />
-      <label>Form Group Value:</label><span> {{ requiredFormGroup.value | json }}</span>
-      <br />
-      <label>Form Group Pristine:</label><span> {{ requiredFormGroup.pristine }}</span>
-      <br />
-      <label>Form Group Errors:</label><span>
-      {{ requiredFormGroup.get("email").errors | json }}</span>
-    </div>
+  <div class="options">
+    <label>id:</label><span> emailRequired</span>
+    <br />
+    <label>label:</label><span> {{ label }} </span>
+    <br />
+    <label>placeholder:</label><span> {{ placeholder }}</span>
+    <br />
+    <label>required:</label><span> false</span>
+    <br />
+    <label>disabled:</label><span> false</span>
+    <br />
+    <label>minlength:</label><span> {{ minlength }}</span>
+    <br />
+    <label>maxlength:</label><span> n/a</span>
   </div>
+  <div class="status">
+    <label>Form Group Status:</label
+    ><span> {{ requiredFormGroup.status }}</span>
+    <br />
+    <label>Form Group Value:</label
+    ><span> {{ requiredFormGroup.value | json }}</span>
+    <br />
+    <label>Form Group Pristine:</label
+    ><span> {{ requiredFormGroup.pristine }}</span>
+    <br />
+    <label>Form Group Errors:</label
+    ><span> {{ requiredFormGroup.get(formControlName).errors | json }}</span>
+  </div>
+</div>
 
 <h1>Disabled</h1>
 <div [formGroup]="disabledFormGroup" class="form-group">
   <lib-email
-    label="Email"
-    placeholder="bob@thebuilder.com"
+    [formControlName]="formControlName"
+    id="emailDisabled"
+    [name]="formControlName"
+    [label]="label"
+    [placeholder]="placeholder"
     [required]="false"
-    formControlName="email"
   ></lib-email>
 </div>
 <div class="wrapper">
-    <div class="options">
-      <label>minlength:</label><span> 7</span>
-      <br />
-      <label>maxlength:</label><span> n/a</span>
-      <br />
-      <label>required:</label><span> false</span>
-      <br />
-      <label>disabled:</label><span> true</span>
-      <br />
-      <label>pattern:</label><span> n/a</span>
-      <br/>
-      <label>label:</label><span> Email</span>
-      <br />
-      <label>placeholder:</label><span> bob@thebuilder.com</span>
-    </div>
-    <div class="status">
-      <label>Form Group Status:</label><span> {{ disabledFormGroup.get("email").status }}</span>
-      <br />
-      <label>Form Group Value:</label><span> {{ disabledFormGroup.value | json }}</span>
-      <br />
-      <label>Form Group Pristine:</label><span> {{ disabledFormGroup.pristine }}</span>
-      <br />
-      <label>Form Group Errors:</label><span>
-      {{ disabledFormGroup.get("email").errors | json }}</span>
-    </div>
+  <div class="options">
+    <label>minlength:</label><span> {{ minlength }}</span>
+    <br />
+    <label>maxlength:</label><span> n/a</span>
+    <br />
+    <label>required:</label><span> false</span>
+    <br />
+    <label>disabled:</label><span> true</span>
+    <br />
+    <label>id:</label><span> emailDisabled</span>
+    <br />
+    <label>label:</label><span> {{ label }} </span>
+    <br />
+    <label>placeholder:</label><span> {{ placeholder }}</span>
   </div>
+  <div class="status">
+    <label>Form Group Status:</label
+    ><span> {{ disabledFormGroup.get(formControlName).status }}</span>
+    <br />
+    <label>Form Group Value:</label
+    ><span> {{ disabledFormGroup.value | json }}</span>
+    <br />
+    <label>Form Group Pristine:</label
+    ><span> {{ disabledFormGroup.pristine }}</span>
+    <br />
+    <label>Form Control Errors:</label
+    ><span> {{ disabledFormGroup.get(formControlName).errors | json }}</span>
+  </div>
+</div>

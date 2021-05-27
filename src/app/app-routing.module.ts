@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'button', loadChildren: () => import('./button-demo/button-demo.module').then(m => m.ButtonDemoModule) },
   { path: 'phone', loadChildren: () => import('./phone-demo/phone-demo.module').then(m => m.PhoneDemoModule) },
   { path: 'email', loadChildren: () => import('./email-demo/email-demo.module').then(m => m.EmailDemoModule) },
+  { path: 'textarea', loadChildren: () => import('./textarea-demo/textarea-demo.module').then(m => m.TextareaDemoModule) },
 ];
 
 @NgModule({

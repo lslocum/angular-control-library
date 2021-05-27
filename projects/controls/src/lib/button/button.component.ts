@@ -8,7 +8,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class ButtonComponent implements OnInit {
   @Input() type: 'primary' | 'flat' | 'stroked' | 'icon' | 'fab' | 'mini-fab';
   @Input() ngClass: string[] = [];
-  @Input() color: string;
+  @Input() id: string;
+
   @Output() clicked: EventEmitter<void> = new EventEmitter();
 
   constructor() {}

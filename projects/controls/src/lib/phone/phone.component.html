@@ -1,12 +1,15 @@
 <div class="form-control" [class.required]="required">
-  <label>{{ label }}</label>
+  <label [for]="name">{{ label }}</label>
   <input
     type="tel"
+    class="my-input"
+    [id]="id"
+    [name]="name"
+    [placeholder]="placeholder"
     [required]="required"
     [disabled]="disabled"
     [minlength]="minlength"
     [maxlength]="maxlength"
-    [placeholder]="placeholder"
     [(ngModel)]="value"
     (input)="onChange()"
     (change)="onChange()"

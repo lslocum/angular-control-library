@@ -11,9 +11,16 @@ export class PhoneDemoComponent implements OnInit {
   requiredFormGroup: FormGroup;
   disabledFormGroup: FormGroup;
 
+  placeholder = '555-555-5555';
+  label = 'Cell Phone';
+  formControlName = 'phone';
+
   ngOnInit(): void {
     this.formGroupWithInitialValue = new FormGroup({
-      phone: new FormControl('6204316000', Validators.pattern(validPhoneNumberPattern)),
+      phone: new FormControl(
+        '6204316000',
+        Validators.pattern(validPhoneNumberPattern)
+      ),
     });
 
     this.formGroupWithoutInitialValue = new FormGroup({
@@ -25,7 +32,10 @@ export class PhoneDemoComponent implements OnInit {
     });
 
     this.disabledFormGroup = new FormGroup({
-      phone: new FormControl({value: '911', disabled: true}, Validators.pattern(validPhoneNumberPattern)),
+      phone: new FormControl(
+        { value: '911', disabled: true },
+        Validators.pattern(validPhoneNumberPattern)
+      ),
     });
   }
 }

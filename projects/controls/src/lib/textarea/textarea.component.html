@@ -1,20 +1,20 @@
 <div class="form-control" [class.required]="required">
   <label [for]="name">{{ label }}</label>
-  <input
-    type="email"
-    class="my-input"
+  <textarea
     [id]="id"
     [name]="name"
-    [placeholder]="placeholder"
-    [required]="required"
     [disabled]="disabled"
-    [minlength]="minlength"
+    [required]="required"
+    [cols]="cols"
     [maxlength]="maxlength"
+    [rows]="rows"
+    [placeholder]="placeholder"
     [(ngModel)]="value"
     (input)="onChange()"
     (change)="onChange()"
     (blur)="onTouchedCallback()"
-  />
+    class="my-textarea"
+  ></textarea>
 
   <div class="error-message" *ngIf="showError">
     <ng-container *ngFor="let error of errors">
