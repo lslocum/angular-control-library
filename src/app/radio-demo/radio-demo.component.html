@@ -1,0 +1,130 @@
+<h1>Form Control with Initial Value</h1>
+<div [formGroup]="formGroupWithInitialValue" class="form-group">
+  <lib-radio
+    formControlName="radio1"
+    id="radioWithValue"
+    name="radio1"
+    [label]="label"
+    [disabled]="false"
+    [options]="options"
+    [nameProperty]="nameProperty"
+    [valueProperty]="valueProperty"
+  >
+  </lib-radio>
+</div>
+<div class="wrapper">
+  <div class="options">
+    <label>label:</label><span> {{ label }}</span>
+    <br />
+    <label>disabled:</label><span> false</span>
+    <br />
+    <label>options:</label><span> {{ options | json }}</span>
+    <br />
+    <label>nameProperty:</label><span> {{ nameProperty }}</span>
+    <br />
+    <label>valueProperty:</label><span> {{ valueProperty }}</span>
+  </div>
+  <div class="status">
+    <label>Form Group Status:</label
+    ><span> {{ formGroupWithInitialValue.status }}</span>
+    <br />
+    <label>Form Group Value:</label
+    ><span> {{ formGroupWithInitialValue.value | json }}</span>
+    <br />
+    <label>Form Group Pristine:</label
+    ><span> {{ formGroupWithInitialValue.pristine }}</span>
+    <br />
+    <label>Form Control Errors:</label
+    ><span>
+      {{ formGroupWithInitialValue.get('radio1').errors | json }}</span
+    >
+  </div>
+</div>
+
+<h1>Form Control Without Initial Value</h1>
+<div [formGroup]="formGroupWithoutInitialValue" class="form-group">
+    <lib-radio
+    formControlName="radio2"
+    id="radioWithoutValue"
+    name="radio2"
+    [label]="label"
+    [disabled]="false"
+    [options]="options"
+    [nameProperty]="nameProperty"
+    [valueProperty]="valueProperty"
+  >
+  </lib-radio>
+</div>
+<div class="wrapper">
+  <div class="options">
+    <label>label:</label><span> {{ label }}</span>
+    <br />
+    <label>disabled:</label><span> false</span>
+    <br />
+    <label>options:</label><span> {{ options | json }}</span>
+    <br />
+    <label>nameProperty:</label><span> {{ nameProperty }}</span>
+    <br />
+    <label>valueProperty:</label><span> {{ valueProperty }}</span>
+  </div>
+  <div class="status">
+    <label>Form Group Status:</label
+    ><span>
+      {{ formGroupWithoutInitialValue.status }}</span
+    >
+    <br />
+    <label>Form Group Value:</label
+    ><span> {{ formGroupWithoutInitialValue.value | json }}</span>
+    <br />
+    <label>Form Group Pristine:</label
+    ><span> {{ formGroupWithoutInitialValue.pristine }}</span>
+    <br />
+    <label>Form Group Errors:</label
+    ><span>
+      {{
+        formGroupWithoutInitialValue.get('radio2').errors | json
+      }}</span
+    >
+  </div>
+</div>
+
+<h1>Disabled</h1>
+<div [formGroup]="disabledFormGroup" class="form-group">
+    <lib-radio
+    formControlName="radio3"
+    id="radioWithValue"
+    name="radio3"
+    [label]="label"
+    [disabled]="true"
+    [options]="options"
+    [nameProperty]="nameProperty"
+    [valueProperty]="valueProperty"
+  >
+  </lib-radio>
+</div>
+<div class="wrapper">
+  <div class="options">
+    <label>label:</label><span> {{ label }}</span>
+    <br />
+    <label>disabled:</label><span> false</span>
+    <br />
+    <label>options:</label><span> {{ options | json }}</span>
+    <br />
+    <label>nameProperty:</label><span> {{ nameProperty }}</span>
+    <br />
+    <label>valueProperty:</label><span> {{ valueProperty }}</span>
+  </div>
+  <div class="status">
+    <label>Form Group Status:</label
+    ><span> {{ disabledFormGroup.status }}</span>
+    <br />
+    <label>Form Group Value:</label
+    ><span> {{ disabledFormGroup.value | json }}</span>
+    <br />
+    <label>Form Group Pristine:</label
+    ><span> {{ disabledFormGroup.pristine }}</span>
+    <br />
+    <label>Form Control Errors:</label
+    ><span> {{ disabledFormGroup.get('radio3').errors | json }}</span>
+  </div>
+</div>

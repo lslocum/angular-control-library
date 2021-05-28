@@ -1,0 +1,12 @@
+.form-control {
+  display: flex;
+
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+
+    .my-radio {
+      vertical-align: middle;
+    }
+  }
+}
