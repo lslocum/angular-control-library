@@ -12,8 +12,8 @@ export class DateComponent implements ControlValueAccessor {
   @Input() label: string;
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
-  @Input() disabled: boolean = false;
 
+  disabled: boolean = false;
   value = '';
   errorMessages = new Map();
 

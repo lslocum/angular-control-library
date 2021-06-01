@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'date', loadChildren: () => import('./date-demo/date-demo.module').then(m => m.DateDemoModule) },
   { path: 'number', loadChildren: () => import('./number-demo/number-demo.module').then(m => m.NumberDemoModule) },
   { path: 'radio', loadChildren: () => import('./radio-demo/radio-demo.module').then(m => m.RadioDemoModule) },
+  { path: 'select', loadChildren: () => import('./select-demo/select-demo.module').then(m => m.SelectDemoModule) },
 ];
 
 @NgModule({

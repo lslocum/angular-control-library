@@ -12,11 +12,11 @@ export class NumberComponent implements ControlValueAccessor {
   @Input() label: string;
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
-  @Input() disabled: boolean = false;
   @Input() min: number;
   @Input() max: number;
   @Input() step: number = 1;
 
+  disabled: boolean = false;
   value = '';
   errorMessages = new Map();
 

@@ -1,12 +1,19 @@
-import { Component, Input, OnInit, Optional, Self } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  Optional,
+  Self,
+} from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
-  selector: 'lib-radio',
-  templateUrl: './radio.component.html',
-  styleUrls: ['./radio.component.scss'],
+  selector: 'lib-select',
+  templateUrl: './select.component.html',
+  styleUrls: ['./select.component.scss'],
 })
-export class RadioComponent implements ControlValueAccessor {
+export class SelectComponent implements ControlValueAccessor {
   @Input() id: string;
   @Input() name: string;
   @Input() label: string;

@@ -12,10 +12,10 @@ export class EmailComponent implements ControlValueAccessor {
   @Input() label: string;
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
-  @Input() disabled: boolean = false;
   @Input() minlength: number = 7;
   @Input() maxlength: number;
 
+  disabled: boolean = false;
   value = '';
   errorMessages = new Map();
 

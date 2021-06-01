@@ -1,4 +1,12 @@
-import { Component, Input, OnChanges, Optional, Self, SimpleChange, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  Optional,
+  Self,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
@@ -12,11 +20,11 @@ export class TextboxComponent implements ControlValueAccessor {
   @Input() label: string;
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
-  @Input() disabled: boolean = false;
   @Input() minlength: number = 0;
   @Input() maxlength: number;
   @Input() pattern: string;
 
+  disabled: boolean = false;
   value = '';
   errorMessages = new Map();
 
@@ -51,7 +59,6 @@ export class TextboxComponent implements ControlValueAccessor {
 
   constructor(@Self() @Optional() public control: NgControl) {
     this.control && (this.control.valueAccessor = this);
-
 
     this.errorMessages.set('required', () => `${this.label} is required.`);
     this.errorMessages.set(

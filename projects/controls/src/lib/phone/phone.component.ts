@@ -12,11 +12,11 @@ export class PhoneComponent implements ControlValueAccessor {
   @Input() label: string;
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
-  @Input() disabled: boolean = false;
   @Input() minlength: number = 10;
   @Input() maxlength: number = 12;
   @Input() pattern: string = '[0-9]{3}[0-9]{3}[0-9]{4}';
 
+  disabled: boolean = false;
   value = '';
   errorMessages = new Map();
 

@@ -10,8 +10,8 @@ export class CheckboxComponent implements ControlValueAccessor {
   @Input() id: string;
   @Input() name: string;
   @Input() label: string;
-  @Input() disabled: boolean = false;
 
+  disabled: boolean = false;
   value = '';
   errorMessages = new Map();
 

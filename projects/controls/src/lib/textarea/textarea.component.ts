@@ -12,7 +12,6 @@ export class TextareaComponent implements ControlValueAccessor {
   @Input() label: string;
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
-  @Input() disabled: boolean = false;
   @Input() cols: number;
   @Input() rows: number;
   @Input() wrap: 'hard' | 'soft';
@@ -21,6 +20,7 @@ export class TextareaComponent implements ControlValueAccessor {
   value = '';
   errorMessages = new Map();
 
+  disabled: boolean = false;
   onChangeCallback = (_: any) => {};
   onTouchedCallback = () => {};
 

@@ -1,0 +1,17 @@
+<div class="form-control">
+  <label [for]="name">{{ label }}</label>
+  <select
+    [id]="id"
+    [name]="name"
+    [disabled]="disabled"
+    class="my-input"
+    [(ngModel)]="value"
+    (change)="onChange()"
+  >
+    <ng-container *ngFor="let option of options">
+      <option [value]="option[valueProperty]">
+        {{ option[nameProperty] }}
+      </option>
+    </ng-container>
+  </select>
+</div>
