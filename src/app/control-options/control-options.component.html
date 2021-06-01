@@ -1,0 +1,106 @@
+<hr />
+<h2>Control Options</h2>
+<div class="toggle-options">
+  <!-- 1 -->
+  <span>
+    <label for="label">Label</label>
+    <input
+      type="text"
+      id="label"
+      name="label"
+      [(value)]="label"
+      (change)="updateLabel($event)"
+    />
+  </span>
+  <!-- 2 -->
+  <span>
+    <label for="placeholder">Placeholder</label>
+    <input
+      type="text"
+      id="placeholder"
+      name="placeholder"
+      [(value)]="placeholder"
+      (change)="updatePlaceholder($event)"
+    />
+  </span>
+
+  <!-- 3 -->
+  <span>
+    <label for="minlength">Min Length</label>
+    <input
+      type="number"
+      id="minlength"
+      name="minlength"
+      [(value)]="minlength"
+      (change)="updateMinLength($event)"
+    />
+  </span>
+  <!-- 1 -->
+  <span>
+    <input
+      type="checkbox"
+      id="toggleRequired"
+      name="toggleRequired"
+      [(value)]="required"
+      (click)="toggleRequired($event)"
+    />
+    <label for="toggleRequired">Required</label>
+  </span>
+  <!-- 2 -->
+  <span>
+    <input
+      type="checkbox"
+      id="toggleLowerCase"
+      name="toggleLowerCase"
+      [(value)]="requireLowerCase"
+      (click)="toggleRequireLowerCase($event)"
+    />
+    <label for="toggleLowerCase">Require Lower Case</label>
+  </span>
+  <!-- 3 -->
+  <span>
+    <label for="maxlength">Max Length</label>
+    <input
+      type="number"
+      id="maxlength"
+      name="maxlength"
+      [(value)]="maxlength"
+      (change)="updateMaxLength($event)"
+    />
+  </span>
+  <!-- 1 -->
+  <span>
+    <input
+      type="checkbox"
+      id="disableToggle"
+      name="disableToggle"
+      [(value)]="disabled"
+      (click)="disableControl($event)"
+    />
+    <label for="disableToggle">Disabled</label>
+  </span>
+  <!-- 2 -->
+  <span>
+    <input
+      type="checkbox"
+      id="toggleUpperCase"
+      name="toggleUpperCase"
+      [(value)]="requireUpperCase"
+      (click)="toggleRequireUpperCase($event)"
+    />
+    <label for="toggleUpperCase">Require Upper Case</label>
+  </span>
+  <!-- 3 -->
+  <span>
+    <input
+      type="checkbox"
+      id="toggleNumbers"
+      name="toggleNumbers"
+      [(value)]="requireNumbers"
+      (click)="toggleRequireNumbers($event)"
+    />
+    <label for="toggleNumbers">Require Numbers</label>
+  </span>
+</div>
+
+<hr />

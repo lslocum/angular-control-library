@@ -64,7 +64,16 @@ const routes: Routes = [
         (m) => m.SelectDemoModule
       ),
   },
-  { path: 'time', loadChildren: () => import('./time-demo/time-demo.module').then(m => m.TimeDemoModule) },
+  {
+    path: 'time',
+    loadChildren: () =>
+      import('./time-demo/time-demo.module').then((m) => m.TimeDemoModule),
+  },
+  {
+    path: 'password',
+    loadChildren: () =>
+      import('./password-demo/password-demo.module').then((m) => m.PasswordDemoModule),
+  },
   {
     path: '**',
     redirectTo: 'button',
