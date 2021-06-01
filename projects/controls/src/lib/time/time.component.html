@@ -1,0 +1,22 @@
+<div class="form-control" [class.required]="required">
+    <label [for]="name">{{ label }}</label>
+    <input
+      type="time"
+      [id]="id"
+      [name]="name"
+      [disabled]="disabled"
+      [required]="required"
+      [(ngModel)]="value"
+      (input)="onChange()"
+      (change)="onChange()"
+      (blur)="onTouchedCallback()"
+      class="my-input"
+    />
+  
+    <div class="error-message" *ngIf="showError">
+      <ng-container *ngFor="let error of errors">
+        {{ error }}
+      </ng-container>
+    </div>
+  </div>
+  

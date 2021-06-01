@@ -9,15 +9,66 @@ const routes: Routes = [
         (m) => m.TextboxDemoModule
       ),
   },
-  { path: 'button', loadChildren: () => import('./button-demo/button-demo.module').then(m => m.ButtonDemoModule) },
-  { path: 'phone', loadChildren: () => import('./phone-demo/phone-demo.module').then(m => m.PhoneDemoModule) },
-  { path: 'email', loadChildren: () => import('./email-demo/email-demo.module').then(m => m.EmailDemoModule) },
-  { path: 'textarea', loadChildren: () => import('./textarea-demo/textarea-demo.module').then(m => m.TextareaDemoModule) },
-  { path: 'checkbox', loadChildren: () => import('./checkbox-demo/checkbox-demo.module').then(m => m.CheckboxDemoModule) },
-  { path: 'date', loadChildren: () => import('./date-demo/date-demo.module').then(m => m.DateDemoModule) },
-  { path: 'number', loadChildren: () => import('./number-demo/number-demo.module').then(m => m.NumberDemoModule) },
-  { path: 'radio', loadChildren: () => import('./radio-demo/radio-demo.module').then(m => m.RadioDemoModule) },
-  { path: 'select', loadChildren: () => import('./select-demo/select-demo.module').then(m => m.SelectDemoModule) },
+  {
+    path: 'button',
+    loadChildren: () =>
+      import('./button-demo/button-demo.module').then(
+        (m) => m.ButtonDemoModule
+      ),
+  },
+  {
+    path: 'phone',
+    loadChildren: () =>
+      import('./phone-demo/phone-demo.module').then((m) => m.PhoneDemoModule),
+  },
+  {
+    path: 'email',
+    loadChildren: () =>
+      import('./email-demo/email-demo.module').then((m) => m.EmailDemoModule),
+  },
+  {
+    path: 'textarea',
+    loadChildren: () =>
+      import('./textarea-demo/textarea-demo.module').then(
+        (m) => m.TextareaDemoModule
+      ),
+  },
+  {
+    path: 'checkbox',
+    loadChildren: () =>
+      import('./checkbox-demo/checkbox-demo.module').then(
+        (m) => m.CheckboxDemoModule
+      ),
+  },
+  {
+    path: 'date',
+    loadChildren: () =>
+      import('./date-demo/date-demo.module').then((m) => m.DateDemoModule),
+  },
+  {
+    path: 'number',
+    loadChildren: () =>
+      import('./number-demo/number-demo.module').then(
+        (m) => m.NumberDemoModule
+      ),
+  },
+  {
+    path: 'radio',
+    loadChildren: () =>
+      import('./radio-demo/radio-demo.module').then((m) => m.RadioDemoModule),
+  },
+  {
+    path: 'select',
+    loadChildren: () =>
+      import('./select-demo/select-demo.module').then(
+        (m) => m.SelectDemoModule
+      ),
+  },
+  { path: 'time', loadChildren: () => import('./time-demo/time-demo.module').then(m => m.TimeDemoModule) },
+  {
+    path: '**',
+    redirectTo: 'button',
+  },
 ];
 
 @NgModule({

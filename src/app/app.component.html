@@ -1,5 +1,10 @@
 <div class="app">
-  <nav>
+  <header class="header">
+    <img class="logo" src="../assets/logo.svg" [routerLink]="['/']" />
+    <h1>Angular Reactive Form Controls</h1>
+    <div class="take-up-space"></div>
+  </header>
+  <nav class="app-outlet">
     <a mat-list-item routerLinkActive="active-route" routerLink="./button">Button</a>
     <a mat-list-item routerLinkActive="active-route" routerLink="./checkbox">Checkbox</a>
     <a mat-list-item routerLinkActive="active-route" routerLink="./date">Date</a>
@@ -10,8 +15,9 @@
     <a mat-list-item routerLinkActive="active-route" routerLink="./select">Select</a>
     <a mat-list-item routerLinkActive="active-route" routerLink="./textarea">Textarea</a>
     <a mat-list-item routerLinkActive="active-route" routerLink="./textbox">Textbox</a>
+    <a mat-list-item routerLinkActive="active-route" routerLink="./time">Time</a>
   </nav>
-  <main>
+  <main class="app-outlet">
     <router-outlet></router-outlet>
   </main>
 </div>
