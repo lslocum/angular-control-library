@@ -10,10 +10,20 @@ button {
   border: none;
   box-shadow: 2px 2px 2px 1px hsla(0, 0%, 0%, 0.2);
   padding: 10px;
-}
 
-button:hover {
-  border: 2px solid hsl(0, 0%, 75%);
+  &:hover {
+    border: 2px solid hsl(0, 0%, 75%);
+  }
+
+  &:disabled {
+    background-color: hsl(0, 0%, 95%);
+    color: hsl(0, 0%, 60%);
+    box-shadow: none;
+
+    &:hover{
+      border: none;
+    }
+  }
 }
 
 .primary {
@@ -36,8 +46,6 @@ button:hover {
   box-shadow: none;
   background-color: transparent;
   color: $primary;
-  height: 24px;
-  width: 24px;
 }
 
 .fab {

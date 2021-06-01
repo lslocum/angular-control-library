@@ -48,7 +48,7 @@ export class PasswordDemoComponent implements OnInit {
   }
 
   toggleRequired(value: boolean) {
-    if (value) {
+    if (!value) {
       this.formGroup.get(this.formControlName).clearValidators();
     } else {
       this.formGroup

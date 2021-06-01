@@ -5,6 +5,7 @@ import { NumberDemoRoutingModule } from './number-demo-routing.module';
 import { NumberDemoComponent } from './number-demo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NumberModule } from 'projects/controls/src/lib/number/number.module';
+import { ControlOptionsModule } from '../control-options/control-options.module';
 
 @NgModule({
   declarations: [NumberDemoComponent],
@@ -14,6 +15,7 @@ import { NumberModule } from 'projects/controls/src/lib/number/number.module';
     ReactiveFormsModule,
     NumberDemoRoutingModule,
     NumberModule,
+    ControlOptionsModule
   ],
 })
 export class NumberDemoModule {}

@@ -5,6 +5,7 @@ import { TimeDemoRoutingModule } from './time-demo-routing.module';
 import { TimeDemoComponent } from './time-demo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TimeModule } from 'projects/controls/src/lib/time/time.module';
+import { ControlOptionsModule } from '../control-options/control-options.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { TimeModule } from 'projects/controls/src/lib/time/time.module';
     FormsModule,
     ReactiveFormsModule,
     TimeDemoRoutingModule,
-    TimeModule
+    TimeModule,
+    ControlOptionsModule
   ]
 })
 export class TimeDemoModule { }

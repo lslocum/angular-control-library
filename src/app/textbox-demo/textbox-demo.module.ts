@@ -5,6 +5,7 @@ import { TextboxDemoRoutingModule } from './textbox-demo-routing.module';
 import { TextboxDemoComponent } from './textbox-demo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextboxModule } from 'projects/controls/src/lib/textbox/textbox.module';
+import { ControlOptionsModule } from '../control-options/control-options.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { TextboxModule } from 'projects/controls/src/lib/textbox/textbox.module'
     FormsModule,
     ReactiveFormsModule,
     TextboxDemoRoutingModule,
-    TextboxModule
+    TextboxModule,
+    ControlOptionsModule
   ]
 })
 export class TextboxDemoModule { }

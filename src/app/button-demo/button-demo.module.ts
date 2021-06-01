@@ -5,17 +5,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { ButtonDemoRoutingModule } from './button-demo-routing.module';
 import { ButtonDemoComponent } from './button-demo.component';
 import { ButtonModule } from 'projects/controls/src/lib/button/button.module';
-
+import { ControlOptionsModule } from '../control-options/control-options.module';
 
 @NgModule({
-  declarations: [
-    ButtonDemoComponent
-  ],
+  declarations: [ButtonDemoComponent],
   imports: [
     CommonModule,
     MatIconModule,
     ButtonDemoRoutingModule,
-    ButtonModule
-  ]
+    ButtonModule,
+    ControlOptionsModule,
+  ],
 })
-export class ButtonDemoModule { }
+export class ButtonDemoModule {}

@@ -5,6 +5,7 @@ import { PhoneDemoRoutingModule } from './phone-demo-routing.module';
 import { PhoneDemoComponent } from './phone-demo.component';
 import { PhoneModule } from 'projects/controls/src/public-api';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ControlOptionsModule } from '../control-options/control-options.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     PhoneDemoRoutingModule,
-    PhoneModule
+    PhoneModule,
+    ControlOptionsModule
   ]
 })
 export class PhoneDemoModule { }

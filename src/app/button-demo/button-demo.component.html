@@ -1,41 +1,46 @@
-<div>
-  <h1>Primary</h1>
-  <lib-button id="primaryBtn" type="primary" (clicked)="buttonClicked()"
-    >Click Me</lib-button
-  >
-</div>
+<h1>Button</h1>
+<app-control-options [disabled]="disabled" (disabledToggled)="toggleDisabled($event)"></app-control-options>
 
-<div>
-  <h1>Secondary</h1>
-  <lib-button id="secondaryBtn" type="secondary" (clicked)="buttonClicked()"
-    >No! Click Me</lib-button
-  >
-</div>
+<div style="display: flex; gap:45px;">
+  <div>
+    <h2>Primary</h2>
+    <lib-button id="primaryBtn" type="primary" [disabled]="disabled" (clicked)="buttonClicked()"
+      >Click Me</lib-button
+    >
+  </div>
 
-<div>
-  <h1>Flat</h1>
-  <lib-button id="flatBtn" type="flat" (clicked)="buttonClicked()"
-    >Do what you will</lib-button
-  >
-</div>
+  <div>
+    <h2>Secondary</h2>
+    <lib-button id="secondaryBtn" type="secondary" [disabled]="disabled" (clicked)="buttonClicked()"
+      >No! Click Me</lib-button
+    >
+  </div>
 
-<div>
-  <h1>Icon</h1>
-  <lib-button id="iconBtn" type="icon" (clicked)="buttonClicked()"
-    >🚀</lib-button
-  >
-</div>
+  <div>
+    <h2>Flat</h2>
+    <lib-button id="flatBtn" type="flat" [disabled]="disabled" (clicked)="buttonClicked()"
+      >Do what you will</lib-button
+    >
+  </div>
 
-<div>
-  <h1>Fab</h1>
-  <lib-button id="fabBtn" type="fab" (clicked)="buttonClicked()">
-    <mat-icon>add</mat-icon>
-  </lib-button>
-</div>
+  <div>
+    <h2>Icon</h2>
+    <lib-button id="iconBtn" type="icon" [disabled]="disabled" (clicked)="buttonClicked()"
+      >🚀</lib-button
+    >
+  </div>
 
-<div>
-  <h1>Mini Fab</h1>
-  <lib-button id="miniFabBtn" type="mini-fab" (clicked)="buttonClicked()">
-    <mat-icon>favorite</mat-icon>
-  </lib-button>
+  <div>
+    <h2>Fab</h2>
+    <lib-button id="fabBtn" type="fab" [disabled]="disabled" (clicked)="buttonClicked()">
+      <mat-icon>add</mat-icon>
+    </lib-button>
+  </div>
+
+  <div>
+    <h2>Mini Fab</h2>
+    <lib-button id="miniFabBtn" type="mini-fab" [disabled]="disabled" (clicked)="buttonClicked()">
+      <mat-icon>favorite</mat-icon>
+    </lib-button>
+  </div>
 </div>

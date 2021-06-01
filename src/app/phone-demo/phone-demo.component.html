@@ -1,183 +1,34 @@
-<h1>Form Control with Initial Value</h1>
-<div [formGroup]="formGroupWithInitialValue" class="form-group">
+<h1>Phone</h1>
+<app-control-options
+  [label]="label"
+  [placeholder]="placeholder"
+  [required]="required"
+  [disabled]="disabled"
+  (labelUpdated)="updateLabel($event)"
+  (placeholderUpdated)="updatePlaceholder($event)"
+  (disabledToggled)="disableControl($event)"
+  (requiredToggled)="toggleRequired($event)"
+></app-control-options>
+
+<div [formGroup]="formGroup" class="form-group">
   <lib-phone
     [formControlName]="formControlName"
     id="phoneWithValue"
     name="phone"
     [label]="label"
     [placeholder]="placeholder"
-    [required]="false"
+    [required]="required"
   >
   </lib-phone>
 </div>
 <div class="wrapper">
-  <div class="options">
-    <label>id:</label><span> phoneWithValue</span>
-    <br />
-    <label>label:</label><span> {{ label }}</span>
-    <br />
-    <label>placeholder:</label><span> {{ placeholder }}</span>
-    <br />
-    <label>Default minlength:</label><span> 10</span>
-    <br />
-    <label>Default maxlength:</label><span> 10</span>
-    <br />
-    <label>required:</label><span> false</span>
-    <br />
-    <label>disabled:</label><span> false</span>
-  </div>
   <div class="status">
-    <label>Form Group Status:</label
-    ><span> {{ formGroupWithInitialValue.status }}</span>
+    <label>Form Group Status:</label><span> {{ formGroup.status }}</span>
     <br />
-    <label>Form Group Value:</label
-    ><span> {{ formGroupWithInitialValue.value | json }}</span>
+    <label>Form Group Value:</label><span> {{ formGroup.value | json }}</span>
     <br />
-    <label>Form Group Pristine:</label
-    ><span> {{ formGroupWithInitialValue.pristine }}</span>
+    <label>Form Group Pristine:</label><span> {{ formGroup.pristine }}</span>
     <br />
-    <label>Form Group Errors:</label
-    ><span> {{ formGroupWithInitialValue.errors | json }}</span>
-  </div>
-</div>
-
-<h1>Form Control Without Initial Value</h1>
-<div [formGroup]="formGroupWithoutInitialValue" class="form-group">
-  <lib-phone
-    [formControlName]="formControlName"
-    id="phoneWithoutValue"
-    name="phone"
-    [label]="label"
-    [placeholder]="placeholder"
-    [required]="false"
-  >
-  </lib-phone>
-</div>
-<div class="wrapper">
-  <div class="options">
-    <label>id:</label><span> phoneWithoutValue</span>
-    <br />
-    <label>label:</label><span> {{ label }}</span>
-    <br />
-    <label>placeholder:</label><span> {{ placeholder }}</span>
-    <br />
-    <label>Default minlength:</label><span> 10</span>
-    <br />
-    <label>Default maxlength:</label><span> 10</span>
-    <br />
-    <label>required:</label><span> false</span>
-    <br />
-    <label>disabled:</label><span> false</span>
-  </div>
-  <div class="status">
-    <label>Form Group Status:</label
-    ><span> {{ formGroupWithoutInitialValue.status }}</span>
-    <br />
-    <label>Form Group Value:</label
-    ><span> {{ formGroupWithoutInitialValue.value | json }}</span>
-    <br />
-    <label>Form Group Pristine:</label
-    ><span> {{ formGroupWithoutInitialValue.pristine }}</span>
-    <br />
-    <label>Form Control Errors:</label
-    ><span>
-      {{
-        formGroupWithoutInitialValue.get(formControlName).errors | json
-      }}</span
-    >
-  </div>
-</div>
-
-<h1>Required</h1>
-<div [formGroup]="requiredFormGroup" class="form-group">
-  <lib-phone
-    [formControlName]="formControlName"
-    id="phoneRequired"
-    name="phone"
-    [label]="label"
-    [placeholder]="placeholder"
-    [required]="true"
-  >
-  </lib-phone>
-</div>
-<div class="wrapper">
-  <div class="options">
-    <label>id:</label><span> phoneRequired</span>
-    <br />
-    <label>label:</label><span> {{ label }}</span>
-    <br />
-    <label>placeholder:</label><span> {{ placeholder }}</span>
-    <br />
-    <label>Default minlength:</label><span> 10</span>
-    <br />
-    <label>Default maxlength:</label><span> 10</span>
-    <br />
-    <label>required:</label><span> true</span>
-    <br />
-    <label>disabled:</label><span> false</span>
-  </div>
-  <div class="status">
-    <label>Form Group Status:</label
-    ><span> {{ requiredFormGroup.status }}</span>
-    <br />
-    <label>Form Group Value:</label
-    ><span> {{ requiredFormGroup.value | json }}</span>
-    <br />
-    <label>Form Group Pristine:</label
-    ><span> {{ requiredFormGroup.pristine }}</span>
-    <br />
-    <label>Form Group Errors:</label
-    ><span> {{ requiredFormGroup.errors | json }}</span>
-  </div>
-</div>
-
-<h1>Disabled</h1>
-<input
-  type="checkbox"
-  id="disableToggle"
-  name="disableToggle"
-  [value]="disableControl"
-  (click)="disableControl()"
-/>
-<label for="disableToggle">Enable/Disable</label>
-<div [formGroup]="disabledFormGroup" class="form-group">
-  <lib-phone
-    [formControlName]="formControlName"
-    id="phoneDisabled"
-    name="phone"
-    [label]="label"
-    [placeholder]="placeholder"
-    [required]="false"
-  >
-  </lib-phone>
-</div>
-<div class="wrapper">
-  <div class="options">
-    <label>id:</label><span> phoneDisabled</span>
-    <br />
-    <label>label:</label><span> {{ label }}</span>
-    <br />
-    <label>placeholder:</label><span> {{ placeholder }}</span>
-    <br />
-    <label>minlength:</label><span> 10</span>
-    <br />
-    <label>maxlength:</label><span> 10</span>
-    <br />
-    <label>required:</label><span> false</span>
-    <br />
-    <label>disabled:</label><span> {{ disabledControl }}</span>
-  </div>
-  <div class="status">
-    <label>Form Group Status:</label
-    ><span> {{ disabledFormGroup.status }}</span>
-    <br />
-    <label>Form Group Value:</label
-    ><span> {{ disabledFormGroup.value | json }}</span>
-    <br />
-    <label>Form Group Pristine:</label
-    ><span> {{ disabledFormGroup.pristine }}</span>
-    <br />
-    <label>Form Group Errors:</label
-    ><span> {{ disabledFormGroup.errors | json }}</span>
+    <label>Form Control Errors:</label><span> {{ formGroup.get(formControlName).errors | json }}</span>
   </div>
 </div>

@@ -10,7 +10,6 @@ export class DateComponent implements ControlValueAccessor {
   @Input() id: string;
   @Input() name: string;
   @Input() label: string;
-  @Input() placeholder: string = '';
   @Input() required: boolean = false;
 
   disabled: boolean = false;

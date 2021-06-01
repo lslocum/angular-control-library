@@ -63,6 +63,15 @@ export class NumberComponent implements ControlValueAccessor {
     );
   }
 
+  ngOnInit(){
+    console.log('step on init', this.step);
+  }
+
+  ngOnChanges(changes){
+    console.log('changes', changes);
+    console.log('step on changes', this.step);
+  }
+
   registerOnChange(fn: any): void {
     this.onChangeCallback = fn;
   }

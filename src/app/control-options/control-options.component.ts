@@ -6,15 +6,20 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./control-options.component.scss'],
 })
 export class ControlOptionsComponent {
-  @Input() label = '';
-  @Input() placeholder = '';
-  @Input() required = false;
-  @Input() disabled = false;
-  @Input() minlength: string;
-  @Input() maxlength: string;
-  @Input() requireLowerCase = false;
-  @Input() requireUpperCase = false;
-  @Input() requireNumbers = false;
+  @Input() label?: string;
+  @Input() placeholder?: string;
+  @Input() required?: boolean;
+  @Input() disabled?: boolean;
+  @Input() minlength?: string;
+  @Input() maxlength?: string;
+  @Input() pattern?: string;
+  @Input() requireLowerCase?: boolean;
+  @Input() requireUpperCase?: boolean;
+  @Input() requireNumbers?: boolean;
+  @Input() cols?: number;
+  @Input() rows?: number;
+  @Input() wrap?: 'soft' | 'hard';
+  @Input() step?: number;
 
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
@@ -22,9 +27,14 @@ export class ControlOptionsComponent {
   @Output() requiredToggled = new EventEmitter<boolean>();
   @Output() minlengthUpdated = new EventEmitter<string>();
   @Output() maxlengthUpdated = new EventEmitter<string>();
+  @Output() patternUpdated = new EventEmitter<string>();
   @Output() lowerCaseToggled = new EventEmitter<boolean>();
   @Output() upperCaseToggled = new EventEmitter<boolean>();
   @Output() numberToggled = new EventEmitter<boolean>();
+  @Output() colsUpdated = new EventEmitter<number>();
+  @Output() rowsUpdated = new EventEmitter<number>();
+  @Output() wrapUpdated = new EventEmitter<string>();
+  @Output() stepUpdated = new EventEmitter<number>();
 
   disableControl(event): void {
     this.disabled = !this.disabled;
@@ -65,5 +75,25 @@ export class ControlOptionsComponent {
 
   updatePlaceholder(event) {
     this.placeholderUpdated.emit(event.target.value);
+  }
+
+  updatePattern(event) {
+    this.patternUpdated.emit(event.target.value);
+  }
+
+  updateCols(event) {
+    this.colsUpdated.emit(event.target.value);
+  }
+
+  updateRows(event) {
+    this.rowsUpdated.emit(event.target.value);
+  }
+
+  updateWrap(event) {
+    this.wrapUpdated.emit(event.target.value);
+  }
+
+  updateStep(event) {
+    this.stepUpdated.emit(event.target.value);
   }
 }

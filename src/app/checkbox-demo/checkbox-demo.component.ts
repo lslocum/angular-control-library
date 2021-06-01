@@ -6,36 +6,28 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './checkbox-demo.component.html',
 })
 export class CheckboxDemoComponent implements OnInit {
-  formGroupWithInitialValue: FormGroup;
-  formGroupWithoutInitialValue: FormGroup;
-  disabledFormGroup: FormGroup;
-
+  formGroup: FormGroup;
   formControlName = 'checkbox';
   label = 'I Agree';
-
-  disabledControl = true;
+  disabled = false;
 
   ngOnInit(): void {
-    this.formGroupWithInitialValue = new FormGroup({
+    this.formGroup = new FormGroup({
       checkbox: new FormControl(true),
-    });
-
-    this.formGroupWithoutInitialValue = new FormGroup({
-      checkbox: new FormControl(false),
-    });
-
-    this.disabledFormGroup = new FormGroup({
-      checkbox: new FormControl({ value: true, disabled: true }),
     });
   }
 
-  disableControl(): void {
-    if (this.disabledControl) {
-      this.disabledFormGroup.get('checkbox').enable();
+  disableControl(value: boolean): void {
+    if (value) {
+      this.formGroup.get(this.formControlName).disable();
     } else {
-      this.disabledFormGroup.get('checkbox').disable();
+      this.formGroup.get(this.formControlName).enable();
     }
 
-    this.disabledControl = !this.disabledControl;
+    this.disabled = value;
+  }
+
+  updateLabel(value: string) {
+    this.label = value;
   }
 }

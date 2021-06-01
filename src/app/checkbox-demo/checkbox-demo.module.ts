@@ -5,6 +5,7 @@ import { CheckboxDemoRoutingModule } from './checkbox-demo-routing.module';
 import { CheckboxDemoComponent } from './checkbox-demo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CheckboxModule } from 'projects/controls/src/lib/checkbox/checkbox.module';
+import { ControlOptionsModule } from '../control-options/control-options.module';
 
 @NgModule({
   declarations: [CheckboxDemoComponent],
@@ -14,6 +15,7 @@ import { CheckboxModule } from 'projects/controls/src/lib/checkbox/checkbox.modu
     ReactiveFormsModule,
     CheckboxDemoRoutingModule,
     CheckboxModule,
+    ControlOptionsModule
   ],
 })
 export class CheckboxDemoModule {}

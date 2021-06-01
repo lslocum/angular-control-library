@@ -5,6 +5,7 @@ import { TextareaDemoRoutingModule } from './textarea-demo-routing.module';
 import { TextareaDemoComponent } from './textarea-demo.component';
 import { TextareaModule } from 'projects/controls/src/lib/textarea/textarea.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ControlOptionsModule } from '../control-options/control-options.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     TextareaDemoRoutingModule,
-    TextareaModule
+    TextareaModule,
+    ControlOptionsModule
   ]
 })
 export class TextareaDemoModule { }

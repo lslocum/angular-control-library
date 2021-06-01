@@ -6,11 +6,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './radio-demo.component.html',
 })
 export class RadioDemoComponent implements OnInit {
-  formGroupWithInitialValue: FormGroup;
-  formGroupWithoutInitialValue: FormGroup;
-  disabledFormGroup: FormGroup;
-
+  formGroup: FormGroup;
+  formControlName = 'radio';
+  disabled = false;
   label = 'Fav. Friends Character';
+
   options = [
     { name: 'Joey', id: '1' },
     { name: 'Phoebe', id: '2' },
@@ -22,29 +22,24 @@ export class RadioDemoComponent implements OnInit {
   nameProperty = 'name';
   valueProperty = 'id';
 
-  disabledControl = true;
 
   ngOnInit(): void {
-    this.formGroupWithInitialValue = new FormGroup({
-      radio1: new FormControl('2'),
-    });
-
-    this.formGroupWithoutInitialValue = new FormGroup({
-      radio2: new FormControl(''),
-    });
-
-    this.disabledFormGroup = new FormGroup({
-      radio3: new FormControl({ value: '5', disabled: true }),
+    this.formGroup = new FormGroup({
+      radio: new FormControl('2'),
     });
   }
 
-  disableControl(): void {
-    if (this.disabledControl) {
-      this.disabledFormGroup.enable();
+  disableControl(value: boolean): void {
+    if (value) {
+      this.formGroup.get(this.formControlName).disable();
     } else {
-      this.disabledFormGroup.disable();
+      this.formGroup.get(this.formControlName).enable();
     }
 
-    this.disabledControl = !this.disabledControl;
+    this.disabled = value;
+  }
+
+  updateLabel(value: string) {
+    this.label = value;
   }
 }

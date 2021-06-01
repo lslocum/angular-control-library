@@ -5,6 +5,7 @@ import { RadioDemoRoutingModule } from './radio-demo-routing.module';
 import { RadioDemoComponent } from './radio-demo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RadioModule } from 'projects/controls/src/public-api';
+import { ControlOptionsModule } from '../control-options/control-options.module';
 
 @NgModule({
   declarations: [RadioDemoComponent],
@@ -14,6 +15,7 @@ import { RadioModule } from 'projects/controls/src/public-api';
     ReactiveFormsModule,
     RadioDemoRoutingModule,
     RadioModule,
+    ControlOptionsModule
   ],
 })
 export class RadioDemoModule {}

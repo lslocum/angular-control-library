@@ -12,11 +12,11 @@ export class PhoneComponent implements ControlValueAccessor {
   @Input() label: string;
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
-  @Input() minlength: number = 10;
-  @Input() maxlength: number = 12;
-  @Input() pattern: string = '[0-9]{3}[0-9]{3}[0-9]{4}';
-
+  
   disabled: boolean = false;
+  minlength: number = 10;
+  maxlength: number = 12;
+  pattern: string = '[0-9]{3}[0-9]{3}[0-9]{4}';
   value = '';
   errorMessages = new Map();
 
@@ -53,10 +53,6 @@ export class PhoneComponent implements ControlValueAccessor {
     this.control && (this.control.valueAccessor = this);
 
     this.errorMessages.set('required', () => `${this.label} is required.`);
-    this.errorMessages.set(
-      'minlength',
-      () => `Please enter at least ${this.minlength} characters.`
-    );
     this.errorMessages.set('pattern', () => `Invalid phone number.`);
   }
 
@@ -74,7 +70,7 @@ export class PhoneComponent implements ControlValueAccessor {
 
   onChange() {
     this.writeValue(this.value);
-    this.onChangeCallback(this.value.replace(/\D/g, ''));
+    this.onChangeCallback(stripPhoneNumberFormatting(this.value));
   }
 
   writeValue(value: string): void {
@@ -83,19 +79,35 @@ export class PhoneComponent implements ControlValueAccessor {
   }
 }
 
-function formatPhoneNumber(value: string): string {
-  // remove all mask characters (keep only numeric)
-  let newValue = value.replace(/\D/g, '');
-
-  if (newValue.length == 0) {
-    newValue = '';
-  } else if (newValue.length <= 3) {
-    newValue = newValue.replace(/^(\d{0,3})/, '$1');
-  } else if (newValue.length <= 6) {
-    newValue = newValue.replace(/^(\d{0,3})(\d{0,3})/, '$1-$2');
-  } else {
-    newValue = newValue.replace(/^(\d{0,3})(\d{0,3})(.*)/, '$1-$2-$3');
+function stripPhoneNumberFormatting(value: string): string {
+  let unformattedPhoneNumber = value;
+  if (value) {
+    // remove all mask characters (keep only numeric)
+    unformattedPhoneNumber = value.replace(/\D/g, '');
   }
 
-  return newValue;
+  return unformattedPhoneNumber;
+}
+function formatPhoneNumber(value: string): string {
+  let unformattedNumber = stripPhoneNumberFormatting(value);
+
+  if (unformattedNumber) {
+    if (unformattedNumber?.length == 0) {
+      unformattedNumber = '';
+    } else if (unformattedNumber.length <= 3) {
+      unformattedNumber = unformattedNumber.replace(/^(\d{0,3})/, '$1');
+    } else if (unformattedNumber.length <= 6) {
+      unformattedNumber = unformattedNumber.replace(
+        /^(\d{0,3})(\d{0,3})/,
+        '$1-$2'
+      );
+    } else {
+      unformattedNumber = unformattedNumber.replace(
+        /^(\d{0,3})(\d{0,3})(.*)/,
+        '$1-$2-$3'
+      );
+    }
+  }
+
+  return unformattedNumber;
 }

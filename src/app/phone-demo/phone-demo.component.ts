@@ -6,49 +6,52 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './phone-demo.component.html',
 })
 export class PhoneDemoComponent implements OnInit {
-  formGroupWithInitialValue: FormGroup;
-  formGroupWithoutInitialValue: FormGroup;
-  requiredFormGroup: FormGroup;
-  disabledFormGroup: FormGroup;
-
-  placeholder = '555-555-5555';
-  label = 'Cell Phone';
+  formGroup: FormGroup;
   formControlName = 'phone';
-
-  disabledControl = true;
+  label = 'Cell Phone';
+  placeholder = '555-555-5555';
+  pattern = validPhoneNumberPattern;
+  required = false;
+  disabled = false;
 
   ngOnInit(): void {
-    this.formGroupWithInitialValue = new FormGroup({
+    this.formGroup = new FormGroup({
       phone: new FormControl(
         '6204316000',
         Validators.pattern(validPhoneNumberPattern)
       ),
     });
-
-    this.formGroupWithoutInitialValue = new FormGroup({
-      phone: new FormControl('', Validators.pattern(validPhoneNumberPattern)),
-    });
-
-    this.requiredFormGroup = new FormGroup({
-      phone: new FormControl('', Validators.required),
-    });
-
-    this.disabledFormGroup = new FormGroup({
-      phone: new FormControl(
-        { value: '911', disabled: true },
-        Validators.pattern(validPhoneNumberPattern)
-      ),
-    });
   }
 
-  disableControl(): void {
-    if (this.disabledControl) {
-      this.disabledFormGroup.get('phone').enable();
+  disableControl(value: boolean): void {
+    if (value) {
+      this.formGroup.get(this.formControlName).disable();
     } else {
-      this.disabledFormGroup.get('phone').disable();
+      this.formGroup.get(this.formControlName).enable();
     }
 
-    this.disabledControl = !this.disabledControl;
+    this.disabled = value;
+  }
+
+  toggleRequired(value: boolean) {
+    if (!value) {
+      this.formGroup.get(this.formControlName).setValidators(Validators.pattern(validPhoneNumberPattern));
+    } else {
+      this.formGroup
+        .get(this.formControlName)
+        .setValidators([Validators.pattern(validPhoneNumberPattern), Validators.required]);
+    }
+    this.formGroup.get(this.formControlName).updateValueAndValidity();
+
+    this.required = value;
+  }
+
+  updateLabel(value: string) {
+    this.label = value;
+  }
+
+  updatePlaceholder(value: string) {
+    this.placeholder = value;
   }
 }
 

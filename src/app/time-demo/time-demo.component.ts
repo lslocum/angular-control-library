@@ -6,44 +6,44 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './time-demo.component.html'
 })
 export class TimeDemoComponent implements OnInit {
-  formGroupWithInitialValue: FormGroup;
-  formGroupWithoutInitialValue: FormGroup;
-  requiredFormGroup: FormGroup;
-  disabledFormGroup: FormGroup;
+  formGroup: FormGroup;
 
   formControlName = 'time';
   label = 'Appt. Time';
-
-  disabledControl = true;
+  required = false;
+  disabled = false;
 
   ngOnInit(): void {
-    this.formGroupWithInitialValue = new FormGroup({
+    this.formGroup = new FormGroup({
       time: new FormControl('17:00'),
-    });
-
-    this.formGroupWithoutInitialValue = new FormGroup({
-      time: new FormControl(''),
-    });
-
-    this.requiredFormGroup = new FormGroup({
-      time: new FormControl('06:00', Validators.required),
-    });
-
-    this.disabledFormGroup = new FormGroup({
-      time: new FormControl({
-        value: '10:27',
-        disabled: this.disabledControl,
-      }),
     });
   }
 
-  disableControl(): void {
-    if (this.disabledControl) {
-      this.disabledFormGroup.get('time').enable();
+
+  disableControl(value: boolean): void {
+    if (value) {
+      this.formGroup.get(this.formControlName).disable();
     } else {
-      this.disabledFormGroup.get('time').disable();
+      this.formGroup.get(this.formControlName).enable();
     }
 
-    this.disabledControl = !this.disabledControl;
+    this.disabled = value;
+  }
+
+  toggleRequired(value: boolean) {
+    if (!value) {
+      this.formGroup.get(this.formControlName).clearValidators();
+    } else {
+      this.formGroup
+        .get(this.formControlName)
+        .setValidators(Validators.required);
+    }
+    this.formGroup.get(this.formControlName).updateValueAndValidity();
+
+    this.required = value;
+  }
+
+  updateLabel(value: string) {
+    this.label = value;
   }
 }

@@ -4,12 +4,14 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-button-demo',
   templateUrl: './button-demo.component.html',
 })
-export class ButtonDemoComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+export class ButtonDemoComponent {
+  disabled = false;
 
   buttonClicked() {
     alert('🐱‍🏍🐱‍🚀🐱‍👓 Button Clicked 🐱‍🏍🐱‍🚀🐱‍👓');
+  }
+
+  toggleDisabled(value: boolean): void{
+    this.disabled = value;
   }
 }

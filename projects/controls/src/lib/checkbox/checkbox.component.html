@@ -1,5 +1,4 @@
 <div class="form-control">
-  <label [for]="name">{{ label }}</label>
   <input
     type="checkbox"
     [id]="id"
@@ -11,4 +10,5 @@
     (blur)="onTouchedCallback()"
     class="my-checkbox"
   />
+  <label [for]="name">{{ label }}</label>
 </div>

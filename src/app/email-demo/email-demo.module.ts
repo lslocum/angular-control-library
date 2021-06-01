@@ -6,6 +6,7 @@ import { EmailDemoComponent } from './email-demo.component';
 import { EmailModule } from 'projects/controls/src/lib/email/email.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextboxModule } from 'projects/controls/src/public-api';
+import { ControlOptionsModule } from '../control-options/control-options.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { TextboxModule } from 'projects/controls/src/public-api';
     EmailModule,
     FormsModule,
     ReactiveFormsModule,
+    ControlOptionsModule
   ]
 })
 export class EmailDemoModule { }

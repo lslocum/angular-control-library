@@ -6,11 +6,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './select-demo.component.html',
 })
 export class SelectDemoComponent implements OnInit {
-  formGroupWithInitialValue: FormGroup;
-  formGroupWithoutInitialValue: FormGroup;
-  disabledFormGroup: FormGroup;
-
+  formGroup: FormGroup;
+  formControlName = 'select';
+  disabled = false;
   label = 'Dream Car';
+
   options = [
     { name: 'Chevy Corvette', id: '1' },
     { name: 'Audi R8', id: '2' },
@@ -23,29 +23,23 @@ export class SelectDemoComponent implements OnInit {
   nameProperty = 'name';
   valueProperty = 'id';
 
-  disabledControl = true;
-
   ngOnInit(): void {
-    this.formGroupWithInitialValue = new FormGroup({
+    this.formGroup = new FormGroup({
       select: new FormControl('2'),
-    });
-
-    this.formGroupWithoutInitialValue = new FormGroup({
-      select: new FormControl(''),
-    });
-
-    this.disabledFormGroup = new FormGroup({
-      select: new FormControl({ value: '5', disabled: true }),
     });
   }
 
-  disableControl(): void {
-    if (this.disabledControl) {
-      this.disabledFormGroup.enable();
+  disableControl(value: boolean): void {
+    if (value) {
+      this.formGroup.get(this.formControlName).disable();
     } else {
-      this.disabledFormGroup.disable();
+      this.formGroup.get(this.formControlName).enable();
     }
 
-    this.disabledControl = !this.disabledControl;
+    this.disabled = value;
+  }
+
+  updateLabel(value: string) {
+    this.label = value;
   }
 }

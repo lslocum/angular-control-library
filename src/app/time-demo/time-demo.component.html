@@ -1,5 +1,16 @@
-<h1>Form Control with Initial Value</h1>
-<div [formGroup]="formGroupWithInitialValue" class="form-group">
+<h1>Time</h1>
+<app-control-options
+  [label]="label"
+  [required]="required"
+  [disabled]="disabled"
+  (labelUpdated)="updateLabel($event)"
+  (disabledToggled)="disableControl($event)"
+  (requiredToggled)="toggleRequired($event)"
+
+
+></app-control-options>
+
+<div [formGroup]="formGroup" class="form-group">
   <lib-time
     [formControlName]="formControlName"
     id="timeWithValue"
@@ -10,142 +21,19 @@
   </lib-time>
 </div>
 <div class="wrapper">
-  <div class="options">
-    <label>label:</label><span> {{ label }}</span>
-    <br />
-    <label>required:</label><span> false</span>
-    <br />
-    <label>disabled:</label><span> false</span>
-  </div>
   <div class="status">
     <label>Form Group Status:</label
-    ><span> {{ formGroupWithInitialValue.get(formControlName).status }}</span>
+    ><span> {{ formGroup.get(formControlName).status }}</span>
     <br />
     <label>Form Group Value:</label
-    ><span> {{ formGroupWithInitialValue.value | json }}</span>
+    ><span> {{ formGroup.value | json }}</span>
     <br />
     <label>Form Group Pristine:</label
-    ><span> {{ formGroupWithInitialValue.pristine }}</span>
+    ><span> {{ formGroup.pristine }}</span>
     <br />
     <label>Form Control Errors:</label
     ><span>
-      {{ formGroupWithInitialValue.get(formControlName).errors | json }}</span
+      {{ formGroup.get(formControlName).errors | json }}</span
     >
-  </div>
-</div>
-
-<h1>Form Control Without Initial Value</h1>
-<div [formGroup]="formGroupWithoutInitialValue" class="form-group">
-  <lib-time
-    [formControlName]="formControlName"
-    id="timeWithoutValue"
-    [name]="formControlName"
-    [label]="label"
-    [required]="false"
-  >
-  </lib-time>
-</div>
-<div class="wrapper">
-  <div class="options">
-    <label>label:</label><span> {{ label }}</span>
-    <br />
-    <label>required:</label><span> false</span>
-    <br />
-    <label>disabled:</label><span> false</span>
-  </div>
-  <div class="status">
-    <label>Form Group Status:</label
-    ><span>
-      {{ formGroupWithoutInitialValue.get(formControlName).status }}</span
-    >
-    <br />
-    <label>Form Group Value:</label
-    ><span> {{ formGroupWithoutInitialValue.value | json }}</span>
-    <br />
-    <label>Form Group Pristine:</label
-    ><span> {{ formGroupWithoutInitialValue.pristine }}</span>
-    <br />
-    <label>Form Group Errors:</label
-    ><span>
-      {{
-        formGroupWithoutInitialValue.get(formControlName).errors | json
-      }}</span
-    >
-  </div>
-</div>
-
-<h1>Required</h1>
-<div [formGroup]="requiredFormGroup" class="form-group">
-  <lib-time
-    [formControlName]="formControlName"
-    id="timeRequired"
-    [name]="formControlName"
-    [label]="label"
-    [required]="true"
-  >
-  </lib-time>
-</div>
-<div class="wrapper">
-  <div class="options">
-    <label>label:</label><span> {{ label }}</span>
-    <br />
-    <label>required:</label><span> true</span>
-    <br />
-    <label>disabled:</label><span> false</span>
-  </div>
-  <div class="status">
-    <label>Form Group Status:</label
-    ><span> {{ requiredFormGroup.get(formControlName).status }}</span>
-    <br />
-    <label>Form Group Value:</label
-    ><span> {{ requiredFormGroup.value | json }}</span>
-    <br />
-    <label>Form Group Pristine:</label
-    ><span> {{ requiredFormGroup.pristine }}</span>
-    <br />
-    <label>Form Group Errors:</label
-    ><span> {{ requiredFormGroup.get(formControlName).errors | json }}</span>
-  </div>
-</div>
-
-<h1>Disabled</h1>
-<input
-  type="checkbox"
-  id="disableToggle"
-  name="disableToggle"
-  [value]="disableControl"
-  (click)="disableControl()"
-/>
-<label for="disableToggle">Enable/Disable</label>
-<div [formGroup]="disabledFormGroup" class="form-group">
-  <lib-time
-    [formControlName]="formControlName"
-    id="timeDisabled"
-    [name]="formControlName"
-    [label]="label"
-    [required]="false"
-  >
-  </lib-time>
-</div>
-<div class="wrapper">
-  <div class="options">
-    <label>label:</label><span> {{ label }}</span>
-    <br />
-    <label>required:</label><span> false</span>
-    <br />
-    <label>disabled:</label><span> {{ disabledControl }}</span>
-  </div>
-  <div class="status">
-    <label>Form Group Status:</label
-    ><span> {{ disabledFormGroup.status }}</span>
-    <br />
-    <label>Form Group Value:</label
-    ><span> {{ disabledFormGroup.value | json }}</span>
-    <br />
-    <label>Form Group Pristine:</label
-    ><span> {{ disabledFormGroup.pristine }}</span>
-    <br />
-    <label>Form Control Errors:</label
-    ><span> {{ disabledFormGroup.get(formControlName).errors | json }}</span>
   </div>
 </div>

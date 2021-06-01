@@ -6,47 +6,45 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './date-demo.component.html',
 })
 export class DateDemoComponent implements OnInit {
-  formGroupWithInitialValue: FormGroup;
-  formGroupWithoutInitialValue: FormGroup;
-  requiredFormGroup: FormGroup;
-  disabledFormGroup: FormGroup;
-
+  formGroup: FormGroup;
   formControlName = 'date';
   label = 'Birthday';
-  placeholder = 'Enter date';
+  required = false;
+  disabled = false;
+
   date = new Date('10/27/2020');
 
-  disabledControl = true;
-
   ngOnInit(): void {
-    this.formGroupWithInitialValue = new FormGroup({
+    this.formGroup = new FormGroup({
       date: new FormControl(jsDateToInputDate(this.date)),
-    });
-
-    this.formGroupWithoutInitialValue = new FormGroup({
-      date: new FormControl(''),
-    });
-
-    this.requiredFormGroup = new FormGroup({
-      date: new FormControl('', Validators.required),
-    });
-
-    this.disabledFormGroup = new FormGroup({
-      date: new FormControl({
-        value: jsDateToInputDate(this.date),
-        disabled: true,
-      }),
     });
   }
 
-  disableControl(): void {
-    if (this.disabledControl) {
-      this.disabledFormGroup.get('date').enable();
+  disableControl(value: boolean): void {
+    if (value) {
+      this.formGroup.get(this.formControlName).disable();
     } else {
-      this.disabledFormGroup.get('date').disable();
+      this.formGroup.get(this.formControlName).enable();
     }
 
-    this.disabledControl = !this.disabledControl;
+    this.disabled = value;
+  }
+
+  toggleRequired(value: boolean) {
+    if (!value) {
+      this.formGroup.get(this.formControlName).clearValidators();
+    } else {
+      this.formGroup
+        .get(this.formControlName)
+        .setValidators(Validators.required);
+    }
+    this.formGroup.get(this.formControlName).updateValueAndValidity();
+
+    this.required = value;
+  }
+
+  updateLabel(value: string) {
+    this.label = value;
   }
 }
 

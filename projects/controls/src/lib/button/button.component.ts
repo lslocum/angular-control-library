@@ -9,7 +9,7 @@ export class ButtonComponent implements OnInit {
   @Input() type: 'primary' | 'flat' | 'stroked' | 'icon' | 'fab' | 'mini-fab';
   @Input() ngClass: string[] = [];
   @Input() id: string;
-
+  @Input() disabled: boolean = true;
   @Output() clicked: EventEmitter<void> = new EventEmitter();
 
   constructor() {}

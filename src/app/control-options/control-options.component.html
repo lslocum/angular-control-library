@@ -2,7 +2,7 @@
 <h2>Control Options</h2>
 <div class="toggle-options">
   <!-- 1 -->
-  <span>
+  <span *ngIf="label !== undefined">
     <label for="label">Label</label>
     <input
       type="text"
@@ -13,7 +13,7 @@
     />
   </span>
   <!-- 2 -->
-  <span>
+  <span *ngIf="placeholder !== undefined">
     <label for="placeholder">Placeholder</label>
     <input
       type="text"
@@ -25,7 +25,7 @@
   </span>
 
   <!-- 3 -->
-  <span>
+  <span *ngIf="minlength !== undefined">
     <label for="minlength">Min Length</label>
     <input
       type="number"
@@ -36,7 +36,7 @@
     />
   </span>
   <!-- 1 -->
-  <span>
+  <span *ngIf="required !== undefined">
     <input
       type="checkbox"
       id="toggleRequired"
@@ -47,7 +47,17 @@
     <label for="toggleRequired">Required</label>
   </span>
   <!-- 2 -->
-  <span>
+  <span *ngIf="pattern !== undefined">
+    <label for="pattern">Pattern</label>
+    <input
+      type="text"
+      id="pattern"
+      name="pattern"
+      [(value)]="pattern"
+      (change)="updatePattern($event)"
+    />
+  </span>
+  <span *ngIf="requireLowerCase !== undefined">
     <input
       type="checkbox"
       id="toggleLowerCase"
@@ -58,7 +68,7 @@
     <label for="toggleLowerCase">Require Lower Case</label>
   </span>
   <!-- 3 -->
-  <span>
+  <span *ngIf="maxlength !== undefined">
     <label for="maxlength">Max Length</label>
     <input
       type="number"
@@ -69,7 +79,7 @@
     />
   </span>
   <!-- 1 -->
-  <span>
+  <span *ngIf="disabled !== undefined">
     <input
       type="checkbox"
       id="disableToggle"
@@ -80,7 +90,7 @@
     <label for="disableToggle">Disabled</label>
   </span>
   <!-- 2 -->
-  <span>
+  <span *ngIf="requireUpperCase !== undefined">
     <input
       type="checkbox"
       id="toggleUpperCase"
@@ -91,7 +101,7 @@
     <label for="toggleUpperCase">Require Upper Case</label>
   </span>
   <!-- 3 -->
-  <span>
+  <span *ngIf="requireNumbers !== undefined">
     <input
       type="checkbox"
       id="toggleNumbers"
@@ -100,6 +110,52 @@
       (click)="toggleRequireNumbers($event)"
     />
     <label for="toggleNumbers">Require Numbers</label>
+  </span>
+
+  <span *ngIf="cols !== undefined">
+    <label for="cols">Number of Columns</label>
+    <input
+      type="number"
+      id="cols"
+      name="cols"
+      [(value)]="cols"
+      (click)="updateCols($event)"
+    />
+  </span>
+
+  <span *ngIf="rows !== undefined">
+    <label for="rows">Number of Rows</label>
+    <input
+      type="number"
+      id="rows"
+      name="rows"
+      [(value)]="rows"
+      (click)="updateRows($event)"
+    />
+  </span>
+
+  <span *ngIf="wrap !== undefined">
+    <label for="wrap">Wrap</label>
+    <select
+      id="wrap"
+      name="wrap"
+      [(value)]="wrap"
+      (change)="updateWrap($event)"
+    >
+      <option value="hard">Hard</option>
+      <option value="soft">Soft</option>
+    </select>
+  </span>
+
+  <span *ngIf="step !== undefined">
+    <label for="step">Step</label>
+    <input
+      type="number"
+      id="step"
+      name="step"
+      [(value)]="step"
+      (change)="updateStep($event)"
+    />
   </span>
 </div>
 

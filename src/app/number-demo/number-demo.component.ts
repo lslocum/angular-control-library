@@ -6,48 +6,66 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './number-demo.component.html',
 })
 export class NumberDemoComponent implements OnInit {
-  formGroupWithInitialValue: FormGroup;
-  formGroupWithoutInitialValue: FormGroup;
-  requiredFormGroup: FormGroup;
-  disabledFormGroup: FormGroup;
-
+  formGroup: FormGroup;
   formControlName = 'number';
   label = 'Age';
   placeholder = 'Your age';
+  disabled = false;
+  required = false;
   min = 13;
   max = 99;
   step = 2;
 
-  disabledControl = true;
-
   ngOnInit(): void {
-    this.formGroupWithInitialValue = new FormGroup({
+    this.formGroup = new FormGroup({
       number: new FormControl(22, [
         Validators.min(this.min),
         Validators.max(this.max),
       ]),
     });
-
-    this.formGroupWithoutInitialValue = new FormGroup({
-      number: new FormControl(),
-    });
-
-    this.requiredFormGroup = new FormGroup({
-      number: new FormControl('', Validators.required),
-    });
-
-    this.disabledFormGroup = new FormGroup({
-      number: new FormControl({ value: '35', disabled: true }),
-    });
   }
 
-  disableControl(): void {
-    if (this.disabledControl) {
-      this.disabledFormGroup.get('number').enable();
+  disableControl(value: boolean): void {
+    if (value) {
+      this.formGroup.get(this.formControlName).disable();
     } else {
-      this.disabledFormGroup.get('number').disable();
+      this.formGroup.get(this.formControlName).enable();
     }
 
-    this.disabledControl = !this.disabledControl;
+    this.disabled = value;
+  }
+
+  toggleRequired(value: boolean) {
+    if (!value) {
+      this.formGroup.get(this.formControlName).clearValidators();
+    } else {
+      this.formGroup
+        .get(this.formControlName)
+        .setValidators(Validators.required);
+    }
+    this.formGroup.get(this.formControlName).updateValueAndValidity();
+
+    this.required = value;
+  }
+
+  updateMin(value: string) {
+    this.min = +value;
+  }
+
+  updateMax(value: string) {
+    this.max = +value;
+  }
+
+  updateLabel(value: string) {
+    this.label = value;
+  }
+
+  updatePlaceholder(value: string) {
+    this.placeholder = value;
+  }
+
+  updateStep(value: string) {
+    this.step = +value;
+    console.log('updateStep', this.step);
   }
 }
