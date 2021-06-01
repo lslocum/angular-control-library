@@ -18,9 +18,14 @@ export class NumberDemoComponent implements OnInit {
   max = 99;
   step = 2;
 
+  disabledControl = true;
+
   ngOnInit(): void {
     this.formGroupWithInitialValue = new FormGroup({
-      number: new FormControl(22, [Validators.min(this.min), Validators.max(this.max)])
+      number: new FormControl(22, [
+        Validators.min(this.min),
+        Validators.max(this.max),
+      ]),
     });
 
     this.formGroupWithoutInitialValue = new FormGroup({
@@ -34,5 +39,15 @@ export class NumberDemoComponent implements OnInit {
     this.disabledFormGroup = new FormGroup({
       number: new FormControl({ value: '35', disabled: true }),
     });
+  }
+
+  disableControl(): void {
+    if (this.disabledControl) {
+      this.disabledFormGroup.get('number').enable();
+    } else {
+      this.disabledFormGroup.get('number').disable();
+    }
+
+    this.disabledControl = !this.disabledControl;
   }
 }

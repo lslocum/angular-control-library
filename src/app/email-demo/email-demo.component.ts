@@ -16,6 +16,8 @@ export class EmailDemoComponent implements OnInit {
   minlength = '7';
   formControlName = 'email';
 
+  disabledControl=true;
+
   ngOnInit(): void {
     this.formGroupWithInitialValue = new FormGroup({
       email: new FormControl('fred@neighbor.com', Validators.email),
@@ -31,9 +33,19 @@ export class EmailDemoComponent implements OnInit {
 
     this.disabledFormGroup = new FormGroup({
       email: new FormControl(
-        { value: 'I am disabled', disabled: true },
+        { value: 'donotreply@thestreet.com', disabled: true },
         Validators.email
       ),
     });
+  }
+
+  disableControl(): void {
+    if (this.disabledControl) {
+      this.disabledFormGroup.get('email').enable();
+    } else {
+      this.disabledFormGroup.get('email').disable();
+    }
+
+    this.disabledControl = !this.disabledControl;
   }
 }

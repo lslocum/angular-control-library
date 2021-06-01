@@ -19,6 +19,8 @@ export class TextboxDemoComponent implements OnInit {
   maxlength = '10';
   pattern = '[A-Za-z]+';
 
+  disabledControl = true;
+
   ngOnInit(): void {
     this.formGroupWithInitialValue = new FormGroup({
       textbox: new FormControl('value'),
@@ -33,7 +35,20 @@ export class TextboxDemoComponent implements OnInit {
     });
 
     this.disabledFormGroup = new FormGroup({
-      textbox: new FormControl({ value: 'I am disabled', disabled: true }),
+      textbox: new FormControl({
+        value: 'I am disabled',
+        disabled: this.disabledControl,
+      }),
     });
+  }
+
+  disableControl(): void {
+    if (this.disabledControl) {
+      this.disabledFormGroup.get('textbox').enable();
+    } else {
+      this.disabledFormGroup.get('textbox').disable();
+    }
+
+    this.disabledControl = !this.disabledControl;
   }
 }

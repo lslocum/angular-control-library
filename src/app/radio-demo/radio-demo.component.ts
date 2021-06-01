@@ -23,6 +23,8 @@ export class RadioDemoComponent implements OnInit {
   nameProperty = 'name';
   valueProperty = 'id';
 
+  disabledControl = true;
+
   ngOnInit(): void {
     this.formGroupWithInitialValue = new FormGroup({
       radio1: new FormControl('2'),
@@ -35,5 +37,15 @@ export class RadioDemoComponent implements OnInit {
     this.disabledFormGroup = new FormGroup({
       radio3: new FormControl({ value: '5', disabled: true }),
     });
+  }
+
+  disableControl(): void {
+    if (this.disabledControl) {
+      this.disabledFormGroup.enable();
+    } else {
+      this.disabledFormGroup.disable();
+    }
+
+    this.disabledControl = !this.disabledControl;
   }
 }

@@ -13,6 +13,8 @@ export class CheckboxDemoComponent implements OnInit {
   formControlName = 'checkbox';
   label = 'I Agree';
 
+  disabledControl = true;
+
   ngOnInit(): void {
     this.formGroupWithInitialValue = new FormGroup({
       checkbox: new FormControl(true),
@@ -25,5 +27,15 @@ export class CheckboxDemoComponent implements OnInit {
     this.disabledFormGroup = new FormGroup({
       checkbox: new FormControl({ value: true, disabled: true }),
     });
+  }
+
+  disableControl(): void {
+    if (this.disabledControl) {
+      this.disabledFormGroup.get('checkbox').enable();
+    } else {
+      this.disabledFormGroup.get('checkbox').disable();
+    }
+
+    this.disabledControl = !this.disabledControl;
   }
 }

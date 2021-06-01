@@ -7,7 +7,6 @@
     [label]="label"
     [placeholder]="placeholder"
     [required]="false"
-    [disabled]="false"
     [cols]="cols"
     [rows]="rows"
     [wrap]="hardWrap"
@@ -58,7 +57,6 @@
     [label]="label"
     [placeholder]="placeholder"
     [required]="false"
-    [disabled]="false"
     [cols]="cols"
     [rows]="rows"
     [wrap]="hardWrap"
@@ -114,7 +112,6 @@
     [label]="label"
     [placeholder]="placeholder"
     [required]="true"
-    [disabled]="false"
     [wrap]="softWrap"
   >
   </lib-textarea>
@@ -153,6 +150,14 @@
 </div>
 
 <h1>Disabled</h1>
+<input
+  type="checkbox"
+  id="disableToggle"
+  name="disableToggle"
+  [value]="disableControl"
+  (click)="disableControl()"
+/>
+<label for="disableToggle">Enable/Disable</label>
 <div [formGroup]="disabledFormGroup" class="form-group">
   <lib-textarea
     [formControlName]="formControlName"
@@ -161,7 +166,6 @@
     [label]="label"
     [placeholder]="placeholder"
     [required]="false"
-    [disabled]="false"
   >
   </lib-textarea>
 </div>
@@ -173,7 +177,7 @@
     <br />
     <label>required:</label><span> false</span>
     <br />
-    <label>disabled:</label><span> false</span>
+    <label>disabled:</label><span> {{ disabledControl }}</span>
     <br />
     <label>maxlength:</label><span> n/a</span>
     <br />

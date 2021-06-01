@@ -15,6 +15,8 @@ export class PhoneDemoComponent implements OnInit {
   label = 'Cell Phone';
   formControlName = 'phone';
 
+  disabledControl = true;
+
   ngOnInit(): void {
     this.formGroupWithInitialValue = new FormGroup({
       phone: new FormControl(
@@ -37,6 +39,16 @@ export class PhoneDemoComponent implements OnInit {
         Validators.pattern(validPhoneNumberPattern)
       ),
     });
+  }
+
+  disableControl(): void {
+    if (this.disabledControl) {
+      this.disabledFormGroup.get('phone').enable();
+    } else {
+      this.disabledFormGroup.get('phone').disable();
+    }
+
+    this.disabledControl = !this.disabledControl;
   }
 }
 

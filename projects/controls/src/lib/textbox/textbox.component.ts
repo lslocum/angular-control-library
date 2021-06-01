@@ -1,4 +1,4 @@
-import { Component, Input, Optional, Self } from '@angular/core';
+import { Component, Input, OnChanges, Optional, Self, SimpleChange, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
@@ -51,6 +51,7 @@ export class TextboxComponent implements ControlValueAccessor {
 
   constructor(@Self() @Optional() public control: NgControl) {
     this.control && (this.control.valueAccessor = this);
+
 
     this.errorMessages.set('required', () => `${this.label} is required.`);
     this.errorMessages.set(

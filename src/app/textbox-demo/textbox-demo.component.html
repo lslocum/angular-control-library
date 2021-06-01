@@ -139,15 +139,22 @@
 </div>
 
 <h1>Disabled</h1>
+<input
+  type="checkbox"
+  id="disableToggle"
+  name="disableToggle"
+  [value]="disableControl"
+  (click)="disableControl()"
+/>
+<label for="disableToggle">Enable/Disable</label>
 <div [formGroup]="disabledFormGroup" class="form-group">
   <lib-textbox
     [formControlName]="formControlName"
-    id="textboxRequired"
+    id="textboxDisabled"
     [name]="formControlName"
     [label]="label"
     [placeholder]="placeholder"
     [required]="false"
-    [disabled]="true"
   >
   </lib-textbox>
 </div>
@@ -159,7 +166,7 @@
     <br />
     <label>required:</label><span> false</span>
     <br />
-    <label>disabled:</label><span> true</span>
+    <label>disabled:</label><span> {{ disabledControl }}</span>
     <br />
     <label>minlength:</label><span> n/a</span>
     <br />

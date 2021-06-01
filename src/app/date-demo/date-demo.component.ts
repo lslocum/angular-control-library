@@ -16,6 +16,7 @@ export class DateDemoComponent implements OnInit {
   placeholder = 'Enter date';
   date = new Date('10/27/2020');
 
+  disabledControl = true;
 
   ngOnInit(): void {
     this.formGroupWithInitialValue = new FormGroup({
@@ -36,6 +37,16 @@ export class DateDemoComponent implements OnInit {
         disabled: true,
       }),
     });
+  }
+
+  disableControl(): void {
+    if (this.disabledControl) {
+      this.disabledFormGroup.get('date').enable();
+    } else {
+      this.disabledFormGroup.get('date').disable();
+    }
+
+    this.disabledControl = !this.disabledControl;
   }
 }
 
