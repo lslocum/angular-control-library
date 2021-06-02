@@ -23,18 +23,20 @@
     color: white;
     font-weight: 400;
     font-size: 2.5rem;
-    margin-top: 2rem;
     text-align: center;
   }
 
-  .take-up-space{
+  .take-up-space {
     background-color: white;
     height: 50px;
     width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
   }
 
   .app-outlet {
-    padding-top: 150px;
+    padding-top: 160px;
   }
 
   nav {

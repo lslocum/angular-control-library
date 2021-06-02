@@ -19,6 +19,23 @@ h2 {
   color: coral;
 }
 
+label {
+  margin-right: 10px;
+}
+
+input, .lib-select  {
+  border: none;
+  border-bottom: solid 1px #000;
+  font-size: inherit;
+  line-height: 1;
+  padding: 0.25rem 0;
+
+  &:focus {
+    outline: none;
+    border-width: 2px;
+  }
+}
+
 .form-group {
   margin: 15px;
 }
@@ -32,6 +49,7 @@ h2 {
   label {
     font-weight: 300;
   }
+
   span {
     font-weight: 500;
   }

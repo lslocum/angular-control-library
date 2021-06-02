@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PhoneDemoComponent } from './phone-demo.component';
 
-const routes: Routes = [{ path: '', component: PhoneDemoComponent }];
+const routes: Routes = [{ path: ':library', component: PhoneDemoComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

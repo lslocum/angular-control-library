@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SelectDemoComponent } from './select-demo.component';
 
-const routes: Routes = [{ path: '', component: SelectDemoComponent }];
+const routes: Routes = [{ path: ':library', component: SelectDemoComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
