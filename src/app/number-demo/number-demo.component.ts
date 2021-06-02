@@ -18,10 +18,7 @@ export class NumberDemoComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      number: new FormControl(22, [
-        Validators.min(this.min),
-        Validators.max(this.max),
-      ]),
+      number: new FormControl(22, [Validators.min(this.min), Validators.max(this.max)]),
     });
   }
 
@@ -39,9 +36,7 @@ export class NumberDemoComponent implements OnInit {
     if (!value) {
       this.formGroup.get(this.formControlName).clearValidators();
     } else {
-      this.formGroup
-        .get(this.formControlName)
-        .setValidators(Validators.required);
+      this.formGroup.get(this.formControlName).setValidators(Validators.required);
     }
     this.formGroup.get(this.formControlName).updateValueAndValidity();
 
@@ -66,6 +61,5 @@ export class NumberDemoComponent implements OnInit {
 
   updateStep(value: string) {
     this.step = +value;
-    console.log('updateStep', this.step);
   }
 }

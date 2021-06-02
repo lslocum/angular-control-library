@@ -1,46 +1,66 @@
 <h1>Button</h1>
-<app-control-options [disabled]="disabled" (disabledToggled)="toggleDisabled($event)"></app-control-options>
+<div *ngIf="selectedLibrary$ | async as selectedLibrary">
+  <ng-container *ngIf="selectedLibrary === 'HTML'">
+    <app-control-options [disabled]="disabled" (disabledToggled)="toggleDisabled($event)"></app-control-options>
 
-<div style="display: flex; gap:45px;">
-  <div>
-    <h2>Primary</h2>
-    <lib-button id="primaryBtn" type="primary" [disabled]="disabled" (clicked)="buttonClicked()"
-      >Click Me</lib-button
-    >
-  </div>
+    <div style="display: flex; gap: 45px">
+      <div>
+        <h2>Primary</h2>
+        <lib-button id="primaryBtn" type="primary" [disabled]="disabled" (clicked)="buttonClicked()">
+          Click Me
+        </lib-button>
+      </div>
 
-  <div>
-    <h2>Secondary</h2>
-    <lib-button id="secondaryBtn" type="secondary" [disabled]="disabled" (clicked)="buttonClicked()"
-      >No! Click Me</lib-button
-    >
-  </div>
+      <div>
+        <h2>Secondary</h2>
+        <lib-button id="secondaryBtn" type="secondary" [disabled]="disabled" (clicked)="buttonClicked()">
+          No! Click Me
+        </lib-button>
+      </div>
 
-  <div>
-    <h2>Flat</h2>
-    <lib-button id="flatBtn" type="flat" [disabled]="disabled" (clicked)="buttonClicked()"
-      >Do what you will</lib-button
-    >
-  </div>
+      <div>
+        <h2>Flat</h2>
+        <lib-button id="flatBtn" type="flat" [disabled]="disabled" (clicked)="buttonClicked()">
+          Do what you will
+        </lib-button>
+      </div>
 
-  <div>
-    <h2>Icon</h2>
-    <lib-button id="iconBtn" type="icon" [disabled]="disabled" (clicked)="buttonClicked()"
-      >🚀</lib-button
-    >
-  </div>
+      <div>
+        <h2>Icon</h2>
+        <lib-button id="iconBtn" type="icon" [disabled]="disabled" (clicked)="buttonClicked()">🚀</lib-button>
+      </div>
 
-  <div>
-    <h2>Fab</h2>
-    <lib-button id="fabBtn" type="fab" [disabled]="disabled" (clicked)="buttonClicked()">
-      <mat-icon>add</mat-icon>
-    </lib-button>
-  </div>
+      <div>
+        <h2>Fab</h2>
+        <lib-button id="fabBtn" type="fab" [disabled]="disabled" (clicked)="buttonClicked()">
+          <mat-icon>add</mat-icon>
+        </lib-button>
+      </div>
 
-  <div>
-    <h2>Mini Fab</h2>
-    <lib-button id="miniFabBtn" type="mini-fab" [disabled]="disabled" (clicked)="buttonClicked()">
-      <mat-icon>favorite</mat-icon>
-    </lib-button>
-  </div>
+      <div>
+        <h2>Mini Fab</h2>
+        <lib-button id="miniFabBtn" type="mini-fab" [disabled]="disabled" (clicked)="buttonClicked()">
+          <mat-icon>favorite</mat-icon>
+        </lib-button>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="selectedLibrary === 'Material'">
+    <app-control-options
+      [disabled]="disabled"
+      [color]="color"
+      [buttonType]="type"
+      (disabledToggled)="toggleDisabled($event)"
+      (colorUpdated)="colorUpdated($event)"
+      (buttonTypeUpdated)="buttonTypeUpdated($event)"
+    ></app-control-options>
+
+    <matti-button id="primaryBtn" [type]="type" [color]="color" [disabled]="disabled" (clicked)="buttonClicked()">
+      <ng-container *ngIf="type !== 'icon' && type !== 'fab' && type !== 'mini-fab'">Click Me</ng-container>
+      <ng-container *ngIf="type === 'icon'"><mat-icon>home</mat-icon></ng-container>
+      <ng-container *ngIf="type === 'fab'"><mat-icon>save</mat-icon></ng-container>
+      <ng-container *ngIf="type === 'mini-fab'"><mat-icon>delete</mat-icon></ng-container>
+    </matti-button>
+  </ng-container>
 </div>

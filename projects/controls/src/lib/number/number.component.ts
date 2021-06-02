@@ -40,9 +40,7 @@ export class NumberComponent implements ControlValueAccessor {
     if (this.control) {
       const { errors } = this.control;
       errorsToShow = Object.keys(errors).map((key) =>
-        this.errorMessages.has(key)
-          ? this.errorMessages.get(key)()
-          : <string>errors[key] || key
+        this.errorMessages.has(key) ? this.errorMessages.get(key)() : <string>errors[key] || key
       );
     }
 
@@ -53,23 +51,8 @@ export class NumberComponent implements ControlValueAccessor {
     this.control && (this.control.valueAccessor = this);
 
     this.errorMessages.set('required', () => `${this.label} is required.`);
-    this.errorMessages.set(
-      'min',
-      () => `Please enter a number >= than${this.min}.`
-    );
-    this.errorMessages.set(
-      'max',
-      () => `Please enter a number <= than ${this.max}.`
-    );
-  }
-
-  ngOnInit(){
-    console.log('step on init', this.step);
-  }
-
-  ngOnChanges(changes){
-    console.log('changes', changes);
-    console.log('step on changes', this.step);
+    this.errorMessages.set('min', () => `Please enter a number >= than${this.min}.`);
+    this.errorMessages.set('max', () => `Please enter a number <= than ${this.max}.`);
   }
 
   registerOnChange(fn: any): void {

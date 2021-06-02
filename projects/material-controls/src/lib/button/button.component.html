@@ -1,0 +1,87 @@
+<button
+  *ngIf="!type"
+  mat-button
+  [id]="id"
+  [color]="color"
+  [disabled]="disabled"
+  [ngClass]="type"
+  (click)="handleOnClick()"
+>
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</button>
+
+<button
+  *ngIf="type === 'raised'"
+  mat-raised-button
+  [id]="id"
+  [color]="color"
+  [disabled]="disabled"
+  [ngClass]="type"
+  (click)="handleOnClick()"
+>
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</button>
+
+<button
+  *ngIf="type === 'stroked'"
+  mat-stroked-button
+  [id]="id"
+  [color]="color"
+  [disabled]="disabled"
+  [ngClass]="type"
+  (click)="handleOnClick()"
+>
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</button>
+
+<button
+  *ngIf="type === 'flat'"
+  mat-flat-button
+  [id]="id"
+  [color]="color"
+  [disabled]="disabled"
+  [ngClass]="type"
+  (click)="handleOnClick()"
+>
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</button>
+
+<button
+  *ngIf="type === 'icon'"
+  mat-icon-button
+  [id]="id"
+  [color]="color"
+  [disabled]="disabled"
+  [ngClass]="type"
+  (click)="handleOnClick()"
+>
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</button>
+
+<button
+  *ngIf="type === 'fab'"
+  mat-fab
+  [id]="id"
+  [color]="color"
+  [disabled]="disabled"
+  [ngClass]="type"
+  (click)="handleOnClick()"
+>
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</button>
+
+<button
+  *ngIf="type === 'mini-fab'"
+  mat-mini-fab
+  [id]="id"
+  [color]="color"
+  [disabled]="disabled"
+  [ngClass]="type"
+  (click)="handleOnClick()"
+>
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</button>
+
+<ng-template #content>
+  <ng-content></ng-content>
+</ng-template>

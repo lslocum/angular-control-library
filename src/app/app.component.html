@@ -1,4 +1,4 @@
-<div class="app">
+<div class="app" *ngIf="selectedLibrary$ | async as selectedLibrary">
   <header class="header">
     <img class="logo" src="../assets/logo.svg" [routerLink]="['/']" />
     <h1>Angular Reactive Form Controls</h1>
@@ -8,8 +8,8 @@
         <select
           class="lib-select"
           name="library-selector"
-          (change)="setControlLibrary($event)"
-          [(value)]="selectedLibrary"
+          [value]="selectedLibrary"
+          (change)="updateControlLibrary($event)"
         >
           <ng-container *ngFor="let library of controlLibraries">
             <option [value]="library">{{ library }}</option>
@@ -19,18 +19,18 @@
     </div>
   </header>
   <nav class="app-outlet">
-    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./button', selectedLibrary]">Button</a>
-    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./checkbox', selectedLibrary]">Checkbox</a>
-    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./date', selectedLibrary]">Date</a>
-    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./email', selectedLibrary]">Email</a>
-    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./number', selectedLibrary]">Number</a>
-    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./password', selectedLibrary]">Password</a>
-    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./phone', selectedLibrary]">Phone</a>
-    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./radio', selectedLibrary]">Radio</a>
-    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./select', selectedLibrary]">Select</a>
-    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./textarea', selectedLibrary]">Textarea</a>
-    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./textbox', selectedLibrary]">Textbox</a>
-    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./time', selectedLibrary]">Time</a>
+    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./button']">Button</a>
+    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./checkbox']">Checkbox</a>
+    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./date']">Date</a>
+    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./email']">Email</a>
+    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./number']">Number</a>
+    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./password']">Password</a>
+    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./phone']">Phone</a>
+    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./radio']">Radio</a>
+    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./select']">Select</a>
+    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./textarea']">Textarea</a>
+    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./textbox']">Textbox</a>
+    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./time']">Time</a>
   </nav>
   <main class="app-outlet">
     <router-outlet></router-outlet>

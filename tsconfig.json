@@ -7,6 +7,10 @@
       "controls": [
         "dist/controls/controls",
         "dist/controls"
+      ],
+      "material-controls": [
+        "dist/material-controls/material-controls",
+        "dist/material-controls"
       ]
     },
     "outDir": "./dist/out-tsc",

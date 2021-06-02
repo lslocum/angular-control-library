@@ -4,13 +4,7 @@
   <!-- 1 -->
   <span *ngIf="label !== undefined">
     <label for="label">Label</label>
-    <input
-      type="text"
-      id="label"
-      name="label"
-      [(value)]="label"
-      (change)="updateLabel($event)"
-    />
+    <input type="text" id="label" name="label" [(value)]="label" (change)="updateLabel($event)" />
   </span>
   <!-- 2 -->
   <span *ngIf="placeholder !== undefined">
@@ -27,13 +21,7 @@
   <!-- 3 -->
   <span *ngIf="minlength !== undefined">
     <label for="minlength">Min Length</label>
-    <input
-      type="number"
-      id="minlength"
-      name="minlength"
-      [(value)]="minlength"
-      (change)="updateMinLength($event)"
-    />
+    <input type="number" id="minlength" name="minlength" [(value)]="minlength" (change)="updateMinLength($event)" />
   </span>
   <!-- 1 -->
   <span *ngIf="required !== undefined">
@@ -49,13 +37,7 @@
   <!-- 2 -->
   <span *ngIf="pattern !== undefined">
     <label for="pattern">Pattern</label>
-    <input
-      type="text"
-      id="pattern"
-      name="pattern"
-      [(value)]="pattern"
-      (change)="updatePattern($event)"
-    />
+    <input type="text" id="pattern" name="pattern" [(value)]="pattern" (change)="updatePattern($event)" />
   </span>
   <span *ngIf="requireLowerCase !== undefined">
     <input
@@ -70,13 +52,7 @@
   <!-- 3 -->
   <span *ngIf="maxlength !== undefined">
     <label for="maxlength">Max Length</label>
-    <input
-      type="number"
-      id="maxlength"
-      name="maxlength"
-      [(value)]="maxlength"
-      (change)="updateMaxLength($event)"
-    />
+    <input type="number" id="maxlength" name="maxlength" [(value)]="maxlength" (change)="updateMaxLength($event)" />
   </span>
   <!-- 1 -->
   <span *ngIf="disabled !== undefined">
@@ -114,34 +90,17 @@
 
   <span *ngIf="cols !== undefined">
     <label for="cols">Number of Columns</label>
-    <input
-      type="number"
-      id="cols"
-      name="cols"
-      [(value)]="cols"
-      (click)="updateCols($event)"
-    />
+    <input type="number" id="cols" name="cols" [(value)]="cols" (click)="updateCols($event)" />
   </span>
 
   <span *ngIf="rows !== undefined">
     <label for="rows">Number of Rows</label>
-    <input
-      type="number"
-      id="rows"
-      name="rows"
-      [(value)]="rows"
-      (click)="updateRows($event)"
-    />
+    <input type="number" id="rows" name="rows" [(value)]="rows" (click)="updateRows($event)" />
   </span>
 
   <span *ngIf="wrap !== undefined">
     <label for="wrap">Wrap</label>
-    <select
-      id="wrap"
-      name="wrap"
-      [(value)]="wrap"
-      (change)="updateWrap($event)"
-    >
+    <select id="wrap" name="wrap" [(value)]="wrap" (change)="updateWrap($event)">
       <option value="hard">Hard</option>
       <option value="soft">Soft</option>
     </select>
@@ -149,13 +108,29 @@
 
   <span *ngIf="step !== undefined">
     <label for="step">Step</label>
-    <input
-      type="number"
-      id="step"
-      name="step"
-      [(value)]="step"
-      (change)="updateStep($event)"
-    />
+    <input type="number" id="step" name="step" [(value)]="step" (change)="updateStep($event)" />
+  </span>
+
+  <span *ngIf="color !== undefined">
+    <label for="color">Color</label>
+    <select id="color" name="color" [(value)]="color" (change)="updateColor($event)">
+      <option value="primary">Primary</option>
+      <option value="accent">Accent</option>
+      <option value="warn">Warn</option>
+    </select>
+  </span>
+
+  <span *ngIf="buttonType !== undefined">
+    <label for="buttonType">Button Type</label>
+    <select id="buttonType" name="buttonType" [(value)]="buttonType" (change)="updateButtonType($event)">
+      <option value=""></option>
+      <option value="raised">Raised</option>
+      <option value="flat">Flat</option>
+      <option value="stroked">Stroked</option>
+      <option value="icon">Icon</option>
+      <option value="fab">Fab</option>
+      <option value="mini-fab">Mini Fab</option>
+    </select>
   </span>
 </div>
 

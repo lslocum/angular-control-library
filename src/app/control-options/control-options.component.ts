@@ -20,6 +20,8 @@ export class ControlOptionsComponent {
   @Input() rows?: number;
   @Input() wrap?: 'soft' | 'hard';
   @Input() step?: number;
+  @Input() color?: 'primary'|'accent'|'warn';
+  @Input() buttonType?: 'raised' | 'flat' | 'stroked' | 'icon' | 'fab' | 'mini-fab';
 
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
@@ -35,6 +37,8 @@ export class ControlOptionsComponent {
   @Output() rowsUpdated = new EventEmitter<number>();
   @Output() wrapUpdated = new EventEmitter<string>();
   @Output() stepUpdated = new EventEmitter<number>();
+  @Output() colorUpdated = new EventEmitter<string>();
+  @Output() buttonTypeUpdated = new EventEmitter<string>();
 
   disableControl(event): void {
     this.disabled = !this.disabled;
@@ -95,5 +99,14 @@ export class ControlOptionsComponent {
 
   updateStep(event) {
     this.stepUpdated.emit(event.target.value);
+  }
+
+  updateColor(event) {
+    this.colorUpdated.emit(event.target.value);
+    console.log('color updated', event.target.value)
+  }
+
+  updateButtonType(event) {
+    this.buttonTypeUpdated.emit(event.target.value);
   }
 }

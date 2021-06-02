@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ButtonDemoRoutingModule } from './button-demo-routing.module';
 import { ButtonDemoComponent } from './button-demo.component';
 import { ButtonModule } from 'projects/controls/src/lib/button/button.module';
+import { ButtonModule as MaterialButtonModule } from 'projects/material-controls/src/lib/button/button.module';
 import { ControlOptionsModule } from '../control-options/control-options.module';
 
 @NgModule({
@@ -14,6 +15,7 @@ import { ControlOptionsModule } from '../control-options/control-options.module'
     MatIconModule,
     ButtonDemoRoutingModule,
     ButtonModule,
+    MaterialButtonModule,
     ControlOptionsModule,
   ],
 })
