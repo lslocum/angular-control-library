@@ -1,35 +1,49 @@
-<h1>Checkbox</h1>
-<app-control-options
-  [label]="label"
-  [disabled]="disabled"
-  (labelUpdated)="updateLabel($event)"
-  (disabledToggled)="disableControl($event)"
-
-></app-control-options>
-
-<div [formGroup]="formGroup" class="form-group">
-  <lib-checkbox
-    [formControlName]="formControlName"
-    id="checkboxWithValue"
-    [name]="formControlName"
+<div *ngIf="selectedLibrary$ | async as selectedLibrary">
+  <h1>Checkbox</h1>
+  <app-control-options
     [label]="label"
-  >
-  </lib-checkbox>
-</div>
-<div class="wrapper">
-  <div class="status">
-    <label>Form Group Status:</label
-    ><span> {{ formGroup.get(formControlName).status }}</span>
-    <br />
-    <label>Form Group Value:</label
-    ><span> {{ formGroup.value | json }}</span>
-    <br />
-    <label>Form Group Pristine:</label
-    ><span> {{ formGroup.pristine }}</span>
-    <br />
-    <label>Form Control Errors:</label
-    ><span>
-      {{ formGroup.get(formControlName).errors | json }}</span
-    >
+    [disabled]="disabled"
+    [color]="color"
+    (labelUpdated)="updateLabel($event)"
+    (disabledToggled)="disableControl($event)"
+    (colorUpdated)="colorUpdated($event)"
+  ></app-control-options>
+
+  <div [formGroup]="formGroup" class="form-group">
+    <ng-container *ngIf="selectedLibrary === 'HTML'">
+      <lib-checkbox
+        [formControlName]="formControlName"
+        id="checkboxWithValue"
+        [name]="formControlName"
+        [label]="label"
+      ></lib-checkbox>
+    </ng-container>
+
+    <ng-container *ngIf="selectedLibrary === 'Material'">
+      <matti-checkbox
+        [formControlName]="formControlName"
+        id="checkboxWithValue"
+        [name]="formControlName"
+        [label]="label"
+        [color]="color"
+      ></matti-checkbox>
+    </ng-container>
+  </div>
+  <div class="wrapper">
+    <div class="status">
+      <label>Form Group Status:</label>
+      <span>{{ formGroup.get(formControlName).status }}</span>
+      <br />
+      <label>Form Group Value:</label>
+      <span>{{ formGroup.value | json }}</span>
+      <br />
+      <label>Form Group Pristine:</label>
+      <span>{{ formGroup.pristine }}</span>
+      <br />
+      <label>Form Control Errors:</label>
+      <span>
+        {{ formGroup.get(formControlName).errors | json }}
+      </span>
+    </div>
   </div>
 </div>

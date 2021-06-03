@@ -111,7 +111,7 @@
     <input type="number" id="step" name="step" [(value)]="step" (change)="updateStep($event)" />
   </span>
 
-  <span *ngIf="color !== undefined">
+  <span *ngIf="color !== null">
     <label for="color">Color</label>
     <select id="color" name="color" [(value)]="color" (change)="updateColor($event)">
       <option value="primary">Primary</option>

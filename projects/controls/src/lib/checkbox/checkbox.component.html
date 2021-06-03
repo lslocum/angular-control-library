@@ -5,9 +5,7 @@
     [name]="name"
     [disabled]="disabled"
     [(ngModel)]="value"
-    (input)="onChange()"
     (change)="onChange()"
-    (blur)="onTouchedCallback()"
     class="my-checkbox"
   />
   <label [for]="name">{{ label }}</label>

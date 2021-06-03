@@ -4,15 +4,18 @@
     <h1>Angular Reactive Form Controls</h1>
     <div class="take-up-space">
       <div class="control-lib">
+
         <label for="library-selector">Pick Your Library</label>
         <select
           class="lib-select"
           name="library-selector"
-          [value]="selectedLibrary"
+          [value]="selectedLibraryValue"
           (change)="updateControlLibrary($event)"
         >
           <ng-container *ngFor="let library of controlLibraries">
-            <option [value]="library">{{ library }}</option>
+            <option [value]="library" [selected]="selectedLibrary === library">
+              {{ library }}
+            </option>
           </ng-container>
         </select>
       </div>

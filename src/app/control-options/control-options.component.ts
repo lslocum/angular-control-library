@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-control-options',
@@ -20,7 +21,7 @@ export class ControlOptionsComponent {
   @Input() rows?: number;
   @Input() wrap?: 'soft' | 'hard';
   @Input() step?: number;
-  @Input() color?: 'primary'|'accent'|'warn';
+  @Input() color?: ThemePalette;
   @Input() buttonType?: 'raised' | 'flat' | 'stroked' | 'icon' | 'fab' | 'mini-fab';
 
   @Output() labelUpdated = new EventEmitter<string>();
@@ -103,7 +104,6 @@ export class ControlOptionsComponent {
 
   updateColor(event) {
     this.colorUpdated.emit(event.target.value);
-    console.log('color updated', event.target.value)
   }
 
   updateButtonType(event) {

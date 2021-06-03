@@ -13,10 +13,10 @@ import { ControlOptionsModule } from '../control-options/control-options.module'
   imports: [
     CommonModule,
     MatIconModule,
+    ControlOptionsModule,
     ButtonDemoRoutingModule,
     ButtonModule,
     MaterialButtonModule,
-    ControlOptionsModule,
   ],
 })
 export class ButtonDemoModule {}
