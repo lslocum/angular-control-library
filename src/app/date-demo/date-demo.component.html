@@ -1,38 +1,55 @@
-<h1>Date</h1>
-<app-control-options
-  [label]="label"
-  [required]="required"
-  [disabled]="disabled"
-  (labelUpdated)="updateLabel($event)"
-  (disabledToggled)="disableControl($event)"
-  (requiredToggled)="toggleRequired($event)"
-
-></app-control-options>
-
-<div [formGroup]="formGroup" class="form-group">
-  <lib-date
-    [formControlName]="formControlName"
-    id="dateWithValue"
-    [name]="formControlName"
+<div *ngIf="selectedLibrary$ | async as selectedLibrary">
+  <h1>Date</h1>
+  <app-control-options
     [label]="label"
-    [required]="false"
-  >
-  </lib-date>
-</div>
-<div class="wrapper">
-  <div class="status">
-    <label>Form Group Status:</label
-    ><span> {{ formGroup.get(formControlName).status }}</span>
-    <br />
-    <label>Form Group Value:</label
-    ><span> {{ formGroup.value | json }}</span>
-    <br />
-    <label>Form Group Pristine:</label
-    ><span> {{ formGroup.pristine }}</span>
-    <br />
-    <label>Form Control Errors:</label
-    ><span>
-      {{ formGroup.get(formControlName).errors | json }}</span
-    >
+    [required]="required"
+    [disabled]="disabled"
+    [appearance]="appearance"
+    [color]="color"
+    (labelUpdated)="updateLabel($event)"
+    (disabledToggled)="disableControl($event)"
+    (requiredToggled)="toggleRequired($event)"
+    (colorUpdated)="colorUpdated($event)"
+    (appearanceUpdated)="appearanceUpdated($event)"
+  ></app-control-options>
+
+  <div [formGroup]="formGroup" class="form-group">
+    <ng-container *ngIf="selectedLibrary === 'HTML'">
+      <lib-date
+        [formControlName]="formControlName"
+        id="dateWithValue"
+        [name]="formControlName"
+        [label]="label"
+        [required]="required"
+      ></lib-date>
+    </ng-container>
+
+    <ng-container *ngIf="selectedLibrary === 'Material'">
+      <matti-date
+        [formControlName]="formControlName"
+        id="dateWithValue"
+        [name]="formControlName"
+        [label]="label"
+        [required]="required"
+        [appearance]="appearance"
+      ></matti-date>
+    </ng-container>
+  </div>
+  <div class="wrapper">
+    <div class="status">
+      <label>Form Group Status:</label>
+      <span>{{ formGroup.get(formControlName).status }}</span>
+      <br />
+      <label>Form Group Value:</label>
+      <span>{{ formGroup.value | json }}</span>
+      <br />
+      <label>Form Group Pristine:</label>
+      <span>{{ formGroup.pristine }}</span>
+      <br />
+      <label>Form Control Errors:</label>
+      <span>
+        {{ formGroup.get(formControlName).errors | json }}
+      </span>
+    </div>
   </div>
 </div>

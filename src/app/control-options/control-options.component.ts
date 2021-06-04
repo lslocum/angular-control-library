@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-control-options',
@@ -23,6 +24,7 @@ export class ControlOptionsComponent {
   @Input() step?: number;
   @Input() color?: ThemePalette;
   @Input() buttonType?: 'raised' | 'flat' | 'stroked' | 'icon' | 'fab' | 'mini-fab';
+  @Input() appearance?: MatFormFieldAppearance;
 
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
@@ -38,8 +40,9 @@ export class ControlOptionsComponent {
   @Output() rowsUpdated = new EventEmitter<number>();
   @Output() wrapUpdated = new EventEmitter<string>();
   @Output() stepUpdated = new EventEmitter<number>();
-  @Output() colorUpdated = new EventEmitter<string>();
-  @Output() buttonTypeUpdated = new EventEmitter<string>();
+  @Output() colorUpdated = new EventEmitter<ThemePalette>();
+  @Output() buttonTypeUpdated = new EventEmitter<string>();  
+  @Output() appearanceUpdated = new EventEmitter<MatFormFieldAppearance>();
 
   disableControl(event): void {
     this.disabled = !this.disabled;
@@ -108,5 +111,9 @@ export class ControlOptionsComponent {
 
   updateButtonType(event) {
     this.buttonTypeUpdated.emit(event.target.value);
+  }
+
+  updateAppearance(event) {
+    this.appearanceUpdated.emit(event.target.value);
   }
 }

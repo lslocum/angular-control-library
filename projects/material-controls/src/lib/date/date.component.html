@@ -1,0 +1,19 @@
+<mat-form-field [appearance]="appearance">
+  <mat-label class="label">{{ label }}</mat-label>
+  <input
+    matInput
+    [matDatepicker]="picker"
+    [id]="id"
+    [name]="name"
+    [disabled]="disabled"
+    [required]="required"
+    [(ngModel)]="value"
+    (input)="onChange()"
+    (change)="onChange()"
+    (blur)="onTouchedCallback()"
+  />
+
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker [color]="color"></mat-datepicker>
+  <mat-error>{{ label }} is required.</mat-error>
+</mat-form-field>
