@@ -1,0 +1,9 @@
+.vertical {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.horizontal {
+  display: flex;
+  flex-flow: row wrap;
+}

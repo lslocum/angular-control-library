@@ -9,3 +9,4 @@ export * from './lib/email/email.module';
 export * from './lib/number/number.module';
 export * from './lib/password/password.module';
 export * from './lib/phone/phone.module';
+export * from './lib/radio/radio.module';

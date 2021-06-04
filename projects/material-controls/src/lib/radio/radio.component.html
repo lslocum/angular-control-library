@@ -1,0 +1,19 @@
+<label class="label">{{ label }}</label>
+
+<mat-radio-group
+  [(ngModel)]="value"
+  [id]="id"
+  [name]="name"
+  [disabled]="disabled"
+  [required]="required"
+  [color]="color"
+  [labelPosition]="labelPosition"
+  [ngClass]="direction"
+  (input)="onChange()"
+  (change)="onChange()"
+  (blur)="onTouchedCallback()"
+>
+  <mat-radio-button *ngFor="let option of options" [value]="option[valueProperty]" [color]="color">
+    {{ option[nameProperty] }}
+  </mat-radio-button>
+</mat-radio-group>

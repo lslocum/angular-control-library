@@ -1,47 +1,59 @@
-<h1>Radio</h1>
-<app-control-options
-  [label]="label"
-  [disabled]="disabled"
-  (labelUpdated)="updateLabel($event)"
-  (disabledToggled)="disableControl($event)"
-
-></app-control-options>
-
-<div [formGroup]="formGroup" class="form-group">
-  <lib-radio
-    [formControlName]="formControlName"
-    id="radioWithValue"
-    [name]="formControlName"
+<div *ngIf="selectedLibrary$ | async as selectedLibrary">
+  <h1>Radio</h1>
+  <app-control-options
     [label]="label"
-    [options]="options"
-    [nameProperty]="nameProperty"
-    [valueProperty]="valueProperty"
-  >
-  </lib-radio>
-</div>
-<div class="wrapper">
-  <div class="options">
-    <label>label:</label><span> {{ label }}</span>
-    <br />
-    <label>disabled:</label><span> false</span>
-    <br />
-    <label>options:</label><span> {{ options | json }}</span>
-    <br />
-    <label>nameProperty:</label><span> {{ nameProperty }}</span>
-    <br />
-    <label>valueProperty:</label><span> {{ valueProperty }}</span>
-  </div>
-  <div class="status">
-    <label>Form Group Status:</label
-    ><span> {{ formGroup.status }}</span>
-    <br />
-    <label>Form Group Value:</label
-    ><span> {{ formGroup.value | json }}</span>
-    <br />
-    <label>Form Group Pristine:</label
-    ><span> {{ formGroup.pristine }}</span>
-    <br />
-    <label>Form Control Errors:</label
-    ><span> {{ formGroup.get(formControlName).errors | json }}</span>
+    [disabled]="disabled"
+    [labelPosition]="labelPosition"
+    [color]="color"
+    [direction]="direction"
+    (labelUpdated)="updateLabel($event)"
+    (disabledToggled)="disableControl($event)"
+    (colorUpdated)="colorUpdated($event)"
+    (labelPositionUpdated)="labelPositionUpdated($event)"
+    (directionUpdated)="directionUpdated($event)"
+  ></app-control-options>
+
+  <div class="wrapper">
+    <div [formGroup]="formGroup" class="form-group">
+      <ng-container *ngIf="selectedLibrary === 'HTML'">
+        <lib-radio
+          [formControlName]="formControlName"
+          id="radioWithValue"
+          [name]="formControlName"
+          [label]="label"
+          [options]="options"
+          [nameProperty]="nameProperty"
+          [valueProperty]="valueProperty"
+        ></lib-radio>
+      </ng-container>
+      <ng-container *ngIf="selectedLibrary === 'Material'">
+        <matti-radio
+          [formControlName]="formControlName"
+          id="radioWithValue"
+          [name]="formControlName"
+          [label]="label"
+          [labelPosition]="labelPosition"
+          [color]="color"
+          [direction]="direction"
+          [options]="options"
+          [nameProperty]="nameProperty"
+          [valueProperty]="valueProperty"
+        ></matti-radio>
+      </ng-container>
+    </div>
+
+    <div class="status">
+      <label>Form Group Status:</label>
+      <span>{{ formGroup.status }}</span>
+      <br />
+      <label>Form Group Value:</label>
+      <span>{{ formGroup.value | json }}</span>
+      <br />
+      <label>Form Group Pristine:</label>
+      <span>{{ formGroup.pristine }}</span>
+      <br />
+      <label>Form Control Errors:</label>
+      <span>{{ formGroup.get(formControlName).errors | json }}</span>
+    </div>
   </div>
 </div>

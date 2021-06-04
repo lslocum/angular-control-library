@@ -1,8 +1,10 @@
 import { Component, Input, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { ThemePalette } from '@angular/material/core';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 @Component({
-  selector: 'lib-radio',
+  selector: 'matti-radio',
   templateUrl: './radio.component.html',
   styleUrls: ['./radio.component.scss'],
 })
@@ -10,9 +12,13 @@ export class RadioComponent implements ControlValueAccessor {
   @Input() id: string;
   @Input() name: string;
   @Input() label: string;
+  @Input() required: boolean;
   @Input() options: any[];
   @Input() nameProperty: string;
   @Input() valueProperty: string;
+  @Input() color: ThemePalette;
+  @Input() labelPosition: 'before' | 'after';
+  @Input() direction: 'vertical' | 'horizontal';
 
   disabled: boolean = false;
   value = '';

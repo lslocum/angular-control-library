@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ThemePalette } from '@angular/material/core';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { LibraryService } from '../library.service';
 
 @Component({
   selector: 'app-radio-demo',
   templateUrl: './radio-demo.component.html',
 })
 export class RadioDemoComponent implements OnInit {
+  selectedLibrary$: Observable<string>;
   formGroup: FormGroup;
   formControlName = 'radio';
   disabled = false;
-  label = 'Fav. Friends Character';
+  label = 'Favorite Friend';
+  labelPosition: 'before' | 'after';
+  color: ThemePalette;
+  direction: 'vertical' | 'horizontal';
 
   options = [
     { name: 'Joey', id: '1' },
@@ -22,6 +31,21 @@ export class RadioDemoComponent implements OnInit {
   nameProperty = 'name';
   valueProperty = 'id';
 
+  constructor(private libraryService: LibraryService) {
+    this.selectedLibrary$ = this.libraryService.selectedLibrary.pipe(
+      tap((lib) => {
+        if (lib === 'Material') {
+          this.color = 'accent';
+          this.labelPosition = 'before';
+          this.direction = 'vertical';
+        } else{
+          this.color = undefined;
+          this.labelPosition = undefined;
+          this.direction = undefined;
+        }
+      })
+    );
+  }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -41,5 +65,17 @@ export class RadioDemoComponent implements OnInit {
 
   updateLabel(value: string) {
     this.label = value;
+  }
+
+  colorUpdated(value): void {
+    this.color = value;
+  }
+
+  labelPositionUpdated(value): void {
+    this.labelPosition = value;
+  }
+
+  directionUpdated(value): void {
+    this.direction = value;
   }
 }

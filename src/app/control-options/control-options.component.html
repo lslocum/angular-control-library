@@ -131,6 +131,22 @@
     </select>
   </span>
 
+  <span *ngIf="labelPosition !== undefined">
+    <label for="labelPosition">Label Position</label>
+    <select id="labelPosition" name="labelPosition" [(value)]="labelPosition" (change)="updateLabelPosition($event)">
+      <option value="before">Before</option>
+      <option value="after">After</option>
+    </select>
+  </span>
+
+  <span *ngIf="direction !== undefined">
+    <label for="direction">Direction</label>
+    <select id="direction" name="direction" [(value)]="direction" (change)="updateDirection($event)">
+      <option value="vertical">Vertical</option>
+      <option value="horizontal">Horizontal</option>
+    </select>
+  </span>
+
   <span *ngIf="buttonType !== undefined">
     <label for="buttonType">Button Type</label>
     <select id="buttonType" name="buttonType" [(value)]="buttonType" (change)="updateButtonType($event)">

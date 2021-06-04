@@ -25,6 +25,8 @@ export class ControlOptionsComponent {
   @Input() color?: ThemePalette;
   @Input() buttonType?: 'raised' | 'flat' | 'stroked' | 'icon' | 'fab' | 'mini-fab';
   @Input() appearance?: MatFormFieldAppearance;
+  @Input() labelPosition?: 'before' | 'after';
+  @Input() direction?: 'vertical' | 'horizontal';
 
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
@@ -41,8 +43,10 @@ export class ControlOptionsComponent {
   @Output() wrapUpdated = new EventEmitter<string>();
   @Output() stepUpdated = new EventEmitter<number>();
   @Output() colorUpdated = new EventEmitter<ThemePalette>();
-  @Output() buttonTypeUpdated = new EventEmitter<string>();  
+  @Output() buttonTypeUpdated = new EventEmitter<string>();
   @Output() appearanceUpdated = new EventEmitter<MatFormFieldAppearance>();
+  @Output() labelPositionUpdated = new EventEmitter<'before' | 'after'>();
+  @Output() directionUpdated = new EventEmitter<'vertical' | 'horizontal'>();
 
   disableControl(event): void {
     this.disabled = !this.disabled;
@@ -115,5 +119,13 @@ export class ControlOptionsComponent {
 
   updateAppearance(event) {
     this.appearanceUpdated.emit(event.target.value);
+  }
+
+  updateLabelPosition(event) {
+    this.labelPositionUpdated.emit(event.target.value);
+  }
+
+  updateDirection(event) {
+    this.directionUpdated.emit(event.target.value);
   }
 }
