@@ -27,6 +27,7 @@ export class ControlOptionsComponent {
   @Input() appearance?: MatFormFieldAppearance;
   @Input() labelPosition?: 'before' | 'after';
   @Input() direction?: 'vertical' | 'horizontal';
+  @Input() disableOptionCentering?: boolean;
 
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
@@ -47,6 +48,7 @@ export class ControlOptionsComponent {
   @Output() appearanceUpdated = new EventEmitter<MatFormFieldAppearance>();
   @Output() labelPositionUpdated = new EventEmitter<'before' | 'after'>();
   @Output() directionUpdated = new EventEmitter<'vertical' | 'horizontal'>();
+  @Output() disableOptionCenteringUpdated = new EventEmitter<boolean>();
 
   disableControl(event): void {
     this.disabled = !this.disabled;
@@ -127,5 +129,10 @@ export class ControlOptionsComponent {
 
   updateDirection(event) {
     this.directionUpdated.emit(event.target.value);
+  }
+
+  updateDisableOptionCentering(event) {
+    this.disableOptionCenteringUpdated.emit(!this.disableOptionCentering);
+    this.disableOptionCentering = !this.disableOptionCentering;
   }
 }

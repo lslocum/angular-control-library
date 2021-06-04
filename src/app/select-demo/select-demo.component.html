@@ -1,35 +1,61 @@
-<h1>Select</h1>
-<app-control-options
-  [label]="label"
-  [disabled]="disabled"
-  (labelUpdated)="updateLabel($event)"
-  (disabledToggled)="disableControl($event)"
-></app-control-options>
-
-<div [formGroup]="formGroup" class="form-group">
-  <lib-select
-    formControlName="select"
-    id="selectWithValue"
-    name="select"
+<div *ngIf="selectedLibrary$ | async as selectedLibrary">
+  <h1>Select</h1>
+  <app-control-options
     [label]="label"
-    [options]="options"
-    [nameProperty]="nameProperty"
-    [valueProperty]="valueProperty"
-  >
-  </lib-select>
-</div>
-<div class="wrapper">
-  <div class="status">
-    <label>Form Group Status:</label
-    ><span> {{ formGroup.status }}</span>
-    <br />
-    <label>Form Group Value:</label
-    ><span> {{ formGroup.value | json }}</span>
-    <br />
-    <label>Form Group Pristine:</label
-    ><span> {{ formGroup.pristine }}</span>
-    <br />
-    <label>Form Control Errors:</label
-    ><span> {{ formGroup.get(formControlName).errors | json }}</span>
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [appearance]="appearance"
+    [disableOptionCentering]="disableOptionCentering"
+    [multiSelect]="multiple"
+    (labelUpdated)="updateLabel($event)"
+    (placeholderUpdated)="updatePlaceholder($event)"
+    (disabledToggled)="disableControl($event)"
+    (appearanceUpdated)="appearanceUpdated($event)"
+    (disableOptionCenteringUpdated)="disableOptionCenteringUpdated($event)"
+    (multiSelectToggled)="multiSelectToggled($event)"
+  ></app-control-options>
+
+  <div class="wrapper">
+    <div [formGroup]="formGroup" class="form-group">
+      <ng-container *ngIf="selectedLibrary === 'HTML'">
+        <lib-select
+          formControlName="select"
+          id="selectWithValue"
+          name="select"
+          [label]="label"
+          [options]="options"
+          [nameProperty]="nameProperty"
+          [valueProperty]="valueProperty"
+        ></lib-select>
+      </ng-container>
+      <ng-container *ngIf="selectedLibrary === 'Material'">
+        <matti-select
+          formControlName="select"
+          id="selectWithValue"
+          name="select"
+          [label]="label"
+          [placeholder]="placeholder"
+          [appearance]="appearance"
+          [disableOptionCentering]="disableOptionCentering"
+          [multiple]="multiple"
+          [options]="options"
+          [nameProperty]="nameProperty"
+          [valueProperty]="valueProperty"
+        ></matti-select>
+      </ng-container>
+    </div>
+    <div class="status">
+      <label>Form Group Status:</label>
+      <span>{{ formGroup.status }}</span>
+      <br />
+      <label>Form Group Value:</label>
+      <span>{{ formGroup.value | json }}</span>
+      <br />
+      <label>Form Group Pristine:</label>
+      <span>{{ formGroup.pristine }}</span>
+      <br />
+      <label>Form Control Errors:</label>
+      <span>{{ formGroup.get(formControlName).errors | json }}</span>
+    </div>
   </div>
 </div>

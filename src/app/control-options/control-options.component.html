@@ -147,6 +147,17 @@
     </select>
   </span>
 
+  <span *ngIf="disableOptionCentering !== undefined">
+    <input
+      type="checkbox"
+      id="disableOptionCentering"
+      name="disableOptionCentering"
+      [(value)]="disableOptionCentering"
+      (click)="updateDisableOptionCentering($event)"
+    />
+    <label for="disableOptionCentering">Disable Option Centering</label>
+  </span>
+
   <span *ngIf="buttonType !== undefined">
     <label for="buttonType">Button Type</label>
     <select id="buttonType" name="buttonType" [(value)]="buttonType" (change)="updateButtonType($event)">

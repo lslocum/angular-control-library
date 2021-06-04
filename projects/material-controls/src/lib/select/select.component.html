@@ -1,0 +1,19 @@
+<mat-form-field [appearance]="appearance">
+  <mat-label>{{ label }}</mat-label>
+  <mat-select
+    [id]="id"
+    [name]="name"
+    [disabled]="disabled"
+    [disableOptionCentering]="disableOptionCentering"
+    [disableRipple]="disableRipple"
+    [errorStateMatcher]="errorStateMatcher"
+    [panelClass]="panelClass"
+    [placeholder]="placeholder"
+    [required]="required"
+    [(ngModel)]="value"
+    (change)="onChange()"
+  >
+    <mat-option *ngFor="let option of options" [value]="option[valueProperty]">{{ option[nameProperty] }}</mat-option>
+  </mat-select>
+</mat-form-field>
+
