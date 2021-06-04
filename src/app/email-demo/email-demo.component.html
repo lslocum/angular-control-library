@@ -17,35 +17,35 @@
     (appearanceUpdated)="appearanceUpdated($event)"
   ></app-control-options>
 
-  <div [formGroup]="formGroup" class="form-group">
-    <ng-container *ngIf="selectedLibrary === 'HTML'">
-      <lib-email
-        [formControlName]="formControlName"
-        id="emailWithValue"
-        [name]="formControlName"
-        [label]="label"
-        [placeholder]="placeholder"
-        [required]="false"
-        [minlength]="minlength"
-        [maxlength]="maxlength"
-      ></lib-email>
-    </ng-container>
-
-    <ng-container *ngIf="selectedLibrary === 'Material'">
-      <matti-email
-        [formControlName]="formControlName"
-        id="emailWithValue"
-        [name]="formControlName"
-        [label]="label"
-        [placeholder]="placeholder"
-        [required]="required"
-        [minlength]="minlength"
-        [maxlength]="maxlength"
-        [appearance]="appearance"
-      ></matti-email>
-    </ng-container>
-  </div>
   <div class="wrapper">
+    <div [formGroup]="formGroup" class="form-group">
+      <ng-container *ngIf="selectedLibrary === 'HTML'">
+        <lib-email
+          [formControlName]="formControlName"
+          id="emailWithValue"
+          [name]="formControlName"
+          [label]="label"
+          [placeholder]="placeholder"
+          [required]="false"
+          [minlength]="minlength"
+          [maxlength]="maxlength"
+        ></lib-email>
+      </ng-container>
+
+      <ng-container *ngIf="selectedLibrary === 'Material'">
+        <matti-email
+          [formControlName]="formControlName"
+          id="emailWithValue"
+          [name]="formControlName"
+          [label]="label"
+          [placeholder]="placeholder"
+          [required]="required"
+          [minlength]="minlength"
+          [maxlength]="maxlength"
+          [appearance]="appearance"
+        ></matti-email>
+      </ng-container>
+    </div>
     <div class="status">
       <label>Form Group Status:</label>
       <span>{{ formGroup.get(formControlName).status }}</span>

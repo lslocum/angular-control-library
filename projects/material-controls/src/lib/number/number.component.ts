@@ -25,36 +25,8 @@ export class NumberComponent implements ControlValueAccessor {
   onChangeCallback = (_: any) => {};
   onTouchedCallback = () => {};
 
-  get showError(): boolean {
-    let shouldShowErrors = false;
-
-    if (this.control) {
-      const { dirty, touched, invalid } = this.control;
-      shouldShowErrors = invalid ? dirty || touched : false;
-    }
-
-    return shouldShowErrors;
-  }
-
-  get errors(): Array<string> {
-    let errorsToShow = [];
-
-    if (this.control) {
-      const { errors } = this.control;
-      errorsToShow = Object.keys(errors).map((key) =>
-        this.errorMessages.has(key) ? this.errorMessages.get(key)() : <string>errors[key] || key
-      );
-    }
-
-    return errorsToShow;
-  }
-
   constructor(@Self() @Optional() public control: NgControl) {
     this.control && (this.control.valueAccessor = this);
-
-    this.errorMessages.set('required', () => `${this.label} is required.`);
-    this.errorMessages.set('min', () => `Please enter a number >= than${this.min}.`);
-    this.errorMessages.set('max', () => `Please enter a number <= than ${this.max}.`);
   }
 
   registerOnChange(fn: any): void {
@@ -75,23 +47,5 @@ export class NumberComponent implements ControlValueAccessor {
 
   onChange() {
     this.onChangeCallback(this.value);
-  }
-
-  getErrorMessage() {
-    let errorMessage = '';
-
-    if (this.control.hasError('required')) {
-      errorMessage = `${this.label} required.`;
-    }
-
-    if (this.control.hasError('min')) {
-      errorMessage = `${this.label} must be at least ${this.min}.`;
-    }
-
-    if (this.control.hasError('max')) {
-      errorMessage = `${this.label} less than or equal to ${this.max}.`;
-    }
-
-    return errorMessage;
   }
 }

@@ -9,27 +9,28 @@
     (colorUpdated)="colorUpdated($event)"
   ></app-control-options>
 
-  <div [formGroup]="formGroup" class="form-group">
-    <ng-container *ngIf="selectedLibrary === 'HTML'">
-      <lib-checkbox
-        [formControlName]="formControlName"
-        id="checkboxWithValue"
-        [name]="formControlName"
-        [label]="label"
-      ></lib-checkbox>
-    </ng-container>
-
-    <ng-container *ngIf="selectedLibrary === 'Material'">
-      <matti-checkbox
-        [formControlName]="formControlName"
-        id="checkboxWithValue"
-        [name]="formControlName"
-        [label]="label"
-        [color]="color"
-      ></matti-checkbox>
-    </ng-container>
-  </div>
   <div class="wrapper">
+    <div [formGroup]="formGroup" class="form-group">
+      <ng-container *ngIf="selectedLibrary === 'HTML'">
+        <lib-checkbox
+          [formControlName]="formControlName"
+          id="checkboxWithValue"
+          [name]="formControlName"
+          [label]="label"
+        ></lib-checkbox>
+      </ng-container>
+
+      <ng-container *ngIf="selectedLibrary === 'Material'">
+        <matti-checkbox
+          [formControlName]="formControlName"
+          id="checkboxWithValue"
+          [name]="formControlName"
+          [label]="label"
+          [color]="color"
+        ></matti-checkbox>
+      </ng-container>
+    </div>
+
     <div class="status">
       <label>Form Group Status:</label>
       <span>{{ formGroup.get(formControlName).status }}</span>

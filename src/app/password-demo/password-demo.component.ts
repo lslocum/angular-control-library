@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { LibraryService } from '../library.service';
 
 @Component({
   selector: 'app-password',
   templateUrl: './password-demo.component.html',
 })
 export class PasswordDemoComponent implements OnInit {
+  selectedLibrary$: Observable<string>;
   formGroup: FormGroup;
-
   formControlName = 'password';
   label = 'Password';
   placeholder = 'Password';
-  title =
-    'Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters';
+  title = 'Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters';
   requireLowerCase = false;
   requireUpperCase = false;
   requireNumbers = false;
@@ -21,6 +24,7 @@ export class PasswordDemoComponent implements OnInit {
   maxlength: string = '';
   required = false;
   disabled = false;
+  appearance: MatFormFieldAppearance;
 
   passwordRequirements = {
     minlength: this.minlength,
@@ -28,8 +32,15 @@ export class PasswordDemoComponent implements OnInit {
     shouldContainLowerCase: this.requireLowerCase,
     shouldContainUpperCase: this.requireUpperCase,
     shouldContainNumbers: this.requireNumbers,
-    shouldContainSpecialCharacters: true,
   };
+
+  constructor(private libraryService: LibraryService) {
+    this.selectedLibrary$ = this.libraryService.selectedLibrary.pipe(
+      tap((lib) => {
+        lib === 'Material' ? (this.appearance = 'standard') : undefined;
+      })
+    );
+  }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -51,9 +62,7 @@ export class PasswordDemoComponent implements OnInit {
     if (!value) {
       this.formGroup.get(this.formControlName).clearValidators();
     } else {
-      this.formGroup
-        .get(this.formControlName)
-        .setValidators(Validators.required);
+      this.formGroup.get(this.formControlName).setValidators(Validators.required);
     }
     this.formGroup.get(this.formControlName).updateValueAndValidity();
 
@@ -104,5 +113,9 @@ export class PasswordDemoComponent implements OnInit {
 
   updatePlaceholder(value: string) {
     this.placeholder = value;
+  }
+
+  appearanceUpdated(value): void {
+    this.appearance = value;
   }
 }

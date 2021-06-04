@@ -15,5 +15,7 @@
     (change)="onChange()"
     (blur)="onTouchedCallback()"
   />
-  <mat-error *ngIf="control.invalid">{{ getErrorMessage() }}</mat-error>
+
+  <mat-error *ngIf="control.hasError('required')">{{ label }} required.</mat-error>
+  <mat-error *ngIf="control.hasError('minlength')">{{ label }} must be at least {{ min }}.</mat-error>
 </mat-form-field>

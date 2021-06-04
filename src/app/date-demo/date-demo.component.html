@@ -13,29 +13,30 @@
     (appearanceUpdated)="appearanceUpdated($event)"
   ></app-control-options>
 
-  <div [formGroup]="formGroup" class="form-group">
-    <ng-container *ngIf="selectedLibrary === 'HTML'">
-      <lib-date
-        [formControlName]="formControlName"
-        id="dateWithValue"
-        [name]="formControlName"
-        [label]="label"
-        [required]="required"
-      ></lib-date>
-    </ng-container>
-
-    <ng-container *ngIf="selectedLibrary === 'Material'">
-      <matti-date
-        [formControlName]="formControlName"
-        id="dateWithValue"
-        [name]="formControlName"
-        [label]="label"
-        [required]="required"
-        [appearance]="appearance"
-      ></matti-date>
-    </ng-container>
-  </div>
   <div class="wrapper">
+    <div [formGroup]="formGroup" class="form-group">
+      <ng-container *ngIf="selectedLibrary === 'HTML'">
+        <lib-date
+          [formControlName]="formControlName"
+          id="dateWithValue"
+          [name]="formControlName"
+          [label]="label"
+          [required]="required"
+        ></lib-date>
+      </ng-container>
+
+      <ng-container *ngIf="selectedLibrary === 'Material'">
+        <matti-date
+          [formControlName]="formControlName"
+          id="dateWithValue"
+          [name]="formControlName"
+          [label]="label"
+          [required]="required"
+          [appearance]="appearance"
+        ></matti-date>
+      </ng-container>
+    </div>
+
     <div class="status">
       <label>Form Group Status:</label>
       <span>{{ formGroup.get(formControlName).status }}</span>

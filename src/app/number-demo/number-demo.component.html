@@ -19,36 +19,36 @@
     (appearanceUpdated)="appearanceUpdated($event)"
   ></app-control-options>
 
-  <div [formGroup]="formGroup" class="form-group">
-    <ng-container *ngIf="selectedLibrary === 'HTML'">
-      <lib-number
-        [formControlName]="formControlName"
-        id="numberWithValue"
-        [name]="formControlName"
-        [label]="label"
-        [placeholder]="placeholder"
-        [required]="required"
-        [min]="min"
-        [max]="max"
-        [step]="step"
-      ></lib-number>
-    </ng-container>
-    <ng-container *ngIf="selectedLibrary === 'Material'">
-      <matti-number
-        [formControlName]="formControlName"
-        id="numberWithValue"
-        [name]="formControlName"
-        [label]="label"
-        [placeholder]="placeholder"
-        [required]="required"
-        [min]="min"
-        [max]="max"
-        [step]="step"
-        [appearance]="appearance"
-      ></matti-number>
-    </ng-container>
-  </div>
   <div class="wrapper">
+    <div [formGroup]="formGroup" class="form-group">
+      <ng-container *ngIf="selectedLibrary === 'HTML'">
+        <lib-number
+          [formControlName]="formControlName"
+          id="numberWithValue"
+          [name]="formControlName"
+          [label]="label"
+          [placeholder]="placeholder"
+          [required]="required"
+          [min]="min"
+          [max]="max"
+          [step]="step"
+        ></lib-number>
+      </ng-container>
+      <ng-container *ngIf="selectedLibrary === 'Material'">
+        <matti-number
+          [formControlName]="formControlName"
+          id="numberWithValue"
+          [name]="formControlName"
+          [label]="label"
+          [placeholder]="placeholder"
+          [required]="required"
+          [min]="min"
+          [max]="max"
+          [step]="step"
+          [appearance]="appearance"
+        ></matti-number>
+      </ng-container>
+    </div>
     <div class="status">
       <label>Form Group Status:</label>
       <span>{{ formGroup.get(formControlName).status }}</span>
