@@ -1,8 +1,9 @@
-import { Component, Input, Optional, Self } from '@angular/core';
+import { Component, Input, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 @Component({
-  selector: 'lib-phone',
+  selector: 'matti-phone',
   templateUrl: './phone.component.html',
   styleUrls: ['./phone.component.scss'],
 })
@@ -11,7 +12,8 @@ export class PhoneComponent implements ControlValueAccessor {
   @Input() name: string;
   @Input() label: string;
   @Input() placeholder: string = '';
-  @Input() required: boolean = false;
+  @Input() required: boolean;
+  @Input() appearance: MatFormFieldAppearance;
 
   disabled: boolean = false;
   minlength: number = 10;

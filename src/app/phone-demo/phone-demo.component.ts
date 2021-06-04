@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { LibraryService } from '../library.service';
 
 @Component({
   selector: 'app-phone-demo',
   templateUrl: './phone-demo.component.html',
 })
 export class PhoneDemoComponent implements OnInit {
+  selectedLibrary$: Observable<string>;
   formGroup: FormGroup;
   formControlName = 'phone';
   label = 'Cell Phone';
@@ -13,6 +18,15 @@ export class PhoneDemoComponent implements OnInit {
   pattern = validPhoneNumberPattern;
   required = false;
   disabled = false;
+  appearance: MatFormFieldAppearance;
+
+  constructor(private libraryService: LibraryService) {
+    this.selectedLibrary$ = this.libraryService.selectedLibrary.pipe(
+      tap((lib) => {
+        lib === 'Material' ? (this.appearance = 'standard') : undefined;
+      })
+    );
+  }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -52,6 +66,10 @@ export class PhoneDemoComponent implements OnInit {
 
   updatePlaceholder(value: string) {
     this.placeholder = value;
+  }
+
+  appearanceUpdated(value): void {
+    this.appearance = value;
   }
 }
 

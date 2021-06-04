@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import { NumberComponent } from './number.component';
+import { PhoneComponent } from './phone.component';
 
 @NgModule({
-  declarations: [NumberComponent],
+  declarations: [PhoneComponent],
   imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule],
-  exports: [NumberComponent],
+  exports: [PhoneComponent],
 })
-export class NumberModule {}
+export class PhoneModule {}

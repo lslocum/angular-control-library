@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { PhoneModule } from 'projects/controls/src/public-api';
+import { PhoneModule as MaterialPhoneModule } from 'projects/material-controls/src/public-api';
+
+import { ControlOptionsModule } from '../control-options/control-options.module';
 import { PhoneDemoRoutingModule } from './phone-demo-routing.module';
 import { PhoneDemoComponent } from './phone-demo.component';
-import { PhoneModule } from 'projects/controls/src/public-api';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ControlOptionsModule } from '../control-options/control-options.module';
 
 
 @NgModule({
@@ -17,8 +19,9 @@ import { ControlOptionsModule } from '../control-options/control-options.module'
     FormsModule,
     ReactiveFormsModule,
     PhoneDemoRoutingModule,
+    ControlOptionsModule,
     PhoneModule,
-    ControlOptionsModule
+    MaterialPhoneModule
   ]
 })
 export class PhoneDemoModule { }

@@ -1,34 +1,55 @@
-<h1>Phone</h1>
-<app-control-options
-  [label]="label"
-  [placeholder]="placeholder"
-  [required]="required"
-  [disabled]="disabled"
-  (labelUpdated)="updateLabel($event)"
-  (placeholderUpdated)="updatePlaceholder($event)"
-  (disabledToggled)="disableControl($event)"
-  (requiredToggled)="toggleRequired($event)"
-></app-control-options>
-
-<div [formGroup]="formGroup" class="form-group">
-  <lib-phone
-    [formControlName]="formControlName"
-    id="phoneWithValue"
-    name="phone"
+<div *ngIf="selectedLibrary$ | async as selectedLibrary">
+  <h1>Phone</h1>
+  <app-control-options
     [label]="label"
     [placeholder]="placeholder"
     [required]="required"
-  >
-  </lib-phone>
-</div>
-<div class="wrapper">
-  <div class="status">
-    <label>Form Group Status:</label><span> {{ formGroup.status }}</span>
-    <br />
-    <label>Form Group Value:</label><span> {{ formGroup.value | json }}</span>
-    <br />
-    <label>Form Group Pristine:</label><span> {{ formGroup.pristine }}</span>
-    <br />
-    <label>Form Control Errors:</label><span> {{ formGroup.get(formControlName).errors | json }}</span>
+    [disabled]="disabled"
+    [appearance]="appearance"
+    (labelUpdated)="updateLabel($event)"
+    (placeholderUpdated)="updatePlaceholder($event)"
+    (disabledToggled)="disableControl($event)"
+    (requiredToggled)="toggleRequired($event)"
+    (appearanceUpdated)="appearanceUpdated($event)"
+  ></app-control-options>
+
+  <div class="wrapper">
+    <div [formGroup]="formGroup" class="form-group">
+      <ng-container *ngIf="selectedLibrary === 'HTML'">
+        <lib-phone
+          [formControlName]="formControlName"
+          id="phoneWithValue"
+          name="phone"
+          [label]="label"
+          [placeholder]="placeholder"
+          [required]="required"
+        ></lib-phone>
+      </ng-container>
+
+      <ng-container *ngIf="selectedLibrary === 'Material'">
+        <matti-phone
+          [formControlName]="formControlName"
+          id="phoneWithValue"
+          name="phone"
+          [label]="label"
+          [placeholder]="placeholder"
+          [required]="required"
+          [appearance]="appearance"
+        ></matti-phone>
+      </ng-container>
+    </div>
+    <div class="status">
+      <label>Form Group Status:</label>
+      <span>{{ formGroup.status }}</span>
+      <br />
+      <label>Form Group Value:</label>
+      <span>{{ formGroup.value | json }}</span>
+      <br />
+      <label>Form Group Pristine:</label>
+      <span>{{ formGroup.pristine }}</span>
+      <br />
+      <label>Form Control Errors:</label>
+      <span>{{ formGroup.get(formControlName).errors | json }}</span>
+    </div>
   </div>
 </div>
