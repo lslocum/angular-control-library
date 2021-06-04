@@ -1,50 +1,68 @@
-<h1>Number</h1>
-<app-control-options
-  [label]="label"
-  [placeholder]="placeholder"
-  [required]="required"
-  [disabled]="disabled"
-  [minlength]="min"
-  [maxlength]="max"
-  [step]="step"
-  (labelUpdated)="updateLabel($event)"
-  (placeholderUpdated)="updatePlaceholder($event)"
-  (disabledToggled)="disableControl($event)"
-  (requiredToggled)="toggleRequired($event)"
-  (minlengthUpdated)="updateMin($event)"
-  (maxlengthUpdated)="updateMax($event)"
-  (stepUpdated)="updateStep($event)"
-
-></app-control-options>
-
-<div [formGroup]="formGroup" class="form-group">
-  <lib-number
-    [formControlName]="formControlName"
-    id="numberWithValue"
-    [name]="formControlName"
+<div *ngIf="selectedLibrary$ | async as selectedLibrary">
+  <h1>Number</h1>
+  <app-control-options
     [label]="label"
     [placeholder]="placeholder"
-    [required]="false"
-    [min]="min"
-    [max]="max"
+    [required]="required"
+    [disabled]="disabled"
+    [minlength]="min"
+    [maxlength]="max"
     [step]="step"
-  >
-  </lib-number>
-</div>
-<div class="wrapper">
-  <div class="status">
-    <label>Form Group Status:</label
-    ><span> {{ formGroup.get(formControlName).status }}</span>
-    <br />
-    <label>Form Group Value:</label
-    ><span> {{ formGroup.value | json }}</span>
-    <br />
-    <label>Form Group Pristine:</label
-    ><span> {{ formGroup.pristine }}</span>
-    <br />
-    <label>Form Control Errors:</label
-    ><span>
-      {{ formGroup.get(formControlName).errors | json }}</span
-    >
+    [appearance]="appearance"
+    (labelUpdated)="updateLabel($event)"
+    (placeholderUpdated)="updatePlaceholder($event)"
+    (disabledToggled)="disableControl($event)"
+    (requiredToggled)="toggleRequired($event)"
+    (minlengthUpdated)="updateMin($event)"
+    (maxlengthUpdated)="updateMax($event)"
+    (stepUpdated)="updateStep($event)"
+    (appearanceUpdated)="appearanceUpdated($event)"
+  ></app-control-options>
+
+  <div [formGroup]="formGroup" class="form-group">
+    <ng-container *ngIf="selectedLibrary === 'HTML'">
+      <lib-number
+        [formControlName]="formControlName"
+        id="numberWithValue"
+        [name]="formControlName"
+        [label]="label"
+        [placeholder]="placeholder"
+        [required]="required"
+        [min]="min"
+        [max]="max"
+        [step]="step"
+      ></lib-number>
+    </ng-container>
+    <ng-container *ngIf="selectedLibrary === 'Material'">
+      <matti-number
+        [formControlName]="formControlName"
+        id="numberWithValue"
+        [name]="formControlName"
+        [label]="label"
+        [placeholder]="placeholder"
+        [required]="required"
+        [min]="min"
+        [max]="max"
+        [step]="step"
+        [appearance]="appearance"
+      ></matti-number>
+    </ng-container>
+  </div>
+  <div class="wrapper">
+    <div class="status">
+      <label>Form Group Status:</label>
+      <span>{{ formGroup.get(formControlName).status }}</span>
+      <br />
+      <label>Form Group Value:</label>
+      <span>{{ formGroup.value | json }}</span>
+      <br />
+      <label>Form Group Pristine:</label>
+      <span>{{ formGroup.pristine }}</span>
+      <br />
+      <label>Form Control Errors:</label>
+      <span>
+        {{ formGroup.get(formControlName).errors | json }}
+      </span>
+    </div>
   </div>
 </div>

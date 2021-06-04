@@ -1,0 +1,19 @@
+<mat-form-field [appearance]="appearance">
+  <mat-label class="label">{{ label }}</mat-label>
+  <input
+    matInput
+    type="number"
+    [id]="id"
+    [name]="name"
+    [placeholder]="placeholder"
+    [required]="required"
+    [disabled]="disabled"
+    [min]="min"
+    [max]="max"
+    [(ngModel)]="value"
+    (input)="onChange()"
+    (change)="onChange()"
+    (blur)="onTouchedCallback()"
+  />
+  <mat-error *ngIf="control.invalid">{{ getErrorMessage() }}</mat-error>
+</mat-form-field>

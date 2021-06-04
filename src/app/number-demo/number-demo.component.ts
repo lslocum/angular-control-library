@@ -1,24 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+import { LibraryService } from '../library.service';
 
 @Component({
   selector: 'app-number-demo',
   templateUrl: './number-demo.component.html',
 })
 export class NumberDemoComponent implements OnInit {
+  selectedLibrary$: Observable<string>;
   formGroup: FormGroup;
   formControlName = 'number';
   label = 'Age';
   placeholder = 'Your age';
   disabled = false;
   required = false;
-  min = 13;
-  max = 99;
-  step = 2;
+  min: number = null;
+  max: number = null;
+  step: number = null;
+  appearance: MatFormFieldAppearance;
+
+  constructor(private libraryService: LibraryService) {
+    this.selectedLibrary$ = this.libraryService.selectedLibrary.pipe(
+      tap((lib) => {
+        lib === 'Material' ? (this.appearance = 'standard') : undefined;
+      })
+    );
+  }
+
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      number: new FormControl(22, [Validators.min(this.min), Validators.max(this.max)]),
+      number: new FormControl(null, [Validators.min(this.min), Validators.max(this.max)]),
     });
   }
 
@@ -45,10 +61,12 @@ export class NumberDemoComponent implements OnInit {
 
   updateMin(value: string) {
     this.min = +value;
+    this.updateValidators();
   }
 
   updateMax(value: string) {
     this.max = +value;
+    this.updateValidators();
   }
 
   updateLabel(value: string) {
@@ -61,5 +79,13 @@ export class NumberDemoComponent implements OnInit {
 
   updateStep(value: string) {
     this.step = +value;
+  }
+
+  appearanceUpdated(value): void {
+    this.appearance = value;
+  }
+
+  private updateValidators() {
+    this.formGroup.get(this.formControlName).setValidators([Validators.min(this.min), Validators.max(this.max)])
   }
 }
