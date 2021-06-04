@@ -1,42 +1,63 @@
-<h1>Email</h1>
-<app-control-options
-  [label]="label"
-  [placeholder]="placeholder"
-  [required]="required"
-  [disabled]="disabled"
-  [minlength]="minlength"
-  [maxlength]="maxlength"
-  (labelUpdated)="updateLabel($event)"
-  (placeholderUpdated)="updatePlaceholder($event)"
-  (disabledToggled)="disableControl($event)"
-  (requiredToggled)="toggleRequired($event)"
-  (minlengthUpdated)="updateMinLength($event)"
-  (maxlengthUpdated)="updateMaxLength($event)"
-></app-control-options>
-
-<div [formGroup]="formGroup" class="form-group">
-  <lib-email
-    [formControlName]="formControlName"
-    id="emailWithValue"
-    [name]="formControlName"
+<div *ngIf="selectedLibrary$ | async as selectedLibrary">
+  <h1>Email</h1>
+  <app-control-options
     [label]="label"
     [placeholder]="placeholder"
-    [required]="false"
+    [required]="required"
+    [disabled]="disabled"
     [minlength]="minlength"
     [maxlength]="maxlength"
-  >
-  </lib-email>
-</div>
-<div class="wrapper">
-  <div class="status">
-    <label>Form Group Status:</label
-    ><span> {{ formGroup.get(formControlName).status }}</span>
-    <br />
-    <label>Form Group Value:</label><span> {{ formGroup.value | json }}</span>
-    <br />
-    <label>Form Group Pristine:</label><span> {{ formGroup.pristine }}</span>
-    <br />
-    <label>Form Control Errors:</label
-    ><span> {{ formGroup.get(formControlName).errors | json }}</span>
+    [appearance]="appearance"
+    (labelUpdated)="updateLabel($event)"
+    (placeholderUpdated)="updatePlaceholder($event)"
+    (disabledToggled)="disableControl($event)"
+    (requiredToggled)="toggleRequired($event)"
+    (minlengthUpdated)="updateMinLength($event)"
+    (maxlengthUpdated)="updateMaxLength($event)"
+    (appearanceUpdated)="appearanceUpdated($event)"
+  ></app-control-options>
+
+  <div [formGroup]="formGroup" class="form-group">
+    <ng-container *ngIf="selectedLibrary === 'HTML'">
+      <lib-email
+        [formControlName]="formControlName"
+        id="emailWithValue"
+        [name]="formControlName"
+        [label]="label"
+        [placeholder]="placeholder"
+        [required]="false"
+        [minlength]="minlength"
+        [maxlength]="maxlength"
+      ></lib-email>
+    </ng-container>
+
+    <ng-container *ngIf="selectedLibrary === 'Material'">
+      <matti-email
+        [formControlName]="formControlName"
+        id="emailWithValue"
+        [name]="formControlName"
+        [label]="label"
+        [placeholder]="placeholder"
+        [required]="required"
+        [minlength]="minlength"
+        [maxlength]="maxlength"
+        [appearance]="appearance"
+      ></matti-email>
+    </ng-container>
+  </div>
+  <div class="wrapper">
+    <div class="status">
+      <label>Form Group Status:</label>
+      <span>{{ formGroup.get(formControlName).status }}</span>
+      <br />
+      <label>Form Group Value:</label>
+      <span>{{ formGroup.value | json }}</span>
+      <br />
+      <label>Form Group Pristine:</label>
+      <span>{{ formGroup.pristine }}</span>
+      <br />
+      <label>Form Control Errors:</label>
+      <span>{{ formGroup.get(formControlName).errors | json }}</span>
+    </div>
   </div>
 </div>

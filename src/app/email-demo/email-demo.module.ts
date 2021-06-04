@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { EmailModule } from 'projects/controls/src/lib/email/email.module';
+import { EmailModule as MaterialEmailModule } from 'projects/material-controls/src/lib/email/email.module';
+
+import { ControlOptionsModule } from '../control-options/control-options.module';
 import { EmailDemoRoutingModule } from './email-demo-routing.module';
 import { EmailDemoComponent } from './email-demo.component';
-import { EmailModule } from 'projects/controls/src/lib/email/email.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TextboxModule } from 'projects/controls/src/public-api';
-import { ControlOptionsModule } from '../control-options/control-options.module';
 
 
 @NgModule({
@@ -16,10 +17,11 @@ import { ControlOptionsModule } from '../control-options/control-options.module'
   imports: [
     CommonModule,
     EmailDemoRoutingModule,
-    EmailModule,
     FormsModule,
     ReactiveFormsModule,
-    ControlOptionsModule
+    ControlOptionsModule,
+    EmailModule,
+    MaterialEmailModule
   ]
 })
 export class EmailDemoModule { }
