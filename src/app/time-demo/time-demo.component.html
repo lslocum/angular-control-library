@@ -1,39 +1,52 @@
-<h1>Time</h1>
-<app-control-options
-  [label]="label"
-  [required]="required"
-  [disabled]="disabled"
-  (labelUpdated)="updateLabel($event)"
-  (disabledToggled)="disableControl($event)"
-  (requiredToggled)="toggleRequired($event)"
-
-
-></app-control-options>
-
-<div [formGroup]="formGroup" class="form-group">
-  <lib-time
-    [formControlName]="formControlName"
-    id="timeWithValue"
-    [name]="formControlName"
+<div *ngIf="selectedLibrary$ | async as selectedLibrary">
+  <h1>Time</h1>
+  <app-control-options
+    [appearance]="appearance"
     [label]="label"
-    [required]="false"
-  >
-  </lib-time>
-</div>
-<div class="wrapper">
-  <div class="status">
-    <label>Form Group Status:</label
-    ><span> {{ formGroup.get(formControlName).status }}</span>
-    <br />
-    <label>Form Group Value:</label
-    ><span> {{ formGroup.value | json }}</span>
-    <br />
-    <label>Form Group Pristine:</label
-    ><span> {{ formGroup.pristine }}</span>
-    <br />
-    <label>Form Control Errors:</label
-    ><span>
-      {{ formGroup.get(formControlName).errors | json }}</span
-    >
+    [required]="required"
+    [disabled]="disabled"
+    (appearanceUpdated)="appearanceUpdated($event)"
+    (labelUpdated)="updateLabel($event)"
+    (disabledToggled)="disableControl($event)"
+    (requiredToggled)="toggleRequired($event)"
+  ></app-control-options>
+
+  <div [formGroup]="formGroup" class="form-group">
+    <ng-container *ngIf="selectedLibrary === 'HTML'">
+      <lib-time
+        [formControlName]="formControlName"
+        id="timeWithValue"
+        [name]="formControlName"
+        [label]="label"
+        [required]="false"
+      ></lib-time>
+    </ng-container>
+    <ng-container *ngIf="selectedLibrary === 'Material'">
+      <matti-time
+        [appearance]="appearance"
+        [formControlName]="formControlName"
+        id="timeWithValue"
+        [name]="formControlName"
+        [label]="label"
+        [required]="false"
+      ></matti-time>
+    </ng-container>
+  </div>
+  <div class="wrapper">
+    <div class="status">
+      <label>Form Group Status:</label>
+      <span>{{ formGroup.get(formControlName).status }}</span>
+      <br />
+      <label>Form Group Value:</label>
+      <span>{{ formGroup.value | json }}</span>
+      <br />
+      <label>Form Group Pristine:</label>
+      <span>{{ formGroup.pristine }}</span>
+      <br />
+      <label>Form Control Errors:</label>
+      <span>
+        {{ formGroup.get(formControlName).errors | json }}
+      </span>
+    </div>
   </div>
 </div>
