@@ -5,22 +5,20 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
 @Component({
   selector: 'matti-number',
   templateUrl: './number.component.html',
-  styleUrls: ['./number.component.scss']
 })
 export class NumberComponent implements ControlValueAccessor {
+  @Input() appearance: MatFormFieldAppearance;
   @Input() id: string;
-  @Input() name: string;
   @Input() label: string;
+  @Input() min?: number;
+  @Input() max?: number;
+  @Input() name: string;
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
-  @Input() min: number;
-  @Input() max: number;
-  @Input() step: number = 1;
-  @Input() appearance: MatFormFieldAppearance;
+  @Input() step?: number = 1;
 
   disabled: boolean = false;
   value = '';
-  errorMessages = new Map();
 
   onChangeCallback = (_: any) => {};
   onTouchedCallback = () => {};

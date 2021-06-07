@@ -17,15 +17,12 @@ import { lowerCaseValidator, numberValidator, upperCaseValidator } from './passw
 @Component({
   selector: 'matti-password',
   templateUrl: './password.component.html',
-  styleUrls: ['./password.component.scss'],
 })
 export class PasswordComponent implements ControlValueAccessor, OnChanges {
+  @Input() appearance: MatFormFieldAppearance;
   @Input() id: string;
   @Input() name: string;
   @Input() label: string;
-  @Input() placeholder: string = '';
-  @Input() required: boolean = false;
-  @Input() appearance: MatFormFieldAppearance;
   @Input() passwordRequirements: {
     minlength: number;
     maxlength: number;
@@ -34,12 +31,13 @@ export class PasswordComponent implements ControlValueAccessor, OnChanges {
     shouldContainNumbers: boolean;
     shouldContainSpecialCharacters: boolean;
   };
+  @Input() placeholder: string = '';
+  @Input() required: boolean = false;
 
   @Output() change = new EventEmitter<string>();
 
   disabled: boolean = false;
   value = '';
-  errorMessages = new Map();
 
   onChangeCallback = (_: any) => {};
   onTouchedCallback = () => {};

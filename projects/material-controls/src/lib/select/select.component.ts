@@ -6,23 +6,22 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
 @Component({
   selector: 'matti-select',
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
 })
 export class SelectComponent implements ControlValueAccessor {
-  @Input() id: string;
-  @Input() name: string;
-  @Input() label: string;
-  @Input() options: any[];
-  @Input() nameProperty: string;
-  @Input() valueProperty: string;
   @Input() appearance: MatFormFieldAppearance;
+  @Input() errorStateMatcher: ErrorStateMatcher;
   @Input() disableOptionCentering: boolean;
   @Input() disableRipple: boolean;
-  @Input() errorStateMatcher: ErrorStateMatcher;
+  @Input() id: string;
+  @Input() label: string;
+  @Input() name: string;
+  @Input() nameProperty: string;
   @Input() multiple: boolean;
+  @Input() options: any[];
   @Input() panelClass: string | string[] | Set<string> | { [key: string]: any };
-  @Input() required: boolean;
   @Input() placeholder: string
+  @Input() required: boolean;
+  @Input() valueProperty: string;
 
   disabled: boolean = false;
   value = '';

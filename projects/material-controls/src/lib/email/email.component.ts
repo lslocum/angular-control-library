@@ -5,17 +5,16 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
 @Component({
   selector: 'matti-email',
   templateUrl: './email.component.html',
-  styleUrls: ['./email.component.scss'],
 })
 export class EmailComponent implements ControlValueAccessor {
+  @Input() appearance: MatFormFieldAppearance;
   @Input() id: string;
-  @Input() name: string;
   @Input() label: string;
+  @Input() minlength?: number = 7;
+  @Input() maxlength?: number;
+  @Input() name: string;
   @Input() placeholder: string = '';
   @Input() required: boolean;
-  @Input() minlength: number = 7;
-  @Input() maxlength: number;
-  @Input() appearance: MatFormFieldAppearance;
 
   disabled: boolean;
   value: string;

@@ -1,6 +1,7 @@
 <div *ngIf="selectedLibrary$ | async as selectedLibrary">
   <h1>Number</h1>
   <app-control-options
+    [appearance]="appearance"
     [label]="label"
     [placeholder]="placeholder"
     [required]="required"
@@ -8,7 +9,7 @@
     [minlength]="min"
     [maxlength]="max"
     [step]="step"
-    [appearance]="appearance"
+    (appearanceUpdated)="appearanceUpdated($event)"
     (labelUpdated)="updateLabel($event)"
     (placeholderUpdated)="updatePlaceholder($event)"
     (disabledToggled)="disableControl($event)"
@@ -16,7 +17,6 @@
     (minlengthUpdated)="updateMin($event)"
     (maxlengthUpdated)="updateMax($event)"
     (stepUpdated)="updateStep($event)"
-    (appearanceUpdated)="appearanceUpdated($event)"
   ></app-control-options>
 
   <div class="wrapper">

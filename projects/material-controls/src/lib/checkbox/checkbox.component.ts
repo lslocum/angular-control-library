@@ -5,16 +5,15 @@ import { ThemePalette } from '@angular/material/core';
 @Component({
   selector: 'matti-checkbox',
   templateUrl: './checkbox.component.html',
-  styleUrls: ['./checkbox.component.scss'],
 })
 export class CheckboxComponent implements ControlValueAccessor {
-  @Input() id: string;
-  @Input() name: string;
-  @Input() label: string;
   @Input() color: ThemePalette;
   @Input() disableRipple: boolean;
+  @Input() id: string;
   @Input() indeterminate: boolean;
+  @Input() label: string;
   @Input() labelPosition: 'before' | 'after';
+  @Input() name: string;
   @Input() required: boolean;
   @Output() indeterminateChange = new EventEmitter<boolean>();
 

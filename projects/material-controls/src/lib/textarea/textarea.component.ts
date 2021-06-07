@@ -16,11 +16,11 @@ export class TextareaComponent implements ControlValueAccessor {
   @Input() label: string;
   @Input() maxlength: number;
   @Input() placeholder: string = '';
-  @Input() required: boolean = false;
+  @Input() required: boolean;
   @Input() rows: number;
   @Input() wrap: 'hard' | 'soft';
 
-  disabled: boolean = false;
+  disabled: boolean;
   value = '';
 
   onChangeCallback = (_: any) => {};

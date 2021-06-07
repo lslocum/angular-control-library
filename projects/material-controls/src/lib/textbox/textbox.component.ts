@@ -5,7 +5,6 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
 @Component({
   selector: 'matti-textbox',
   templateUrl: './textbox.component.html',
-  styleUrls: ['./textbox.component.scss']
 })
 export class TextboxComponent implements ControlValueAccessor {
   @Input() appearance: MatFormFieldAppearance;

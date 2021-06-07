@@ -18,7 +18,7 @@
         id="timeWithValue"
         [name]="formControlName"
         [label]="label"
-        [required]="false"
+        [required]="required"
       ></lib-time>
     </ng-container>
     <ng-container *ngIf="selectedLibrary === 'Material'">
@@ -28,7 +28,7 @@
         id="timeWithValue"
         [name]="formControlName"
         [label]="label"
-        [required]="false"
+        [required]="required"
       ></matti-time>
     </ng-container>
   </div>

@@ -5,7 +5,6 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
 @Component({
   selector: 'matti-time',
   templateUrl: './time.component.html',
-  styleUrls: ['./time.component.scss'],
 })
 export class TimeComponent implements ControlValueAccessor {
   @Input() appearance: MatFormFieldAppearance;

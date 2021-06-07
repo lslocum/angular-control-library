@@ -10,3 +10,7 @@ export * from './lib/number/number.module';
 export * from './lib/password/password.module';
 export * from './lib/phone/phone.module';
 export * from './lib/radio/radio.module';
+export * from './lib/select/select.module';
+export * from './lib/textarea/textarea.module';
+export * from './lib/textbox/textbox.module';
+export * from './lib/time/time.module';

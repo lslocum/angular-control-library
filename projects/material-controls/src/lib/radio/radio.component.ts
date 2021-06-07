@@ -9,16 +9,16 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
   styleUrls: ['./radio.component.scss'],
 })
 export class RadioComponent implements ControlValueAccessor {
-  @Input() id: string;
-  @Input() name: string;
-  @Input() label: string;
-  @Input() required: boolean;
-  @Input() options: any[];
-  @Input() nameProperty: string;
-  @Input() valueProperty: string;
   @Input() color: ThemePalette;
-  @Input() labelPosition: 'before' | 'after';
   @Input() direction: 'vertical' | 'horizontal';
+  @Input() id: string;
+  @Input() label: string;
+  @Input() labelPosition: 'before' | 'after';
+  @Input() name: string;
+  @Input() nameProperty: string;
+  @Input() options: any[];
+  @Input() required: boolean;
+  @Input() valueProperty: string;
 
   disabled: boolean = false;
   value = '';

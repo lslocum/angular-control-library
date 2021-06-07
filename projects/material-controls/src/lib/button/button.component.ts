@@ -4,14 +4,13 @@ import { ThemePalette } from '@angular/material/core';
 @Component({
   selector: 'matti-button',
   templateUrl: './button.component.html',
-  styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
-  @Input() type: 'raised' | 'flat' | 'stroked' | 'icon' | 'fab' | 'mini-fab';
   @Input() color: ThemePalette;
-  @Input() ngClass: string[] = [];
-  @Input() id: string;
   @Input() disabled: boolean = true;
+  @Input() id: string;
+  @Input() ngClass: string[] = [];
+  @Input() type: 'raised' | 'flat' | 'stroked' | 'icon' | 'fab' | 'mini-fab';
   @Output() clicked: EventEmitter<void> = new EventEmitter();
 
   handleOnClick(): void {
