@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { LibraryService } from '../library.service';
 
 @Component({
   selector: 'app-textbox-demo',
   templateUrl: './textbox-demo.component.html',
 })
 export class TextboxDemoComponent implements OnInit {
+  selectedLibrary$: Observable<string>;
   formGroup: FormGroup;
   formControlName = 'textbox';
   label = 'User Name';
@@ -16,6 +20,16 @@ export class TextboxDemoComponent implements OnInit {
   pattern = '[A-Za-z]+';
   required = false;
   disabled = false;
+  appearance: MatFormFieldAppearance;
+
+  constructor(private libraryService: LibraryService) {
+    this.selectedLibrary$ = this.libraryService.selectedLibrary.pipe(
+      tap((lib) => {
+        lib === 'Material' ? (this.appearance = 'standard') : undefined;
+      })
+    );
+  }
+
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -64,5 +78,9 @@ export class TextboxDemoComponent implements OnInit {
 
   updatePattern(value: string) {
     this.pattern = value;
+  }
+
+  appearanceUpdated(value): void {
+    this.appearance = value;
   }
 }
