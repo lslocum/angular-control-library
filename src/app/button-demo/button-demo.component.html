@@ -1,66 +1,125 @@
 <h1>Button</h1>
 <div *ngIf="selectedLibrary$ | async as selectedLibrary">
+  <app-control-options
+    [buttonProperties]="buttonProperties"
+    [disabled]="disabled"
+    (buttonPropertiesUpdated)="buttonPropertiesUpdated($event)"
+    (disabledToggled)="toggleDisabled($event)"
+    (labelUpdated)="labelUpdated($event)"
+  ></app-control-options>
+
   <ng-container *ngIf="selectedLibrary === 'HTML'">
-    <app-control-options [disabled]="disabled" (disabledToggled)="toggleDisabled($event)"></app-control-options>
-
-    <div style="display: flex; gap: 45px">
-      <div>
-        <h2>Primary</h2>
-        <lib-button id="primaryBtn" type="primary" [disabled]="disabled" (clicked)="buttonClicked()">
-          Click Me
-        </lib-button>
-      </div>
-
-      <div>
-        <h2>Secondary</h2>
-        <lib-button id="secondaryBtn" type="secondary" [disabled]="disabled" (clicked)="buttonClicked()">
-          No! Click Me
-        </lib-button>
-      </div>
-
-      <div>
-        <h2>Flat</h2>
-        <lib-button id="flatBtn" type="flat" [disabled]="disabled" (clicked)="buttonClicked()">
-          Do what you will
-        </lib-button>
-      </div>
-
-      <div>
-        <h2>Icon</h2>
-        <lib-button id="iconBtn" type="icon" [disabled]="disabled" (clicked)="buttonClicked()">🚀</lib-button>
-      </div>
-
-      <div>
-        <h2>Fab</h2>
-        <lib-button id="fabBtn" type="fab" [disabled]="disabled" (clicked)="buttonClicked()">
-          <mat-icon>add</mat-icon>
-        </lib-button>
-      </div>
-
-      <div>
-        <h2>Mini Fab</h2>
-        <lib-button id="miniFabBtn" type="mini-fab" [disabled]="disabled" (clicked)="buttonClicked()">
-          <mat-icon>favorite</mat-icon>
-        </lib-button>
-      </div>
-    </div>
+    <lib-button id="button" [buttonProperties]="buttonProperties" [disabled]="disabled" (clicked)="buttonClicked()">
+      <ng-container *ngIf="buttonProperties.type === 'text' || buttonProperties.type === 'link'">
+        {{ buttonProperties.label }}
+      </ng-container>
+      <ng-container *ngIf="buttonProperties.type === 'icon'"><mat-icon>home</mat-icon></ng-container>
+      <ng-container *ngIf="buttonProperties.type === 'textWithIcon'">
+        <mat-icon icon>home</mat-icon>
+        <label>{{ buttonProperties.label }}</label>
+      </ng-container>
+    </lib-button>
   </ng-container>
 
   <ng-container *ngIf="selectedLibrary === 'Material'">
-    <app-control-options
+    <matti-button
+      id="primaryBtn"
+      [buttonProperties]="buttonProperties"
       [disabled]="disabled"
-      [color]="color"
-      [buttonType]="type"
-      (disabledToggled)="toggleDisabled($event)"
-      (colorUpdated)="colorUpdated($event)"
-      (buttonTypeUpdated)="buttonTypeUpdated($event)"
-    ></app-control-options>
-
-    <matti-button id="primaryBtn" [type]="type" [color]="color" [disabled]="disabled" (clicked)="buttonClicked()">
-      <ng-container *ngIf="type !== 'icon' && type !== 'fab' && type !== 'mini-fab'">Click Me</ng-container>
-      <ng-container *ngIf="type === 'icon'"><mat-icon>home</mat-icon></ng-container>
-      <ng-container *ngIf="type === 'fab'"><mat-icon>save</mat-icon></ng-container>
-      <ng-container *ngIf="type === 'mini-fab'"><mat-icon>delete</mat-icon></ng-container>
+      (clicked)="buttonClicked()"
+    >
+      <ng-container *ngIf="buttonProperties.type === 'icon' || buttonProperties.isRounded">
+        <mat-icon>home</mat-icon>
+      </ng-container>
+      <ng-container
+        *ngIf="(buttonProperties.type === 'text' || buttonProperties.type === 'link') && !buttonProperties.isRounded"
+      >
+        {{ buttonProperties.label }}
+      </ng-container>
+      <ng-container *ngIf="buttonProperties.type === 'textWithIcon' && !buttonProperties.isRounded">
+        <mat-icon>home</mat-icon>
+        {{ buttonProperties.label }}
+      </ng-container>
     </matti-button>
+
+    <!-- <div>{{ buttonProperties | json }}</div> -->
+    <div>
+      <p>If you are trying to match Material Options:</p>
+      <table>
+        <tr>
+          <th style="color: salmon; font-weight: 500; text-align: left; width: 200px">Material Button Type</th>
+          <th style="color: salmon; font-weight: 500; text-align: left; width: 200px">Button Display Type</th>
+          <th style="color: salmon; font-weight: 500; text-align: left; width: 200px">Button Type</th>
+          <th style="color: salmon; font-weight: 500; text-align: left; width: 200px">Has Shadow</th>
+          <th style="color: salmon; font-weight: 500; text-align: left; width: 200px">Rounded Corners</th>
+          <th style="color: salmon; font-weight: 500; text-align: left; width: 200px">Size</th>
+        </tr>
+        <tr>
+          <td>Basic</td>
+          <td style="color: cornflowerblue">Inverted</td>
+          <td>n/a</td>
+          <td>false</td>
+          <td>false</td>
+          <td>n/a</td>
+        </tr>
+        <tr>
+          <td>Raised</td>
+          <td style="color: cornflowerblue">Anything but Icon</td>
+          <td>n/a</td>
+          <td style="color: cornflowerblue">true</td>
+          <td>false</td>
+          <td>n/a</td>
+        </tr>
+        <tr>
+          <td>Stroked</td>
+          <td style="color: cornflowerblue">Outline</td>
+          <td>n/a</td>
+          <td>false</td>
+          <td>false</td>
+          <td>n/a</td>
+        </tr>
+        <tr>
+          <td>Flat</td>
+          <td style="color: cornflowerblue">Filled</td>
+          <td>n/a</td>
+          <td>false</td>
+          <td>false</td>
+          <td>n/a</td>
+        </tr>
+        <tr>
+          <td>Icon</td>
+          <td>n/a</td>
+          <td style="color: cornflowerblue">Icon</td>
+          <td>false</td>
+          <td>false</td>
+          <td>n/a</td>
+        </tr>
+        <tr>
+          <td>Fab</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>false</td>
+          <td style="color: cornflowerblue">true</td>
+          <td style="color: cornflowerblue">Medium or Large</td>
+        </tr>
+        <tr>
+          <td>Mini Fab</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>false</td>
+          <td style="color: cornflowerblue">true</td>
+          <td style="color: cornflowerblue">Small</td>
+        </tr>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="selectedLibrary === 'Prime-NG'">
+    <prime-button
+      id="primaryBtn"
+      [buttonProperties]="buttonProperties"
+      [disabled]="disabled"
+      (clicked)="buttonClicked()"
+    ></prime-button>
   </ng-container>
 </div>

@@ -1,29 +1,207 @@
 <hr />
 <h2>Control Options</h2>
 <div class="toggle-options">
-  <!-- 1 -->
-  <span *ngIf="label !== undefined">
-    <label for="label">Label</label>
-    <input type="text" id="label" name="label" [(value)]="label" (change)="updateLabel($event)" />
+  <ng-container *ngIf="buttonProperties">
+    <ng-container *ngTemplateOutlet="buttonDisplay"></ng-container>
+    <ng-container *ngTemplateOutlet="buttonType"></ng-container>
+    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <ng-container *ngTemplateOutlet="badgeNumber"></ng-container>
+    <ng-container *ngTemplateOutlet="color; context: { color: buttonProperties.color }"></ng-container>
+    <ng-container *ngTemplateOutlet="label"></ng-container>
+    <ng-container *ngTemplateOutlet="hasIcon"></ng-container>
+    <ng-container *ngTemplateOutlet="hasShadow"></ng-container>
+    <ng-container *ngTemplateOutlet="isRounded"></ng-container>
+    <ng-container *ngTemplateOutlet="size"></ng-container>
+    <!-- <ng-container *ngTemplateOutlet="severity"></ng-container> -->
+  </ng-container>
+</div>
+<hr />
+<!-- 
+<ng-template #appearance>
+  <span *ngIf="appearance !== undefined">
+    <label for="appearance">Appearance</label>
+    <select id="appearance" name="appearance" [(value)]="appearance" (change)="updateAppearance($event)">
+      <option value="legacy">Legacy</option>
+      <option value="standard">Standard</option>
+      <option value="fill">Fill</option>
+      <option value="outline">Outline</option>
+    </select>
   </span>
-  <!-- 2 -->
-  <span *ngIf="placeholder !== undefined">
-    <label for="placeholder">Placeholder</label>
+</ng-template>
+ -->
+<ng-template #badgeNumber>
+  <span *ngIf="buttonProperties?.badgeNumber !== undefined">
+    <label for="badgeNumber">Badge Number</label>
     <input
-      type="text"
-      id="placeholder"
-      name="placeholder"
-      [(value)]="placeholder"
-      (change)="updatePlaceholder($event)"
+      type="number"
+      id="badgeNumber"
+      name="badgeNumber"
+      [(value)]="buttonProperties.badgeNumber"
+      (change)="updateButtonProperties($event, 'badgeNumber')"
     />
   </span>
+</ng-template>
 
-  <!-- 3 -->
+<ng-template #buttonDisplay>
+  <span *ngIf="buttonProperties?.display !== undefined">
+    <label for="buttonDisplay">Button Display Type</label>
+    <select
+      id="buttonDisplay"
+      name="buttonDisplay"
+      [value]="buttonProperties.display"
+      (change)="updateButtonProperties($event, 'display')"
+    >
+      <option value="filled">Filled</option>
+      <option value="outlined">Outlined</option>
+      <option value="inverted">Inverted</option>
+    </select>
+  </span>
+</ng-template>
+
+<ng-template #buttonType>
+  <span *ngIf="buttonProperties?.type !== undefined">
+    <label for="buttonType">Button Type</label>
+    <select
+      id="buttonType"
+      name="buttonType"
+      [value]="buttonProperties.type"
+      (change)="updateButtonProperties($event, 'type')"
+    >
+      <option value="text">Text</option>
+      <option value="icon">Icon</option>
+      <option value="textWithIcon">Text With Icon</option>
+      <option value="link">Link</option>
+    </select>
+  </span>
+</ng-template>
+
+<ng-template #color let-color="color">
+  <span *ngIf="color !== undefined">
+    <label for="color">Color</label>
+    <select id="color" name="color" [value]="color" (change)="updateColor($event)">
+      <option value="primary">Primary</option>
+      <option value="accent">Accent</option>
+      <option value="warn">Warn</option>
+    </select>
+  </span>
+</ng-template>
+<!-- 
+<ng-template #cols>
+  <span *ngIf="cols !== undefined">
+    <label for="cols">Number of Columns</label>
+    <input type="number" id="cols" name="cols" [(value)]="cols" (click)="updateCols($event)" />
+  </span>
+</ng-template>
+
+<ng-template #direction>
+  <span *ngIf="direction !== undefined">
+    <label for="direction">Direction</label>
+    <select id="direction" name="direction" [(value)]="direction" (change)="updateDirection($event)">
+      <option value="vertical">Vertical</option>
+      <option value="horizontal">Horizontal</option>
+    </select>
+  </span>
+</ng-template>
+-->
+<ng-template #disabled>
+  <span *ngIf="disabled !== undefined">
+    <input type="checkbox" id="disableToggle" name="disableToggle" [value]="disabled" (click)="disableControl()" />
+    <label for="disableToggle">Disabled</label>
+  </span>
+</ng-template>
+<!--
+<ng-template #disableOptionCentering>
+  <span *ngIf="disableOptionCentering !== undefined">
+    <input
+      type="checkbox"
+      id="disableOptionCentering"
+      name="disableOptionCentering"
+      [(value)]="disableOptionCentering"
+      (click)="updateDisableOptionCentering()"
+    />
+    <label for="disableOptionCentering">Disable Option Centering</label>
+  </span>
+</ng-template>
+-->
+
+<ng-template #hasIcon>
+  <span *ngIf="buttonProperties?.hasIcon !== undefined">
+    <input
+      type="checkbox"
+      id="hasIcon"
+      name="hasIcon"
+      [value]="buttonProperties.hasIcon"
+      (click)="updateButtonProperties(null, 'hasIcon')"
+    />
+    <label for="hasIcon">Has Icon</label>
+  </span>
+</ng-template>
+
+<ng-template #hasShadow>
+  <span *ngIf="buttonProperties?.hasShadow !== undefined">
+    <input
+      type="checkbox"
+      id="hasShadow"
+      name="hasShadow"
+      [(value)]="buttonProperties.hasShadow"
+      (click)="updateButtonProperties(null, 'hasShadow')"
+    />
+    <label for="hasShadow">Has Shadow</label>
+  </span>
+</ng-template>
+
+<ng-template #isRounded>
+  <span *ngIf="buttonProperties?.isRounded !== undefined">
+    <input
+      type="checkbox"
+      id="isRounded"
+      name="isRounded"
+      [(value)]="buttonProperties.isRounded"
+      (click)="updateButtonProperties(null, 'isRounded')"
+    />
+    <label for="isRounded">Rounded Corners</label>
+  </span>
+</ng-template>
+
+<ng-template #label>
+  <span *ngIf="label !== undefined">
+    <label for="label">Label</label>
+    <input type="text" id="label" name="label" [(value)]="buttonProperties.label" (change)="updateLabel($event)" />
+  </span>
+</ng-template>
+<!--
+<ng-template #labelPosition>
+  <span *ngIf="labelPosition !== undefined">
+    <label for="labelPosition">Label Position</label>
+    <select id="labelPosition" name="labelPosition" [(value)]="labelPosition" (change)="updateLabelPosition($event)">
+      <option value="before">Before</option>
+      <option value="after">After</option>
+    </select>
+  </span>
+</ng-template>
+
+<ng-template #loading>
+  <span *ngIf="loading !== undefined">
+    <input type="checkbox" id="loading" name="loading" [(value)]="loading" (click)="updateLoading($event)" />
+    <label for="loading">Loading</label>
+  </span>
+</ng-template>
+
+<ng-template #maxlength>
+  <span *ngIf="maxlength !== undefined">
+    <label for="maxlength">Max Length</label>
+    <input type="number" id="maxlength" name="maxlength" [(value)]="maxlength" (change)="updateMaxLength($event)" />
+  </span>
+</ng-template>
+
+<ng-template #minlength>
   <span *ngIf="minlength !== undefined">
     <label for="minlength">Min Length</label>
     <input type="number" id="minlength" name="minlength" [(value)]="minlength" (change)="updateMinLength($event)" />
   </span>
-  <!-- 1 -->
+</ng-template>
+
+<ng-template #required>
   <span *ngIf="required !== undefined">
     <input
       type="checkbox"
@@ -34,11 +212,61 @@
     />
     <label for="toggleRequired">Required</label>
   </span>
-  <!-- 2 -->
+</ng-template>
+
+<ng-template #pattern>
   <span *ngIf="pattern !== undefined">
     <label for="pattern">Pattern</label>
     <input type="text" id="pattern" name="pattern" [(value)]="pattern" (change)="updatePattern($event)" />
   </span>
+</ng-template>
+
+<ng-template #placeholder>
+  <span *ngIf="placeholder !== undefined">
+    <label for="placeholder">Placeholder</label>
+    <input
+      type="text"
+      id="placeholder"
+      name="placeholder"
+      [(value)]="placeholder"
+      (change)="updatePlaceholder($event)"
+    />
+  </span>
+</ng-template>
+
+<ng-template #primeButtonDisplayOption>
+  <span *ngIf="buttonProperties?.primeButtonDisplayOption !== undefined">
+    <label for="primeButtonDisplayOption">Button Type</label>
+    <select
+      id="primeButtonDisplayOption"
+      name="primeButtonDisplayOption"
+      [(value)]="primeButtonDisplayOption"
+      (change)="updatePrimeButtonDisplayOption($event)"
+    >
+      <option value="filled">Filled</option>
+      <option value="outline">Outline</option>
+    </select>
+  </span>
+</ng-template>
+
+<ng-template #primeButtonType>
+  <span *ngIf="buttonProperties?.primeButtonType !== undefined">
+    <label for="primeButtonType">Button Type</label>
+    <select
+      id="primeButtonType"
+      name="primeButtonType"
+      [(value)]="primeButtonType"
+      (change)="updatePrimeButtonType($event)"
+    >
+      <option value="text">Text</option>
+      <option value="icon">Icon</option>
+      <option value="textWithIcon">Text with icon</option>
+      <option value="link">Link</option>
+    </select>
+  </span>
+</ng-template>
+
+<ng-template #requireLowerCase>
   <span *ngIf="requireLowerCase !== undefined">
     <input
       type="checkbox"
@@ -49,34 +277,9 @@
     />
     <label for="toggleLowerCase">Require Lower Case</label>
   </span>
-  <!-- 3 -->
-  <span *ngIf="maxlength !== undefined">
-    <label for="maxlength">Max Length</label>
-    <input type="number" id="maxlength" name="maxlength" [(value)]="maxlength" (change)="updateMaxLength($event)" />
-  </span>
-  <!-- 1 -->
-  <span *ngIf="disabled !== undefined">
-    <input
-      type="checkbox"
-      id="disableToggle"
-      name="disableToggle"
-      [(value)]="disabled"
-      (click)="disableControl($event)"
-    />
-    <label for="disableToggle">Disabled</label>
-  </span>
-  <!-- 2 -->
-  <span *ngIf="requireUpperCase !== undefined">
-    <input
-      type="checkbox"
-      id="toggleUpperCase"
-      name="toggleUpperCase"
-      [(value)]="requireUpperCase"
-      (click)="toggleRequireUpperCase($event)"
-    />
-    <label for="toggleUpperCase">Require Upper Case</label>
-  </span>
-  <!-- 3 -->
+</ng-template>
+
+<ng-template #requireNumbers>
   <span *ngIf="requireNumbers !== undefined">
     <input
       type="checkbox"
@@ -87,17 +290,62 @@
     />
     <label for="toggleNumbers">Require Numbers</label>
   </span>
+</ng-template>
 
-  <span *ngIf="cols !== undefined">
-    <label for="cols">Number of Columns</label>
-    <input type="number" id="cols" name="cols" [(value)]="cols" (click)="updateCols($event)" />
+<ng-template #requireUpperCase>
+  <span *ngIf="requireUpperCase !== undefined">
+    <input
+      type="checkbox"
+      id="toggleUpperCase"
+      name="toggleUpperCase"
+      [(value)]="requireUpperCase"
+      (click)="toggleRequireUpperCase($event)"
+    />
+    <label for="toggleUpperCase">Require Upper Case</label>
   </span>
+</ng-template>
 
+<ng-template #rows>
   <span *ngIf="rows !== undefined">
     <label for="rows">Number of Rows</label>
     <input type="number" id="rows" name="rows" [(value)]="rows" (click)="updateRows($event)" />
   </span>
+</ng-template>
 
+<ng-template #severity>
+  <span *ngIf="buttonProperties?.severity !== undefined">
+    <label for="severity">Severity (color)</label>
+    <select id="severity" name="severity" [(value)]="severity" (change)="updateSeverity($event)">
+      <option value=""></option>
+      <option value="secondary">Secondary</option>
+      <option value="success">Success</option>
+      <option value="info">Info</option>
+      <option value="warning">Warning</option>
+      <option value="help">Help</option>
+      <option value="danger">Danger</option>
+    </select>
+  </span>
+</ng-template>
+
+<ng-template #step>
+  <span *ngIf="step !== undefined">
+    <label for="step">Step</label>
+    <input type="number" id="step" name="step" [(value)]="step" (change)="updateStep($event)" />
+  </span>
+</ng-template> -->
+
+<ng-template #size>
+  <span *ngIf="buttonProperties?.size !== undefined">
+    <label for="size">Size</label>
+    <select id="size" name="size" [value]="buttonProperties.size" (change)="updateButtonProperties($event, 'size')">
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="large">Large</option>
+    </select>
+  </span>
+</ng-template>
+
+<!-- <ng-template #wrap>
   <span *ngIf="wrap !== undefined">
     <label for="wrap">Wrap</label>
     <select id="wrap" name="wrap" [(value)]="wrap" (change)="updateWrap($event)">
@@ -105,71 +353,4 @@
       <option value="soft">Soft</option>
     </select>
   </span>
-
-  <span *ngIf="step !== undefined">
-    <label for="step">Step</label>
-    <input type="number" id="step" name="step" [(value)]="step" (change)="updateStep($event)" />
-  </span>
-
-  <!-- Material Specific Options -->
-  <span *ngIf="appearance !== undefined">
-    <label for="appearance">Appearance</label>
-    <select id="appearance" name="appearance" [(value)]="appearance" (change)="updateAppearance($event)">
-      <option value="legacy">Legacy</option>
-      <option value="standard">Standard</option>
-      <option value="fill">Fill</option>
-      <option value="outline">Outline</option>
-    </select>
-  </span>
-
-  <span *ngIf="color !== null && color !== undefined">
-    <label for="color">Color</label>
-    <select id="color" name="color" [(value)]="color" (change)="updateColor($event)">
-      <option value="primary">Primary</option>
-      <option value="accent">Accent</option>
-      <option value="warn">Warn</option>
-    </select>
-  </span>
-
-  <span *ngIf="labelPosition !== undefined">
-    <label for="labelPosition">Label Position</label>
-    <select id="labelPosition" name="labelPosition" [(value)]="labelPosition" (change)="updateLabelPosition($event)">
-      <option value="before">Before</option>
-      <option value="after">After</option>
-    </select>
-  </span>
-
-  <span *ngIf="direction !== undefined">
-    <label for="direction">Direction</label>
-    <select id="direction" name="direction" [(value)]="direction" (change)="updateDirection($event)">
-      <option value="vertical">Vertical</option>
-      <option value="horizontal">Horizontal</option>
-    </select>
-  </span>
-
-  <span *ngIf="disableOptionCentering !== undefined">
-    <input
-      type="checkbox"
-      id="disableOptionCentering"
-      name="disableOptionCentering"
-      [(value)]="disableOptionCentering"
-      (click)="updateDisableOptionCentering($event)"
-    />
-    <label for="disableOptionCentering">Disable Option Centering</label>
-  </span>
-
-  <span *ngIf="buttonType !== undefined">
-    <label for="buttonType">Button Type</label>
-    <select id="buttonType" name="buttonType" [(value)]="buttonType" (change)="updateButtonType($event)">
-      <option value=""></option>
-      <option value="raised">Raised</option>
-      <option value="flat">Flat</option>
-      <option value="stroked">Stroked</option>
-      <option value="icon">Icon</option>
-      <option value="fab">Fab</option>
-      <option value="mini-fab">Mini Fab</option>
-    </select>
-  </span>
-</div>
-
-<hr />
+</ng-template> -->

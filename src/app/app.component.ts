@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void{
-    this.libraryService.setControlLibrary(controlLibraryTypes[1]);
+    this.libraryService.setControlLibrary(controlLibraryTypes[2]);
   }
 
   updateControlLibrary(event): void {

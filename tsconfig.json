@@ -11,6 +11,10 @@
       "material-controls": [
         "dist/material-controls/material-controls",
         "dist/material-controls"
+      ],
+      "primeng": [
+        "dist/primeng/primeng",
+        "dist/primeng"
       ]
     },
     "outDir": "./dist/out-tsc",

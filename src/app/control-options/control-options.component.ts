@@ -1,13 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { IButton } from 'projects/controls/src/lib/interfaces/button-interface';
 
 @Component({
   selector: 'app-control-options',
   templateUrl: './control-options.component.html',
   styleUrls: ['./control-options.component.scss'],
 })
-export class ControlOptionsComponent {
+export class ControlOptionsComponent implements OnInit {
+  @Input() buttonProperties: IButton;
   @Input() label?: string;
   @Input() placeholder?: string;
   @Input() required?: boolean;
@@ -22,13 +24,15 @@ export class ControlOptionsComponent {
   @Input() rows?: number;
   @Input() wrap?: 'soft' | 'hard';
   @Input() step?: number;
+  /* Material Options */
   @Input() color?: ThemePalette;
-  @Input() buttonType?: 'raised' | 'flat' | 'stroked' | 'icon' | 'fab' | 'mini-fab';
+
   @Input() appearance?: MatFormFieldAppearance;
   @Input() labelPosition?: 'before' | 'after';
   @Input() direction?: 'vertical' | 'horizontal';
   @Input() disableOptionCentering?: boolean;
 
+  @Output() buttonPropertiesUpdated = new EventEmitter<IButton>();
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
   @Output() disabledToggled = new EventEmitter<boolean>();
@@ -43,12 +47,22 @@ export class ControlOptionsComponent {
   @Output() rowsUpdated = new EventEmitter<number>();
   @Output() wrapUpdated = new EventEmitter<string>();
   @Output() stepUpdated = new EventEmitter<number>();
+  /* Material Options */
   @Output() colorUpdated = new EventEmitter<ThemePalette>();
-  @Output() buttonTypeUpdated = new EventEmitter<string>();
   @Output() appearanceUpdated = new EventEmitter<MatFormFieldAppearance>();
   @Output() labelPositionUpdated = new EventEmitter<'before' | 'after'>();
   @Output() directionUpdated = new EventEmitter<'vertical' | 'horizontal'>();
   @Output() disableOptionCenteringUpdated = new EventEmitter<boolean>();
+
+  @Output() loadingUpdated = new EventEmitter<boolean>();
+
+  ngOnInit(): void {
+    this.color = 'primary';
+    if (this.buttonProperties) {
+      this.label = this.buttonProperties.label;
+      this.color = this.buttonProperties.color;
+    }
+  }
 
   disableControl(event): void {
     this.disabled = !this.disabled;
@@ -115,10 +129,6 @@ export class ControlOptionsComponent {
     this.colorUpdated.emit(event.target.value);
   }
 
-  updateButtonType(event) {
-    this.buttonTypeUpdated.emit(event.target.value);
-  }
-
   updateAppearance(event) {
     this.appearanceUpdated.emit(event.target.value);
   }
@@ -131,8 +141,17 @@ export class ControlOptionsComponent {
     this.directionUpdated.emit(event.target.value);
   }
 
-  updateDisableOptionCentering(event) {
+  updateDisableOptionCentering() {
     this.disableOptionCenteringUpdated.emit(!this.disableOptionCentering);
     this.disableOptionCentering = !this.disableOptionCentering;
+  }
+
+  updateButtonProperties(event: any, property: string): void {
+    const buttonProps = {
+      ...this.buttonProperties,
+      [property]: event ? event.target.value : !this.buttonProperties[property],
+    };
+
+    this.buttonPropertiesUpdated.emit(buttonProps);
   }
 }

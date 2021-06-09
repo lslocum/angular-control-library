@@ -4,11 +4,11 @@ $tertiary: hsl(0, 0%, 50%);
 $font-color-dark: hsl(0, 0%, 50%);
 $font-color-light: hsl(0, 0%, 100%);
 
+/* Basic Button */
 button {
   font-size: medium;
   border-radius: 10%;
   border: none;
-  box-shadow: 2px 2px 2px 1px hsla(0, 0%, 0%, 0.2);
   padding: 10px;
 
   &:hover {
@@ -20,50 +20,97 @@ button {
     color: hsl(0, 0%, 60%);
     box-shadow: none;
 
-    &:hover{
+    &:hover {
       border: none;
     }
   }
 }
 
-.primary {
+/* Button Display */
+.filled {
   background-color: $primary;
   color: $font-color-light;
 }
 
-.secondary {
-  background-color: $secondary;
-  color: $font-color-light;
-}
-
-.flat {
-  box-shadow: none;
-  background-color: transparent;
-  color: $tertiary;
-}
-
-.icon {
-  box-shadow: none;
-  background-color: transparent;
+.inverted {
+  background-color: $font-color-light;
   color: $primary;
 }
 
-.fab {
-  box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%),
-    0 1px 18px 0 rgb(0 0 0 / 12%);
-  background-color: $primary;
-  color: $font-color-light;
-  border-radius: 50%;
-  height: 56px;
-  width: 56px;
+.outlined {
+  background-color: $font-color-light;
+  color: $primary;
+  border: 1px solid $primary;
 }
 
-.mini-fab {
-  box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%),
-    0 1px 18px 0 rgb(0 0 0 / 12%);
-  background-color: $secondary;
-  color: $font-color-light;
-  border-radius: 50%;
+/* Button Type */
+.icon {
+  &.large {
+    height: 56px;
+    width: 56px;
+  }
+
+  &.medium {
+    height: 48px;
+    width: 48px;
+  }
+
+  &.small {
+    height: 40px;
+    width: 40px;
+  }
+}
+
+.link {
+  background-color: transparent;
+  color: $primary;
+  border: none;
+
+  &:enabled:hover {
+    border: none;
+    text-decoration: underline;
+  }
+
+  &.shadow.round {
+    box-shadow: none;
+  }
+}
+
+.text-with-icon {
+  display: flex;
+  gap: 10px;
+
+  ::ng-deep label {
+    margin: auto;
+  }
+
+  ::ng-deep .mat-icon {
+    margin: auto;
+  }
+}
+
+/* Size */
+.large {
+  height: 56px;
+}
+
+.medium {
+  height: 48px;
+}
+
+.small {
   height: 40px;
-  width: 40px;
+}
+
+/* Options */
+.shadow {
+  box-shadow: 2px 2px 2px 1px hsla(0, 0%, 0%, 0.2);
+
+  &.round :not(.link) {
+    box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
+  }
+}
+
+.round {
+  border-radius: 50%;
 }
