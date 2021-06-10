@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+
 import { IButton } from 'projects/controls/src/lib/interfaces/button-interface';
+import { ICheckbox } from 'projects/controls/src/lib/interfaces/checkbox-interface';
+import { Position } from 'projects/controls/src/lib/interfaces/position';
 
 @Component({
   selector: 'app-control-options',
@@ -10,6 +13,7 @@ import { IButton } from 'projects/controls/src/lib/interfaces/button-interface';
 })
 export class ControlOptionsComponent implements OnInit {
   @Input() buttonProperties: IButton;
+  @Input() checkboxProperties: ICheckbox;
   @Input() label?: string;
   @Input() placeholder?: string;
   @Input() required?: boolean;
@@ -28,11 +32,12 @@ export class ControlOptionsComponent implements OnInit {
   @Input() color?: ThemePalette;
 
   @Input() appearance?: MatFormFieldAppearance;
-  @Input() labelPosition?: 'before' | 'after';
+  @Input() labelPosition?: Position;
   @Input() direction?: 'vertical' | 'horizontal';
   @Input() disableOptionCentering?: boolean;
 
   @Output() buttonPropertiesUpdated = new EventEmitter<IButton>();
+  @Output() checkboxPropertiesUpdated = new EventEmitter<ICheckbox>();
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
   @Output() disabledToggled = new EventEmitter<boolean>();
@@ -126,6 +131,7 @@ export class ControlOptionsComponent implements OnInit {
   }
 
   updateColor(event) {
+    console.log('color');
     this.colorUpdated.emit(event.target.value);
   }
 
@@ -153,5 +159,14 @@ export class ControlOptionsComponent implements OnInit {
     };
 
     this.buttonPropertiesUpdated.emit(buttonProps);
+  }
+
+  updateCheckboxProperties(event: any, property: string): void {
+    const checkboxProps = {
+      ...this.checkboxProperties,
+      [property]: event ? event.target.value : !this.checkboxProperties[property],
+    };
+
+    this.checkboxPropertiesUpdated.emit(checkboxProps);
   }
 }

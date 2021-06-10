@@ -1,23 +1,18 @@
 import { Component, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
+
+import { ICheckbox } from 'projects/controls/src/lib/interfaces/checkbox-interface';
 
 @Component({
   selector: 'matti-checkbox',
   templateUrl: './checkbox.component.html',
 })
 export class CheckboxComponent implements ControlValueAccessor {
-  @Input() color: ThemePalette;
-  @Input() disableRipple: boolean;
-  @Input() id: string;
-  @Input() indeterminate: boolean;
-  @Input() label: string;
-  @Input() labelPosition: 'before' | 'after';
-  @Input() name: string;
-  @Input() required: boolean;
+  @Input() checkboxProperties: ICheckbox;
   @Output() indeterminateChange = new EventEmitter<boolean>();
 
   disabled: boolean;
+  labelPosition;
   value: boolean;
 
   onChangeCallback = (_: any) => {};
@@ -47,7 +42,7 @@ export class CheckboxComponent implements ControlValueAccessor {
     this.onChangeCallback(this.value);
   }
 
-  onIndeterminateChange(){
+  onIndeterminateChange() {
     this.onChangeCallback(this.value);
     this.indeterminateChange.emit(this.value);
   }

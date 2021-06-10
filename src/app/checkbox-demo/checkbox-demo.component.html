@@ -1,33 +1,24 @@
 <div *ngIf="selectedLibrary$ | async as selectedLibrary">
   <h1>Checkbox</h1>
   <app-control-options
-    [label]="label"
+    [checkboxProperties]="checkboxProperties"
     [disabled]="disabled"
-    [color]="color"
-    (labelUpdated)="updateLabel($event)"
+    (checkboxPropertiesUpdated)="updateCheckboxProperties($event)"
     (disabledToggled)="disableControl($event)"
-    (colorUpdated)="colorUpdated($event)"
   ></app-control-options>
 
   <div class="wrapper">
     <div [formGroup]="formGroup" class="form-group">
       <ng-container *ngIf="selectedLibrary === 'HTML'">
-        <lib-checkbox
-          [formControlName]="formControlName"
-          id="checkboxWithValue"
-          [name]="formControlName"
-          [label]="label"
-        ></lib-checkbox>
+        <lib-checkbox [formControlName]="formControlName" [checkboxProperties]="checkboxProperties"></lib-checkbox>
       </ng-container>
 
       <ng-container *ngIf="selectedLibrary === 'Material'">
-        <matti-checkbox
-          [formControlName]="formControlName"
-          id="checkboxWithValue"
-          [name]="formControlName"
-          [label]="label"
-          [color]="color"
-        ></matti-checkbox>
+        <matti-checkbox [formControlName]="formControlName" [checkboxProperties]="checkboxProperties"></matti-checkbox>
+      </ng-container>
+
+      <ng-container *ngIf="selectedLibrary === 'Prime-NG'">
+        <prime-checkbox [formControlName]="formControlName" [checkboxProperties]="checkboxProperties"></prime-checkbox>
       </ng-container>
     </div>
 

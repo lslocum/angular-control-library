@@ -1,18 +1,45 @@
 <hr />
 <h2>Control Options</h2>
 <div class="toggle-options">
+  <!-- Button -->
   <ng-container *ngIf="buttonProperties">
     <ng-container *ngTemplateOutlet="buttonDisplay"></ng-container>
     <ng-container *ngTemplateOutlet="buttonType"></ng-container>
     <ng-container *ngTemplateOutlet="disabled"></ng-container>
     <ng-container *ngTemplateOutlet="badgeNumber"></ng-container>
-    <ng-container *ngTemplateOutlet="color; context: { color: buttonProperties.color }"></ng-container>
-    <ng-container *ngTemplateOutlet="label"></ng-container>
+    <ng-container
+      *ngTemplateOutlet="color; context: { color: buttonProperties.color, changeFn: updateButtonProperties.bind(this) }"
+    ></ng-container>
+    <ng-container
+      *ngTemplateOutlet="label; context: { label: buttonProperties.label, changeFn: updateButtonProperties.bind(this) }"
+    ></ng-container>
     <ng-container *ngTemplateOutlet="hasIcon"></ng-container>
     <ng-container *ngTemplateOutlet="hasShadow"></ng-container>
     <ng-container *ngTemplateOutlet="isRounded"></ng-container>
     <ng-container *ngTemplateOutlet="size"></ng-container>
-    <!-- <ng-container *ngTemplateOutlet="severity"></ng-container> -->
+  </ng-container>
+
+  <!-- Checkbox -->
+  <ng-container *ngIf="checkboxProperties">
+    <ng-container
+      *ngTemplateOutlet="
+        label;
+        context: { label: checkboxProperties.label, changeFn: updateCheckboxProperties.bind(this) }
+      "
+    ></ng-container>
+    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <ng-container
+      *ngTemplateOutlet="
+        labelPosition;
+        context: { labelPosition: checkboxProperties.labelPosition, changeFn: updateCheckboxProperties.bind(this) }
+      "
+    ></ng-container>
+    <ng-container
+    *ngTemplateOutlet="
+      color;
+      context: { color: checkboxProperties.color, changeFn: updateCheckboxProperties.bind(this) }
+    "
+  ></ng-container>
   </ng-container>
 </div>
 <hr />
@@ -75,10 +102,10 @@
   </span>
 </ng-template>
 
-<ng-template #color let-color="color">
+<ng-template #color let-color="color" let-changeFn="changeFn">
   <span *ngIf="color !== undefined">
     <label for="color">Color</label>
-    <select id="color" name="color" [value]="color" (change)="updateColor($event)">
+    <select id="color" name="color" [value]="color" (change)="changeFn($event, 'color')">
       <option value="primary">Primary</option>
       <option value="accent">Accent</option>
       <option value="warn">Warn</option>
@@ -163,23 +190,23 @@
   </span>
 </ng-template>
 
-<ng-template #label>
+<ng-template #label let-label="label" let-changeFn="changeFn">
   <span *ngIf="label !== undefined">
     <label for="label">Label</label>
-    <input type="text" id="label" name="label" [(value)]="buttonProperties.label" (change)="updateLabel($event)" />
+    <input type="text" id="label" name="label" [value]="label" (change)="changeFn($event, 'label')" />
   </span>
 </ng-template>
-<!--
-<ng-template #labelPosition>
-  <span *ngIf="labelPosition !== undefined">
+
+<ng-template #labelPosition let-position="labelPosition" let-changeFn="changeFn">
+  <span *ngIf="position !== undefined">
     <label for="labelPosition">Label Position</label>
-    <select id="labelPosition" name="labelPosition" [(value)]="labelPosition" (change)="updateLabelPosition($event)">
+    <select id="labelPosition" name="labelPosition" [value]="position" (change)="changeFn($event, 'labelPosition')">
       <option value="before">Before</option>
       <option value="after">After</option>
     </select>
   </span>
 </ng-template>
-
+<!--
 <ng-template #loading>
   <span *ngIf="loading !== undefined">
     <input type="checkbox" id="loading" name="loading" [(value)]="loading" (click)="updateLoading($event)" />

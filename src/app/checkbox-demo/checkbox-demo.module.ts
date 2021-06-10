@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CheckboxModule } from 'projects/controls/src/lib/checkbox/checkbox.module';
 import { CheckboxModule as MaterialCheckboxModule } from 'projects/material-controls/src/lib/checkbox/checkbox.module';
+import { CheckboxModule as PrimeCheckboxModule } from 'projects/primeng/src/lib/checkbox/checkbox.module';
 
 import { ControlOptionsModule } from '../control-options/control-options.module';
 import { CheckboxDemoRoutingModule } from './checkbox-demo-routing.module';
@@ -18,7 +19,8 @@ import { CheckboxDemoComponent } from './checkbox-demo.component';
     ControlOptionsModule,
     CheckboxDemoRoutingModule,
     CheckboxModule,
-    MaterialCheckboxModule
+    MaterialCheckboxModule,
+    PrimeCheckboxModule
   ],
 })
 export class CheckboxDemoModule {}

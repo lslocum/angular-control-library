@@ -2,22 +2,18 @@
   <ng-container *ngIf="checkboxProperties.labelPosition === 'before'">
     <ng-container *ngTemplateOutlet="label"></ng-container>
   </ng-container>
-
-  <input
-    class="my-checkbox"
+  <p-checkbox
     [disabled]="disabled"
     [id]="checkboxProperties.id"
     [name]="checkboxProperties.name"
-    [required]="checkboxProperties.required"
-    type="checkbox"
     [(ngModel)]="value"
     (change)="onChange()"
-  />
+  ></p-checkbox>
   <ng-container *ngIf="checkboxProperties.labelPosition === 'after'">
     <ng-container *ngTemplateOutlet="label"></ng-container>
   </ng-container>
 </div>
 
-<ng-template #label>
+<ng-template #label let-class="class">
   <label [for]="checkboxProperties.name">{{ checkboxProperties.label }}</label>
 </ng-template>

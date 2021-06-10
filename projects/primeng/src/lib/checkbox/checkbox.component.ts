@@ -1,11 +1,11 @@
 import { Component, Input, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { ICheckbox } from '../interfaces/checkbox-interface';
+import { ICheckbox } from 'projects/controls/src/lib/interfaces/checkbox-interface';
 
 @Component({
-  selector: 'lib-checkbox',
+  selector: 'prime-checkbox',
   templateUrl: './checkbox.component.html',
-  styleUrls: ['./checkbox.component.scss'],
+  styles: ['label {margin: 0 0.5rem; }']
 })
 export class CheckboxComponent implements ControlValueAccessor {
   @Input() checkboxProperties: ICheckbox;

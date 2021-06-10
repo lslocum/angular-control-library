@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { ButtonColor, ButtonDisplay, ButtonSize, ButtonTypes, IButton, Position } from '../interfaces/button-interface';
+import { ButtonDisplay, ButtonSize, ButtonTypes, IButton } from '../interfaces/button-interface';
 
 @Component({
   selector: 'lib-button',

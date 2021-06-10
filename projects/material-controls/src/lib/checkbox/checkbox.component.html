@@ -1,16 +1,16 @@
 <div class="form-control">
   <mat-checkbox
-    [id]="id"
-    [name]="name"
+    [id]="checkboxProperties.id"
+    [name]="checkboxProperties.name"
     [disabled]="disabled"
-    [color]="color"
-    [indeterminate]="indeterminate"
-    [labelPosition]="labelPosition"
+    [color]="checkboxProperties.color"
+    [indeterminate]="checkboxProperties.indeterminate"
+    [labelPosition]="checkboxProperties.labelPosition"
     [(ngModel)]="value"
-    [required]="required"
+    [required]="checkboxProperties.required"
     (change)="onChange()"
     (indeterminateChange)="onIndeterminateChange()"
   >
-    {{ label }}
+    {{ checkboxProperties.label }}
   </mat-checkbox>
 </div>

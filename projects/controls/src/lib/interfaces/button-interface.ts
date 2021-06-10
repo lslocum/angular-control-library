@@ -1,8 +1,9 @@
+import { Position } from './position';
+
 export type ButtonColor = 'primary' | 'accent' | 'warn';
 export type ButtonDisplay = 'filled' | 'outlined' | 'inverted';
 export type ButtonSize = 'small' | 'medium' | 'large';
 export type ButtonTypes = 'text' | 'icon' | 'textWithIcon' | 'link';
-export type Position = 'left' | 'right';
 
 export interface IButton {
   badgeCount?: number;
