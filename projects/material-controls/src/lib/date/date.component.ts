@@ -3,22 +3,14 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { DateFilterFn, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { IDate } from 'projects/controls/src/lib/interfaces/date-interface';
 
 @Component({
   selector: 'matti-date',
   templateUrl: './date.component.html',
 })
 export class DateComponent implements ControlValueAccessor {
-  @Input() appearance: MatFormFieldAppearance;
-  @Input() color: ThemePalette;
-  @Input('matDatepickerFilter') dateFilter?: DateFilterFn<Date>;
-  @Input() id: string;
-  @Input() label: string;
-  @Input() name: string;
-  @Input() max?: Date;
-  @Input() min?: Date;
-  @Input() required: boolean;
-
+  @Input() dateProperties: IDate;
   @Output() dateChange: EventEmitter<MatDatepickerInputEvent<Date, unknown>>;
   @Output() dateInput: EventEmitter<MatDatepickerInputEvent<Date, unknown>>;
 

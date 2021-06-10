@@ -4,6 +4,7 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 import { IButton } from 'projects/controls/src/lib/interfaces/button-interface';
 import { ICheckbox } from 'projects/controls/src/lib/interfaces/checkbox-interface';
+import { IDate } from 'projects/controls/src/lib/interfaces/date-interface';
 import { Position } from 'projects/controls/src/lib/interfaces/position';
 
 @Component({
@@ -14,6 +15,7 @@ import { Position } from 'projects/controls/src/lib/interfaces/position';
 export class ControlOptionsComponent implements OnInit {
   @Input() buttonProperties: IButton;
   @Input() checkboxProperties: ICheckbox;
+  @Input() dateProperties: IDate;
   @Input() label?: string;
   @Input() placeholder?: string;
   @Input() required?: boolean;
@@ -38,6 +40,7 @@ export class ControlOptionsComponent implements OnInit {
 
   @Output() buttonPropertiesUpdated = new EventEmitter<IButton>();
   @Output() checkboxPropertiesUpdated = new EventEmitter<ICheckbox>();
+  @Output() datePropertiesUpdated = new EventEmitter<IDate>();
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
   @Output() disabledToggled = new EventEmitter<boolean>();
@@ -62,7 +65,6 @@ export class ControlOptionsComponent implements OnInit {
   @Output() loadingUpdated = new EventEmitter<boolean>();
 
   ngOnInit(): void {
-    this.color = 'primary';
     if (this.buttonProperties) {
       this.label = this.buttonProperties.label;
       this.color = this.buttonProperties.color;
@@ -155,7 +157,7 @@ export class ControlOptionsComponent implements OnInit {
   updateButtonProperties(event: any, property: string): void {
     const buttonProps = {
       ...this.buttonProperties,
-      [property]: event ? event.target.value : !this.buttonProperties[property],
+      [property]: this.getUpdatedValue(event, this.buttonProperties[property]),
     };
 
     this.buttonPropertiesUpdated.emit(buttonProps);
@@ -164,9 +166,22 @@ export class ControlOptionsComponent implements OnInit {
   updateCheckboxProperties(event: any, property: string): void {
     const checkboxProps = {
       ...this.checkboxProperties,
-      [property]: event ? event.target.value : !this.checkboxProperties[property],
+      [property]: this.getUpdatedValue(event, this.checkboxProperties[property]),
     };
 
     this.checkboxPropertiesUpdated.emit(checkboxProps);
+  }
+
+  updateDateProperties(event: any, property: string): void {
+    const dateProps = {
+      ...this.dateProperties,
+      [property]: this.getUpdatedValue(event, this.dateProperties[property]),
+    };
+
+    this.datePropertiesUpdated.emit(dateProps);
+  }
+
+  private getUpdatedValue(event: any, value: unknown): unknown {
+    return typeof value === 'boolean' ? !value : event.target.value;
   }
 }

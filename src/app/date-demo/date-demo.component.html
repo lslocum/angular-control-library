@@ -1,16 +1,9 @@
 <div *ngIf="selectedLibrary$ | async as selectedLibrary">
   <h1>Date</h1>
   <app-control-options
-    [label]="label"
-    [required]="required"
-    [disabled]="disabled"
-    [appearance]="appearance"
-    [color]="color"
-    (labelUpdated)="updateLabel($event)"
+    [dateProperties]="dateProperties"
+    (datePropertiesUpdated)="updateDateProperties($event)"
     (disabledToggled)="disableControl($event)"
-    (requiredToggled)="toggleRequired($event)"
-    (colorUpdated)="colorUpdated($event)"
-    (appearanceUpdated)="appearanceUpdated($event)"
   ></app-control-options>
 
   <div class="wrapper">
@@ -18,22 +11,22 @@
       <ng-container *ngIf="selectedLibrary === 'HTML'">
         <lib-date
           [formControlName]="formControlName"
-          id="dateWithValue"
-          [name]="formControlName"
-          [label]="label"
-          [required]="required"
+          [dateProperties]="dateProperties"
         ></lib-date>
       </ng-container>
 
       <ng-container *ngIf="selectedLibrary === 'Material'">
         <matti-date
           [formControlName]="formControlName"
-          id="dateWithValue"
-          [name]="formControlName"
-          [label]="label"
-          [required]="required"
-          [appearance]="appearance"
+          [dateProperties]="dateProperties"
         ></matti-date>
+      </ng-container>
+
+      <ng-container *ngIf="selectedLibrary === 'Prime-NG'">
+        <prime-date
+          [formControlName]="formControlName"
+          [dateProperties]="dateProperties"
+        ></prime-date>
       </ng-container>
     </div>
 

@@ -64,8 +64,6 @@ export class ButtonComponent implements OnChanges {
       if (this.sizeClass) {
         this.classList.push(this.sizeClass);
       }
-
-      console.log('classList', this.classList);
     }
   }
 

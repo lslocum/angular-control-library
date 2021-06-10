@@ -35,11 +35,25 @@
       "
     ></ng-container>
     <ng-container
-    *ngTemplateOutlet="
-      color;
-      context: { color: checkboxProperties.color, changeFn: updateCheckboxProperties.bind(this) }
-    "
-  ></ng-container>
+      *ngTemplateOutlet="
+        color;
+        context: { color: checkboxProperties.color, changeFn: updateCheckboxProperties.bind(this) }
+      "
+    ></ng-container>
+  </ng-container>
+
+  <!-- Date -->
+  <ng-container *ngIf="dateProperties">
+    <ng-container
+      *ngTemplateOutlet="label; context: { label: dateProperties.label, changeFn: updateDateProperties.bind(this) }"
+    ></ng-container>
+    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <ng-container
+      *ngTemplateOutlet="
+        required;
+        context: { required: dateProperties.required, changeFn: updateDateProperties.bind(this) }
+      "
+    ></ng-container>
   </ng-container>
 </div>
 <hr />
@@ -227,20 +241,20 @@
     <input type="number" id="minlength" name="minlength" [(value)]="minlength" (change)="updateMinLength($event)" />
   </span>
 </ng-template>
-
-<ng-template #required>
+-->
+<ng-template #required let-required="required" let-changeFn="changeFn">
   <span *ngIf="required !== undefined">
     <input
       type="checkbox"
       id="toggleRequired"
       name="toggleRequired"
-      [(value)]="required"
-      (click)="toggleRequired($event)"
+      [value]="required"
+      (click)="changeFn($event, 'required')"
     />
     <label for="toggleRequired">Required</label>
   </span>
 </ng-template>
-
+<!--
 <ng-template #pattern>
   <span *ngIf="pattern !== undefined">
     <label for="pattern">Pattern</label>

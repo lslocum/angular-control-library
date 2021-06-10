@@ -53,8 +53,6 @@ export class ButtonComponent implements OnChanges {
         this.classList.push(this.typeClass);
       }
     }
-
-    console.log('classList', this.classList)
   }
 
   handleOnClick(): void {

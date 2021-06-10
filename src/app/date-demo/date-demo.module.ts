@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DateModule } from 'projects/controls/src/lib/date/date.module';
 import { DateModule as MaterialDateModule } from 'projects/material-controls/src/lib/date/date.module';
+import { DateModule as PrimeDateModule } from 'projects/primeng/src/lib/date/date.module';
 
 import { DateDemoRoutingModule } from './date-demo-routing.module';
 import { DateDemoComponent } from './date-demo.component';
@@ -20,12 +21,13 @@ import { MatInputModule } from '@angular/material/input';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
     DateDemoRoutingModule,
     ControlOptionsModule,
     DateModule,
     MaterialDateModule,
-    MatFormFieldModule,
-    MatInputModule
+    PrimeDateModule
   ]
 })
 export class DateDemoModule { }

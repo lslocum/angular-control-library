@@ -51,14 +51,5 @@ export class CheckboxDemoComponent implements OnInit {
 
   updateCheckboxProperties(value: ICheckbox): void {
     this.checkboxProperties = { ...value };
-    console.log('updateCheckboxProperties', this.checkboxProperties);
-  }
-
-  updateLabel(value: string) {
-    // this.label = value;
-  }
-
-  colorUpdated(value): void {
-    // this.color = value;
   }
 }

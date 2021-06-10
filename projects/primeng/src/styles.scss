@@ -1,0 +1,21 @@
+.required {
+  label::after {
+    content: '*';
+    position: relative;
+    top: -3px;
+    left: 3px;
+    font-size: 0.85rem;
+    color: red;
+  }
+}
+
+.ng-touched.ng-invalid {
+  border-bottom: solid 1px red;
+}
+
+.error-message {
+  margin-top: 5px;
+  font-size: 0.85rem;
+  color: red;
+  bottom: 0;
+}

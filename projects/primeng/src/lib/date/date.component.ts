@@ -1,15 +1,15 @@
 import { Component, Input, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { IDate } from '../interfaces/date-interface';
+import { IDate } from 'projects/controls/src/lib/interfaces/date-interface';
 
 @Component({
-  selector: 'lib-date',
+  selector: 'prime-date',
   templateUrl: './date.component.html',
   styleUrls: ['./date.component.scss'],
 })
 export class DateComponent implements ControlValueAccessor {
   @Input() dateProperties: IDate;
-  
+
   disabled: boolean = false;
   value = '';
 

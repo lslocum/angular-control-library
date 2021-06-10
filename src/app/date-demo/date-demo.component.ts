@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+
+import { getDefaultDate, IDate } from 'projects/controls/src/lib/interfaces/date-interface';
+
 import { LibraryService } from '../library.service';
 
 @Component({
@@ -12,19 +13,16 @@ import { LibraryService } from '../library.service';
 })
 export class DateDemoComponent implements OnInit {
   selectedLibrary$: Observable<string>;
+  dateProperties: IDate;
+  disabled = false;
   formGroup: FormGroup;
   formControlName = 'date';
-  label = 'Birthday';
-  required = false;
-  disabled = false;
-  appearance: MatFormFieldAppearance;
-  color: ThemePalette;
 
   constructor(private libraryService: LibraryService) {
     this.selectedLibrary$ = this.libraryService.selectedLibrary.pipe(
       tap((lib) => {
-        this.color = null; // TODO: Make this work when we haven't implemented all material date options
-        lib === 'Material' ? (this.appearance = 'standard') : undefined;
+        this.dateProperties.color = null; // TODO: Make this work when we haven't implemented all material date options
+        lib === 'Material' ? (this.dateProperties.appearance = 'standard') : undefined;
       })
     );
   }
@@ -33,6 +31,12 @@ export class DateDemoComponent implements OnInit {
     this.formGroup = new FormGroup({
       date: new FormControl(),
       matdate: new FormControl(),
+    });
+
+    this.dateProperties = getDefaultDate({
+      label: 'Date of Birth',
+      id: this.formControlName,
+      name: this.formControlName,
     });
   }
 
@@ -46,30 +50,17 @@ export class DateDemoComponent implements OnInit {
     this.disabled = value;
   }
 
-  toggleRequired(value: boolean) {
+  updateDateProperties(value: IDate) {
+    this.dateProperties = { ...value };
+    this.toggleRequired(this.dateProperties.required);
+  }
+
+  private toggleRequired(value: boolean) {
     if (!value) {
       this.formGroup.get(this.formControlName).clearValidators();
     } else {
       this.formGroup.get(this.formControlName).setValidators(Validators.required);
     }
     this.formGroup.get(this.formControlName).updateValueAndValidity();
-
-    this.required = value;
   }
-
-  updateLabel(value: string) {
-    this.label = value;
-  }
-
-  colorUpdated(value): void {
-    this.color = value;
-  }
-
-  appearanceUpdated(value): void {
-    this.appearance = value;
-  }
-}
-
-function jsDateToInputDate(date: Date): string {
-  return date.toLocaleDateString('en-CA');
 }
