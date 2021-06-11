@@ -5,6 +5,7 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { IButton } from 'projects/controls/src/lib/interfaces/button-interface';
 import { ICheckbox } from 'projects/controls/src/lib/interfaces/checkbox-interface';
 import { IDate } from 'projects/controls/src/lib/interfaces/date-interface';
+import { IEmail } from 'projects/controls/src/lib/interfaces/email-interface';
 import { Position } from 'projects/controls/src/lib/interfaces/position';
 
 @Component({
@@ -16,6 +17,7 @@ export class ControlOptionsComponent implements OnInit {
   @Input() buttonProperties: IButton;
   @Input() checkboxProperties: ICheckbox;
   @Input() dateProperties: IDate;
+  @Input() emailProperties: IEmail;
   @Input() label?: string;
   @Input() placeholder?: string;
   @Input() required?: boolean;
@@ -41,6 +43,7 @@ export class ControlOptionsComponent implements OnInit {
   @Output() buttonPropertiesUpdated = new EventEmitter<IButton>();
   @Output() checkboxPropertiesUpdated = new EventEmitter<ICheckbox>();
   @Output() datePropertiesUpdated = new EventEmitter<IDate>();
+  @Output() emailPropertiesUpdated = new EventEmitter<IEmail>();
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
   @Output() disabledToggled = new EventEmitter<boolean>();
@@ -179,6 +182,15 @@ export class ControlOptionsComponent implements OnInit {
     };
 
     this.datePropertiesUpdated.emit(dateProps);
+  }
+
+  updateEmailProperties(event: any, property: string): void {
+    const emailProps = {
+      ...this.emailProperties,
+      [property]: this.getUpdatedValue(event, this.emailProperties[property]),
+    };
+
+    this.emailPropertiesUpdated.emit(emailProps);
   }
 
   private getUpdatedValue(event: any, value: unknown): unknown {

@@ -55,13 +55,59 @@
       "
     ></ng-container>
   </ng-container>
+
+  <!-- Email -->
+  <ng-container *ngIf="emailProperties">
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="label; context: { label: emailProperties.label, changeFn: updateEmailProperties.bind(this) }"
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <!-- 3 -->
+    <ng-container
+      *ngTemplateOutlet="
+        minlength;
+        context: { minlength: emailProperties.minlength, changeFn: updateEmailProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 1 -->
+    <ng-container
+    *ngTemplateOutlet="
+      placeholder;
+      context: { placeholder: emailProperties.placeholder, changeFn: updateEmailProperties.bind(this) }
+    "
+  ></ng-container>
+    <!-- 2 -->
+    <ng-container
+      *ngTemplateOutlet="
+        required;
+        context: { required: emailProperties.required, changeFn: updateEmailProperties.bind(this) }
+      "
+    ></ng-container>
+
+    <!-- 3 -->
+    <ng-container
+      *ngTemplateOutlet="
+      maxlength;
+        context: { maxlength: emailProperties.maxlength, changeFn: updateEmailProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 1 -->
+    <ng-container
+    *ngTemplateOutlet="
+    appearance;
+      context: { appearance: emailProperties.appearance, changeFn: updateEmailProperties.bind(this) }
+    "
+  ></ng-container>
+  </ng-container>
 </div>
 <hr />
-<!-- 
-<ng-template #appearance>
+
+<ng-template #appearance let-appearance="appearance" let-changeFn="changeFn">
   <span *ngIf="appearance !== undefined">
     <label for="appearance">Appearance</label>
-    <select id="appearance" name="appearance" [(value)]="appearance" (change)="updateAppearance($event)">
+    <select id="appearance" name="appearance" [value]="appearance" (change)="changeFn($event, 'appearance')">
       <option value="legacy">Legacy</option>
       <option value="standard">Standard</option>
       <option value="fill">Fill</option>
@@ -69,7 +115,7 @@
     </select>
   </span>
 </ng-template>
- -->
+
 <ng-template #badgeNumber>
   <span *ngIf="buttonProperties?.badgeNumber !== undefined">
     <label for="badgeNumber">Badge Number</label>
@@ -77,7 +123,7 @@
       type="number"
       id="badgeNumber"
       name="badgeNumber"
-      [(value)]="buttonProperties.badgeNumber"
+      [value]="buttonProperties.badgeNumber"
       (change)="updateButtonProperties($event, 'badgeNumber')"
     />
   </span>
@@ -130,14 +176,14 @@
 <ng-template #cols>
   <span *ngIf="cols !== undefined">
     <label for="cols">Number of Columns</label>
-    <input type="number" id="cols" name="cols" [(value)]="cols" (click)="updateCols($event)" />
+    <input type="number" id="cols" name="cols" [value]="cols" (click)="updateCols($event)" />
   </span>
 </ng-template>
 
 <ng-template #direction>
   <span *ngIf="direction !== undefined">
     <label for="direction">Direction</label>
-    <select id="direction" name="direction" [(value)]="direction" (change)="updateDirection($event)">
+    <select id="direction" name="direction" [value]="direction" (change)="updateDirection($event)">
       <option value="vertical">Vertical</option>
       <option value="horizontal">Horizontal</option>
     </select>
@@ -157,7 +203,7 @@
       type="checkbox"
       id="disableOptionCentering"
       name="disableOptionCentering"
-      [(value)]="disableOptionCentering"
+      [value]="disableOptionCentering"
       (click)="updateDisableOptionCentering()"
     />
     <label for="disableOptionCentering">Disable Option Centering</label>
@@ -184,7 +230,7 @@
       type="checkbox"
       id="hasShadow"
       name="hasShadow"
-      [(value)]="buttonProperties.hasShadow"
+      [value]="buttonProperties.hasShadow"
       (click)="updateButtonProperties(null, 'hasShadow')"
     />
     <label for="hasShadow">Has Shadow</label>
@@ -197,7 +243,7 @@
       type="checkbox"
       id="isRounded"
       name="isRounded"
-      [(value)]="buttonProperties.isRounded"
+      [value]="buttonProperties.isRounded"
       (click)="updateButtonProperties(null, 'isRounded')"
     />
     <label for="isRounded">Rounded Corners</label>
@@ -223,25 +269,25 @@
 <!--
 <ng-template #loading>
   <span *ngIf="loading !== undefined">
-    <input type="checkbox" id="loading" name="loading" [(value)]="loading" (click)="updateLoading($event)" />
+    <input type="checkbox" id="loading" name="loading" [value]="loading" (click)="updateLoading($event)" />
     <label for="loading">Loading</label>
   </span>
 </ng-template>
-
-<ng-template #maxlength>
+-->
+<ng-template #maxlength let-maxlength="maxlength" let-changeFn="changeFn">
   <span *ngIf="maxlength !== undefined">
     <label for="maxlength">Max Length</label>
-    <input type="number" id="maxlength" name="maxlength" [(value)]="maxlength" (change)="updateMaxLength($event)" />
+    <input type="number" id="maxlength" name="maxlength" [value]="maxlength" (change)="changeFn($event, 'maxlength')" />
   </span>
 </ng-template>
 
-<ng-template #minlength>
+<ng-template #minlength let-minlength="minlength" let-changeFn="changeFn">
   <span *ngIf="minlength !== undefined">
     <label for="minlength">Min Length</label>
-    <input type="number" id="minlength" name="minlength" [(value)]="minlength" (change)="updateMinLength($event)" />
+    <input type="number" id="minlength" name="minlength" [value]="minlength" (change)="changeFn($event, 'minlength')" />
   </span>
 </ng-template>
--->
+
 <ng-template #required let-required="required" let-changeFn="changeFn">
   <span *ngIf="required !== undefined">
     <input
@@ -258,30 +304,30 @@
 <ng-template #pattern>
   <span *ngIf="pattern !== undefined">
     <label for="pattern">Pattern</label>
-    <input type="text" id="pattern" name="pattern" [(value)]="pattern" (change)="updatePattern($event)" />
+    <input type="text" id="pattern" name="pattern" [value]="pattern" (change)="updatePattern($event)" />
   </span>
 </ng-template>
-
-<ng-template #placeholder>
+-->
+<ng-template #placeholder let-placeholder="placeholder" let-changeFn="changeFn">
   <span *ngIf="placeholder !== undefined">
     <label for="placeholder">Placeholder</label>
     <input
       type="text"
       id="placeholder"
       name="placeholder"
-      [(value)]="placeholder"
-      (change)="updatePlaceholder($event)"
+      [value]="placeholder"
+      (click)="changeFn($event, 'placeholder')"
     />
   </span>
 </ng-template>
-
+<!--
 <ng-template #primeButtonDisplayOption>
   <span *ngIf="buttonProperties?.primeButtonDisplayOption !== undefined">
     <label for="primeButtonDisplayOption">Button Type</label>
     <select
       id="primeButtonDisplayOption"
       name="primeButtonDisplayOption"
-      [(value)]="primeButtonDisplayOption"
+      [value]="primeButtonDisplayOption"
       (change)="updatePrimeButtonDisplayOption($event)"
     >
       <option value="filled">Filled</option>
@@ -296,7 +342,7 @@
     <select
       id="primeButtonType"
       name="primeButtonType"
-      [(value)]="primeButtonType"
+      [value]="primeButtonType"
       (change)="updatePrimeButtonType($event)"
     >
       <option value="text">Text</option>
@@ -313,7 +359,7 @@
       type="checkbox"
       id="toggleLowerCase"
       name="toggleLowerCase"
-      [(value)]="requireLowerCase"
+      [value]="requireLowerCase"
       (click)="toggleRequireLowerCase($event)"
     />
     <label for="toggleLowerCase">Require Lower Case</label>
@@ -326,7 +372,7 @@
       type="checkbox"
       id="toggleNumbers"
       name="toggleNumbers"
-      [(value)]="requireNumbers"
+      [value]="requireNumbers"
       (click)="toggleRequireNumbers($event)"
     />
     <label for="toggleNumbers">Require Numbers</label>
@@ -339,7 +385,7 @@
       type="checkbox"
       id="toggleUpperCase"
       name="toggleUpperCase"
-      [(value)]="requireUpperCase"
+      [value]="requireUpperCase"
       (click)="toggleRequireUpperCase($event)"
     />
     <label for="toggleUpperCase">Require Upper Case</label>
@@ -349,14 +395,14 @@
 <ng-template #rows>
   <span *ngIf="rows !== undefined">
     <label for="rows">Number of Rows</label>
-    <input type="number" id="rows" name="rows" [(value)]="rows" (click)="updateRows($event)" />
+    <input type="number" id="rows" name="rows" [value]="rows" (click)="updateRows($event)" />
   </span>
 </ng-template>
 
 <ng-template #severity>
   <span *ngIf="buttonProperties?.severity !== undefined">
     <label for="severity">Severity (color)</label>
-    <select id="severity" name="severity" [(value)]="severity" (change)="updateSeverity($event)">
+    <select id="severity" name="severity" [value]="severity" (change)="updateSeverity($event)">
       <option value=""></option>
       <option value="secondary">Secondary</option>
       <option value="success">Success</option>
@@ -371,7 +417,7 @@
 <ng-template #step>
   <span *ngIf="step !== undefined">
     <label for="step">Step</label>
-    <input type="number" id="step" name="step" [(value)]="step" (change)="updateStep($event)" />
+    <input type="number" id="step" name="step" [value]="step" (change)="updateStep($event)" />
   </span>
 </ng-template> -->
 
@@ -389,7 +435,7 @@
 <!-- <ng-template #wrap>
   <span *ngIf="wrap !== undefined">
     <label for="wrap">Wrap</label>
-    <select id="wrap" name="wrap" [(value)]="wrap" (change)="updateWrap($event)">
+    <select id="wrap" name="wrap" [value]="wrap" (change)="updateWrap($event)">
       <option value="hard">Hard</option>
       <option value="soft">Soft</option>
     </select>

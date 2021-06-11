@@ -1,14 +1,14 @@
-<div class="form-control" [class.required]="emailProperties.required">
+<div class="p-field" [class.required]="emailProperties.required" [ngClass]="appearanceClass">
   <label [for]="emailProperties.name">{{ emailProperties.label }}</label>
   <input
+    pInputText
+    class="p-inputtext"
     type="email"
-    class="my-input"
     [id]="emailProperties.id"
     [disabled]="disabled"
     [minlength]="emailProperties.minlength"
     [maxlength]="emailProperties.maxlength"
     [name]="emailProperties.name"
-    [ngClass]="emailProperties.appearance"
     [placeholder]="emailProperties.placeholder"
     [required]="emailProperties.required"
     [(ngModel)]="value"

@@ -17,16 +17,15 @@ export interface IDate {
   required: boolean;
 }
 
-
 export function getDefaultDate(overrides?: Partial<IDate>): IDate {
-    return Object.assign(
-      {
-        id: null,
-        dateFormat: 'mm/dd/yy',
-        label: null,
-        name: null,
-        required: false,
-      },
-      overrides
-    );
-  }
+  return Object.assign(
+    {
+      id: null,
+      dateFormat: 'mm/dd/yy',
+      label: null,
+      name: null,
+      required: false,
+    },
+    overrides
+  );
+}

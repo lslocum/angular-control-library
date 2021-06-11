@@ -1,4 +1,4 @@
-<div class="form-control" [class.required]="dateProperties.required">
+<div class="p-field" [class.required]="dateProperties.required">
   <label [for]="dateProperties.name">{{ dateProperties.label }}</label>
   <p-calendar
     [(ngModel)]="value"
@@ -15,11 +15,14 @@
     (onInput)="onChange()"
     (onSelect)="onChange()"
   ></p-calendar>
-  <div *ngIf="control.hasError('required')" class="error-message" >{{ dateProperties.label }} required.</div>
-  <div *ngIf="control.hasError('min')" class="error-message" >
-    {{ dateProperties.label }} must be after {{ dateProperties.minDate }}.
-  </div>
-  <div *ngIf="control.hasError('max')" class="error-message" >
-    {{ dateProperties.label }} must be before {{ dateProperties.maxDate }}.
+
+  <div *ngIf="control.touched">
+    <small *ngIf="control.hasError('required')" class="p-error">{{ dateProperties.label }} required.</small>
+    <small *ngIf="control.hasError('min')" class="p-error">
+      {{ dateProperties.label }} must be after {{ dateProperties.minDate }}.
+    </small>
+    <small *ngIf="control.hasError('max')" class="p-error">
+      {{ dateProperties.label }} must be before {{ dateProperties.maxDate }}.
+    </small>
   </div>
 </div>

@@ -1,16 +1,16 @@
-import { Component, Input, Optional, Self, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, Optional, Self, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
-import { IEmail } from '../interfaces/email-interface';
+import { IEmail } from 'projects/controls/src/lib/interfaces/email-interface';
 
 @Component({
-  selector: 'lib-email',
+  selector: 'prime-email',
   templateUrl: './email.component.html',
   styleUrls: ['./email.component.scss'],
 })
-export class EmailComponent implements ControlValueAccessor {
+export class EmailComponent implements ControlValueAccessor, OnChanges {
   @Input() emailProperties: IEmail;
-
+  appearanceClass: string;
   disabled: boolean = false;
   value = '';
 
@@ -19,6 +19,12 @@ export class EmailComponent implements ControlValueAccessor {
 
   constructor(@Self() @Optional() public control: NgControl) {
     this.control && (this.control.valueAccessor = this);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.emailProperties.currentValue.appearance) {
+      this.appearanceClass = changes.emailProperties.currentValue.appearance === 'fill' ? 'p-input-filled' : '';
+    }
   }
 
   registerOnChange(fn: any): void {

@@ -1,20 +1,14 @@
-import { Component, Input, OnInit, Optional, Self } from '@angular/core';
+import { Component, Input, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
+
+import { IEmail } from 'projects/controls/src/lib/interfaces/email-interface';
 
 @Component({
   selector: 'matti-email',
   templateUrl: './email.component.html',
 })
 export class EmailComponent implements ControlValueAccessor {
-  @Input() appearance: MatFormFieldAppearance;
-  @Input() id: string;
-  @Input() label: string;
-  @Input() minlength?: number = 7;
-  @Input() maxlength?: number;
-  @Input() name: string;
-  @Input() placeholder: string = '';
-  @Input() required: boolean;
+  @Input() emailProperties: IEmail;
 
   disabled: boolean;
   value: string;
@@ -44,23 +38,5 @@ export class EmailComponent implements ControlValueAccessor {
 
   onChange() {
     this.onChangeCallback(this.value);
-  }
-
-  getErrorMessage() {
-    let errorMessage = '';
-
-    if (this.control.hasError('required')) {
-      errorMessage = `${this.label} required.`;
-    }
-
-    if (this.control.hasError('email')) {
-      errorMessage = 'Not a valid email.';
-    }
-
-    if (this.control.hasError('minlength')) {
-      errorMessage = `An email must be at least ${this.minlength} characters.`;
-    }
-
-    return errorMessage;
   }
 }

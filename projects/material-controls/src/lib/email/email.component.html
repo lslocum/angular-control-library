@@ -1,19 +1,23 @@
-<mat-form-field [appearance]="appearance">
-  <mat-label class="label">{{ label }}</mat-label>
+<mat-form-field [appearance]="emailProperties.appearance">
+  <mat-label class="label">{{ emailProperties.label }}</mat-label>
   <input
     matInput
     type="email"
-    [id]="id"
-    [name]="name"
-    [placeholder]="placeholder"
-    [required]="required"
+    [id]="emailProperties.id"
     [disabled]="disabled"
-    [minlength]="minlength"
-    [maxlength]="maxlength"
+    [maxlength]="emailProperties.maxlength"
+    [minlength]="emailProperties.minlength"
+    [name]="emailProperties.name"
+    [placeholder]="emailProperties.placeholder"
+    [required]="emailProperties.required"
     [(ngModel)]="value"
     (input)="onChange()"
     (change)="onChange()"
     (blur)="onTouchedCallback()"
   />
-  <mat-error *ngIf="control.invalid">{{ getErrorMessage() }}</mat-error>
+  <div *ngIf="control.invalid">
+    <mat-error *ngIf="control.hasError('required')">{{ emailProperties.label }} is required.</mat-error>
+    <mat-error *ngIf="control.hasError('email')">{{ value }} is not a valid email.</mat-error>
+    <mat-error *ngIf="control.hasError('minlength')">{{ emailProperties.label }} cannot be less than {{ emailProperties.minlength }}.</mat-error>
+  </div>
 </mat-form-field>

@@ -1,51 +1,27 @@
 <div *ngIf="selectedLibrary$ | async as selectedLibrary">
   <h1>Email</h1>
   <app-control-options
-    [label]="label"
-    [placeholder]="placeholder"
-    [required]="required"
     [disabled]="disabled"
-    [minlength]="minlength"
-    [maxlength]="maxlength"
-    [appearance]="appearance"
-    (labelUpdated)="updateLabel($event)"
-    (placeholderUpdated)="updatePlaceholder($event)"
+    [emailProperties]="emailProperties"
     (disabledToggled)="disableControl($event)"
-    (requiredToggled)="toggleRequired($event)"
-    (minlengthUpdated)="updateMinLength($event)"
-    (maxlengthUpdated)="updateMaxLength($event)"
-    (appearanceUpdated)="appearanceUpdated($event)"
+    (emailPropertiesUpdated)="updateEmailProperties($event)"
   ></app-control-options>
 
   <div class="wrapper">
     <div [formGroup]="formGroup" class="form-group">
       <ng-container *ngIf="selectedLibrary === 'HTML'">
-        <lib-email
-          [formControlName]="formControlName"
-          id="emailWithValue"
-          [name]="formControlName"
-          [label]="label"
-          [placeholder]="placeholder"
-          [required]="required"
-          [minlength]="minlength"
-          [maxlength]="maxlength"
-        ></lib-email>
+        <lib-email [formControlName]="formControlName" [emailProperties]="emailProperties"></lib-email>
       </ng-container>
 
       <ng-container *ngIf="selectedLibrary === 'Material'">
-        <matti-email
-          [formControlName]="formControlName"
-          id="emailWithValue"
-          [name]="formControlName"
-          [label]="label"
-          [placeholder]="placeholder"
-          [required]="required"
-          [minlength]="minlength"
-          [maxlength]="maxlength"
-          [appearance]="appearance"
-        ></matti-email>
+        <matti-email [formControlName]="formControlName" [emailProperties]="emailProperties"></matti-email>
+      </ng-container>
+
+      <ng-container *ngIf="selectedLibrary === 'Prime-NG'">
+        <prime-email [formControlName]="formControlName" [emailProperties]="emailProperties"></prime-email>
       </ng-container>
     </div>
+
     <div class="status">
       <label>Form Group Status:</label>
       <span>{{ formGroup.get(formControlName).status }}</span>
