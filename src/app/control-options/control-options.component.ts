@@ -6,6 +6,7 @@ import { IButton } from 'projects/controls/src/lib/interfaces/button-interface';
 import { ICheckbox } from 'projects/controls/src/lib/interfaces/checkbox-interface';
 import { IDate } from 'projects/controls/src/lib/interfaces/date-interface';
 import { IEmail } from 'projects/controls/src/lib/interfaces/email-interface';
+import { INumber } from 'projects/controls/src/lib/interfaces/number-interface';
 import { Position } from 'projects/controls/src/lib/interfaces/position';
 
 @Component({
@@ -18,6 +19,7 @@ export class ControlOptionsComponent implements OnInit {
   @Input() checkboxProperties: ICheckbox;
   @Input() dateProperties: IDate;
   @Input() emailProperties: IEmail;
+  @Input() numberProperties: INumber;
   @Input() label?: string;
   @Input() placeholder?: string;
   @Input() required?: boolean;
@@ -44,6 +46,7 @@ export class ControlOptionsComponent implements OnInit {
   @Output() checkboxPropertiesUpdated = new EventEmitter<ICheckbox>();
   @Output() datePropertiesUpdated = new EventEmitter<IDate>();
   @Output() emailPropertiesUpdated = new EventEmitter<IEmail>();
+  @Output() numberPropertiesUpdated = new EventEmitter<INumber>();
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
   @Output() disabledToggled = new EventEmitter<boolean>();
@@ -191,6 +194,15 @@ export class ControlOptionsComponent implements OnInit {
     };
 
     this.emailPropertiesUpdated.emit(emailProps);
+  }
+
+  updateNumberProperties(event: any, property: string): void {
+    const numberProps = {
+      ...this.numberProperties,
+      [property]: this.getUpdatedValue(event, this.numberProperties[property]),
+    };
+
+    this.numberPropertiesUpdated.emit(numberProps);
   }
 
   private getUpdatedValue(event: any, value: unknown): unknown {

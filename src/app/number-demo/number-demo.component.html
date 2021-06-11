@@ -1,54 +1,25 @@
 <div *ngIf="selectedLibrary$ | async as selectedLibrary">
   <h1>Number</h1>
   <app-control-options
-    [appearance]="appearance"
-    [label]="label"
-    [placeholder]="placeholder"
-    [required]="required"
     [disabled]="disabled"
-    [minlength]="min"
-    [maxlength]="max"
-    [step]="step"
-    (appearanceUpdated)="appearanceUpdated($event)"
-    (labelUpdated)="updateLabel($event)"
-    (placeholderUpdated)="updatePlaceholder($event)"
+    [numberProperties]="numberProperties"
     (disabledToggled)="disableControl($event)"
-    (requiredToggled)="toggleRequired($event)"
-    (minlengthUpdated)="updateMin($event)"
-    (maxlengthUpdated)="updateMax($event)"
-    (stepUpdated)="updateStep($event)"
+    (numberPropertiesUpdated)="updateNumberProperties($event)"
   ></app-control-options>
 
   <div class="wrapper">
     <div [formGroup]="formGroup" class="form-group">
       <ng-container *ngIf="selectedLibrary === 'HTML'">
-        <lib-number
-          [formControlName]="formControlName"
-          id="numberWithValue"
-          [name]="formControlName"
-          [label]="label"
-          [placeholder]="placeholder"
-          [required]="required"
-          [min]="min"
-          [max]="max"
-          [step]="step"
-        ></lib-number>
+        <lib-number [formControlName]="formControlName" [numberProperties]="numberProperties"></lib-number>
       </ng-container>
       <ng-container *ngIf="selectedLibrary === 'Material'">
-        <matti-number
-          [formControlName]="formControlName"
-          id="numberWithValue"
-          [name]="formControlName"
-          [label]="label"
-          [placeholder]="placeholder"
-          [required]="required"
-          [min]="min"
-          [max]="max"
-          [step]="step"
-          [appearance]="appearance"
-        ></matti-number>
+        <matti-number [formControlName]="formControlName" [numberProperties]="numberProperties"></matti-number>
+      </ng-container>
+      <ng-container *ngIf="selectedLibrary === 'Prime-NG'">
+        <prime-number [formControlName]="formControlName" [numberProperties]="numberProperties"></prime-number>
       </ng-container>
     </div>
+
     <div class="status">
       <label>Form Group Status:</label>
       <span>{{ formGroup.get(formControlName).status }}</span>

@@ -1,21 +1,14 @@
 import { Component, Input, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { INumber } from 'projects/controls/src/lib/interfaces/number-interface';
 
 @Component({
   selector: 'matti-number',
   templateUrl: './number.component.html',
 })
 export class NumberComponent implements ControlValueAccessor {
-  @Input() appearance: MatFormFieldAppearance;
-  @Input() id: string;
-  @Input() label: string;
-  @Input() min?: number;
-  @Input() max?: number;
-  @Input() name: string;
-  @Input() placeholder: string = '';
-  @Input() required: boolean = false;
-  @Input() step?: number = 1;
+  @Input() numberProperties: INumber;
 
   disabled: boolean = false;
   value = '';

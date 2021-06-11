@@ -1,6 +1,8 @@
-<div class="form-control" [class.required]="numberProperties.required">
+<div class="p-field" [class.required]="numberProperties.required" [ngClass]="appearanceClass">
   <label [for]="numberProperties.name">{{ numberProperties.label }}</label>
   <input
+    pInputText
+    class="p-inputtext"
     type="number"
     [disabled]="disabled"
     [id]="numberProperties.id"
@@ -15,7 +17,6 @@
     (input)="onChange()"
     (change)="onChange()"
     (blur)="onTouchedCallback()"
-    class="my-input my-number"
   />
 
   <div *ngIf="control.invalid" class="error-message">

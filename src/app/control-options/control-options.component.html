@@ -68,16 +68,21 @@
     <ng-container
       *ngTemplateOutlet="
         minlength;
-        context: { minlength: emailProperties.minlength, changeFn: updateEmailProperties.bind(this) }
+        context: {
+          changeFn: updateEmailProperties.bind(this),
+          label: 'Min Length',
+          minlength: emailProperties.minlength,
+          property: 'minlength'
+        }
       "
     ></ng-container>
     <!-- 1 -->
     <ng-container
-    *ngTemplateOutlet="
-      placeholder;
-      context: { placeholder: emailProperties.placeholder, changeFn: updateEmailProperties.bind(this) }
-    "
-  ></ng-container>
+      *ngTemplateOutlet="
+        placeholder;
+        context: { placeholder: emailProperties.placeholder, changeFn: updateEmailProperties.bind(this) }
+      "
+    ></ng-container>
     <!-- 2 -->
     <ng-container
       *ngTemplateOutlet="
@@ -89,15 +94,83 @@
     <!-- 3 -->
     <ng-container
       *ngTemplateOutlet="
-      maxlength;
-        context: { maxlength: emailProperties.maxlength, changeFn: updateEmailProperties.bind(this) }
+        maxlength;
+        context: {
+          changeFn: updateEmailProperties.bind(this),
+          label: 'Max Length',
+          maxlength: emailProperties.maxlength,
+          property: 'maxlength'
+        }
       "
     ></ng-container>
     <!-- 1 -->
     <ng-container
+      *ngTemplateOutlet="
+        appearance;
+        context: { appearance: emailProperties.appearance, changeFn: updateEmailProperties.bind(this) }
+      "
+    ></ng-container>
+  </ng-container>
+
+  <!-- Number -->
+  <ng-container *ngIf="numberProperties">
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="label; context: { label: numberProperties.label, changeFn: updateNumberProperties.bind(this) }"
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <!-- 3 -->
+    <ng-container
+      *ngTemplateOutlet="
+        minlength;
+        context: {
+          changeFn: updateNumberProperties.bind(this),
+          label: 'Min',
+          minlength: numberProperties.min,
+          property: 'min'
+        }
+      "
+    ></ng-container>
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        placeholder;
+        context: { placeholder: numberProperties.placeholder, changeFn: updateNumberProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container
+      *ngTemplateOutlet="
+        required;
+        context: { required: numberProperties.required, changeFn: updateNumberProperties.bind(this) }
+      "
+    ></ng-container>
+
+    <!-- 3 -->
+    <ng-container
+      *ngTemplateOutlet="
+        maxlength;
+        context: {
+          changeFn: updateNumberProperties.bind(this),
+          label: 'Max',
+          maxlength: numberProperties.max,
+          property: 'max'
+        }
+      "
+    ></ng-container>
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        appearance;
+        context: { appearance: numberProperties.appearance, changeFn: updateNumberProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container
     *ngTemplateOutlet="
-    appearance;
-      context: { appearance: emailProperties.appearance, changeFn: updateEmailProperties.bind(this) }
+      step;
+      context: { step: numberProperties.step, changeFn: updateNumberProperties.bind(this) }
     "
   ></ng-container>
   </ng-container>
@@ -274,17 +347,17 @@
   </span>
 </ng-template>
 -->
-<ng-template #maxlength let-maxlength="maxlength" let-changeFn="changeFn">
+<ng-template #maxlength let-maxlength="maxlength" let-changeFn="changeFn" let-label="label" let-property="property">
   <span *ngIf="maxlength !== undefined">
-    <label for="maxlength">Max Length</label>
-    <input type="number" id="maxlength" name="maxlength" [value]="maxlength" (change)="changeFn($event, 'maxlength')" />
+    <label for="maxlength">{{ label }}</label>
+    <input type="number" id="maxlength" name="maxlength" [value]="maxlength" (change)="changeFn($event, property)" />
   </span>
 </ng-template>
 
-<ng-template #minlength let-minlength="minlength" let-changeFn="changeFn">
+<ng-template #minlength let-minlength="minlength" let-changeFn="changeFn" let-label="label" let-property="property">
   <span *ngIf="minlength !== undefined">
-    <label for="minlength">Min Length</label>
-    <input type="number" id="minlength" name="minlength" [value]="minlength" (change)="changeFn($event, 'minlength')" />
+    <label for="minlength">{{ label }}</label>
+    <input type="number" id="minlength" name="minlength" [value]="minlength" (change)="changeFn($event, property)" />
   </span>
 </ng-template>
 
@@ -321,38 +394,6 @@
   </span>
 </ng-template>
 <!--
-<ng-template #primeButtonDisplayOption>
-  <span *ngIf="buttonProperties?.primeButtonDisplayOption !== undefined">
-    <label for="primeButtonDisplayOption">Button Type</label>
-    <select
-      id="primeButtonDisplayOption"
-      name="primeButtonDisplayOption"
-      [value]="primeButtonDisplayOption"
-      (change)="updatePrimeButtonDisplayOption($event)"
-    >
-      <option value="filled">Filled</option>
-      <option value="outline">Outline</option>
-    </select>
-  </span>
-</ng-template>
-
-<ng-template #primeButtonType>
-  <span *ngIf="buttonProperties?.primeButtonType !== undefined">
-    <label for="primeButtonType">Button Type</label>
-    <select
-      id="primeButtonType"
-      name="primeButtonType"
-      [value]="primeButtonType"
-      (change)="updatePrimeButtonType($event)"
-    >
-      <option value="text">Text</option>
-      <option value="icon">Icon</option>
-      <option value="textWithIcon">Text with icon</option>
-      <option value="link">Link</option>
-    </select>
-  </span>
-</ng-template>
-
 <ng-template #requireLowerCase>
   <span *ngIf="requireLowerCase !== undefined">
     <input
@@ -413,13 +454,13 @@
     </select>
   </span>
 </ng-template>
-
-<ng-template #step>
+-->
+<ng-template #step let-step="step" let-changeFn="changeFn">
   <span *ngIf="step !== undefined">
     <label for="step">Step</label>
-    <input type="number" id="step" name="step" [value]="step" (change)="updateStep($event)" />
+    <input type="number" id="step" name="step" [value]="step" (change)="changeFn($event, 'step')" />
   </span>
-</ng-template> -->
+</ng-template>
 
 <ng-template #size>
   <span *ngIf="buttonProperties?.size !== undefined">

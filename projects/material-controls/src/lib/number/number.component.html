@@ -1,21 +1,22 @@
-<mat-form-field [appearance]="appearance">
-  <mat-label class="label">{{ label }}</mat-label>
+<mat-form-field [appearance]="numberProperties.appearance">
+  <mat-label class="label">{{ numberProperties.label }}</mat-label>
   <input
     matInput
     type="number"
-    [id]="id"
-    [name]="name"
-    [placeholder]="placeholder"
-    [required]="required"
     [disabled]="disabled"
-    [min]="min"
-    [max]="max"
+    [id]="numberProperties.id"
+    [max]="numberProperties.max"
+    [min]="numberProperties.min"
+    [name]="numberProperties.name"
+    [placeholder]="numberProperties.placeholder"
+    [required]="numberProperties.required"
+    [step]="numberProperties.step"
     [(ngModel)]="value"
     (input)="onChange()"
     (change)="onChange()"
     (blur)="onTouchedCallback()"
   />
 
-  <mat-error *ngIf="control.hasError('required')">{{ label }} required.</mat-error>
-  <mat-error *ngIf="control.hasError('minlength')">{{ label }} must be at least {{ min }}.</mat-error>
+  <mat-error *ngIf="control.hasError('required')">{{ numberProperties.label }} required.</mat-error>
+  <mat-error *ngIf="control.hasError('minlength')">{{ numberProperties.label }} must be at least {{ min }}.</mat-error>
 </mat-form-field>

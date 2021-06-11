@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+
+import { getDefaultNumber, INumber } from 'projects/controls/src/lib/interfaces/number-interface';
 
 import { LibraryService } from '../library.service';
 
@@ -12,30 +12,21 @@ import { LibraryService } from '../library.service';
 })
 export class NumberDemoComponent implements OnInit {
   selectedLibrary$: Observable<string>;
+  disabled = false;
   formGroup: FormGroup;
   formControlName = 'number';
-  label = 'Age';
-  placeholder = 'Your age';
-  disabled = false;
-  required = false;
-  min: number = null;
-  max: number = null;
-  step: number = null;
-  appearance: MatFormFieldAppearance;
+  numberProperties: INumber;
 
   constructor(private libraryService: LibraryService) {
-    this.selectedLibrary$ = this.libraryService.selectedLibrary.pipe(
-      tap((lib) => {
-        lib === 'Material' ? (this.appearance = 'standard') : undefined;
-      })
-    );
+    this.selectedLibrary$ = this.libraryService.selectedLibrary.asObservable();
   }
-
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      number: new FormControl(null, [Validators.min(this.min), Validators.max(this.max)]),
+      number: new FormControl(),
     });
+    this.numberProperties = getDefaultNumber({ label: 'Age' });
+    this.setValidators();
   }
 
   disableControl(value: boolean): void {
@@ -48,44 +39,27 @@ export class NumberDemoComponent implements OnInit {
     this.disabled = value;
   }
 
-  toggleRequired(value: boolean) {
-    if (!value) {
-      this.formGroup.get(this.formControlName).clearValidators();
-    } else {
-      this.formGroup.get(this.formControlName).setValidators(Validators.required);
+  updateNumberProperties(value: INumber): void {
+    this.numberProperties = { ...value };
+    this.setValidators();
+  }
+
+  private setValidators(): void {
+    const baseValidators = [Validators.email];
+
+    if (this.numberProperties.min) {
+      baseValidators.push(Validators.min(this.numberProperties.min));
     }
+
+    if (this.numberProperties.max) {
+      baseValidators.push(Validators.max(this.numberProperties.max));
+    }
+
+    if (this.numberProperties.required) {
+      baseValidators.push(Validators.required);
+    }
+
+    this.formGroup.get(this.formControlName).setValidators(baseValidators);
     this.formGroup.get(this.formControlName).updateValueAndValidity();
-
-    this.required = value;
-  }
-
-  updateMin(value: string) {
-    this.min = +value;
-    this.updateValidators();
-  }
-
-  updateMax(value: string) {
-    this.max = +value;
-    this.updateValidators();
-  }
-
-  updateLabel(value: string) {
-    this.label = value;
-  }
-
-  updatePlaceholder(value: string) {
-    this.placeholder = value;
-  }
-
-  updateStep(value: string) {
-    this.step = +value;
-  }
-
-  appearanceUpdated(value): void {
-    this.appearance = value;
-  }
-
-  private updateValidators() {
-    this.formGroup.get(this.formControlName).setValidators([Validators.min(this.min), Validators.max(this.max)])
   }
 }
