@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+
+import { getDefaultPassword, IPassword } from 'projects/controls/src/lib/interfaces/password-interface';
+
 import { LibraryService } from '../library.service';
+import { lowerCaseValidator, upperCaseValidator, numberValidator } from './password-validation';
 
 @Component({
   selector: 'app-password',
@@ -11,41 +13,27 @@ import { LibraryService } from '../library.service';
 })
 export class PasswordDemoComponent implements OnInit {
   selectedLibrary$: Observable<string>;
+  passwordProperties: IPassword;
   formGroup: FormGroup;
   formControlName = 'password';
-  label = 'Password';
-  placeholder = 'Password';
-  title = 'Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters';
-  requireLowerCase = false;
-  requireUpperCase = false;
-  requireNumbers = false;
-  minLengthError = false;
-  minlength: string = '';
-  maxlength: string = '';
-  required = false;
   disabled = false;
-  appearance: MatFormFieldAppearance;
-
-  passwordRequirements = {
-    minlength: this.minlength,
-    maxlength: this.maxlength,
-    shouldContainLowerCase: this.requireLowerCase,
-    shouldContainUpperCase: this.requireUpperCase,
-    shouldContainNumbers: this.requireNumbers,
-  };
 
   constructor(private libraryService: LibraryService) {
-    this.selectedLibrary$ = this.libraryService.selectedLibrary.pipe(
-      tap((lib) => {
-        lib === 'Material' ? (this.appearance = 'standard') : undefined;
-      })
-    );
+    this.selectedLibrary$ = this.libraryService.selectedLibrary.asObservable();
   }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
       password: new FormControl(),
     });
+
+    this.passwordProperties = getDefaultPassword({
+      appearance: 'standard',
+      id: this.formControlName,
+      label: 'Password',
+      name: this.formControlName,
+    });
+    this.setValidators();
   }
 
   disableControl(value: boolean): void {
@@ -58,64 +46,42 @@ export class PasswordDemoComponent implements OnInit {
     this.disabled = value;
   }
 
-  toggleRequired(value: boolean) {
-    if (!value) {
-      this.formGroup.get(this.formControlName).clearValidators();
-    } else {
-      this.formGroup.get(this.formControlName).setValidators(Validators.required);
+  updatePasswordProperties(value: IPassword): void {
+    this.passwordProperties = { ...value, passwordRequirements: { ...value.passwordRequirements } };
+    this.setValidators();
+  }
+
+  private setValidators(): void {
+    const validatorsToApply: ValidatorFn[] = [];
+
+    if (this.passwordProperties.required) {
+      validatorsToApply.push(Validators.required);
     }
-    this.formGroup.get(this.formControlName).updateValueAndValidity();
 
-    this.required = value;
-  }
+    if (this.passwordProperties.passwordRequirements) {
+      const { minlength, requireLowerCase, requireUpperCase, requireNumbers } =
+        this.passwordProperties.passwordRequirements;
 
-  toggleRequireLowerCase(value: boolean) {
-    this.passwordRequirements = {
-      ...this.passwordRequirements,
-      shouldContainLowerCase: value,
-    };
-    this.requireLowerCase = value;
-  }
+      if (minlength) {
+        validatorsToApply.push(Validators.minLength(minlength));
+      }
 
-  toggleRequireUpperCase(value: boolean) {
-    this.passwordRequirements = {
-      ...this.passwordRequirements,
-      shouldContainUpperCase: value,
-    };
-    this.requireUpperCase = value;
-  }
+      if (requireLowerCase) {
+        validatorsToApply.push(lowerCaseValidator());
+      }
 
-  toggleRequireNumbers(value: boolean) {
-    this.passwordRequirements = {
-      ...this.passwordRequirements,
-      shouldContainNumbers: value,
-    };
-    this.requireNumbers = value;
-  }
+      if (requireUpperCase) {
+        validatorsToApply.push(upperCaseValidator());
+      }
 
-  updateMinLength(value: string) {
-    this.passwordRequirements = {
-      ...this.passwordRequirements,
-      minlength: value,
-    };
-  }
+      if (requireNumbers) {
+        validatorsToApply.push(numberValidator());
+      }
+    }
 
-  updateMaxLength(value: string) {
-    this.passwordRequirements = {
-      ...this.passwordRequirements,
-      maxlength: value,
-    };
-  }
-
-  updateLabel(value: string) {
-    this.label = value;
-  }
-
-  updatePlaceholder(value: string) {
-    this.placeholder = value;
-  }
-
-  appearanceUpdated(value): void {
-    this.appearance = value;
+    setTimeout(() => {
+      this.formGroup.get(this.formControlName).setValidators(validatorsToApply);
+      this.formGroup.get(this.formControlName).updateValueAndValidity();
+    }, 0);
   }
 }

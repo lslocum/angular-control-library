@@ -7,6 +7,7 @@ import { ICheckbox } from 'projects/controls/src/lib/interfaces/checkbox-interfa
 import { IDate } from 'projects/controls/src/lib/interfaces/date-interface';
 import { IEmail } from 'projects/controls/src/lib/interfaces/email-interface';
 import { INumber } from 'projects/controls/src/lib/interfaces/number-interface';
+import { IPassword, IPasswordRequirements } from 'projects/controls/src/lib/interfaces/password-interface';
 import { Position } from 'projects/controls/src/lib/interfaces/position';
 
 @Component({
@@ -20,6 +21,7 @@ export class ControlOptionsComponent implements OnInit {
   @Input() dateProperties: IDate;
   @Input() emailProperties: IEmail;
   @Input() numberProperties: INumber;
+  @Input() passwordProperties: IPassword;
   @Input() label?: string;
   @Input() placeholder?: string;
   @Input() required?: boolean;
@@ -47,6 +49,7 @@ export class ControlOptionsComponent implements OnInit {
   @Output() datePropertiesUpdated = new EventEmitter<IDate>();
   @Output() emailPropertiesUpdated = new EventEmitter<IEmail>();
   @Output() numberPropertiesUpdated = new EventEmitter<INumber>();
+  @Output() passwordPropertiesUpdated = new EventEmitter<IPassword>();
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
   @Output() disabledToggled = new EventEmitter<boolean>();
@@ -75,6 +78,8 @@ export class ControlOptionsComponent implements OnInit {
       this.label = this.buttonProperties.label;
       this.color = this.buttonProperties.color;
     }
+
+    console.log('password', this.passwordProperties);
   }
 
   disableControl(event): void {
@@ -205,7 +210,36 @@ export class ControlOptionsComponent implements OnInit {
     this.numberPropertiesUpdated.emit(numberProps);
   }
 
+  updatePasswordProperties(event: any, property: string): void {
+    const changeIsPasswordRequirements = this.changeIsPasswordRequirements(property);
+    const passwordProps: IPassword = changeIsPasswordRequirements
+      ? {
+          ...this.passwordProperties,
+          passwordRequirements: {
+            ...this.passwordProperties.passwordRequirements,
+            [property]: this.getUpdatedValue(event, this.passwordProperties.passwordRequirements[property]),
+          },
+        }
+      : {
+          ...this.passwordProperties,
+          [property]: this.getUpdatedValue(event, this.passwordProperties[property]),
+        };
+
+    this.passwordPropertiesUpdated.emit(passwordProps);
+  }
+
   private getUpdatedValue(event: any, value: unknown): unknown {
     return typeof value === 'boolean' ? !value : event.target.value;
+  }
+
+  private changeIsPasswordRequirements(property: string): boolean {
+    return (
+      property === 'minlength' ||
+      property === 'maxlength' ||
+      property === 'requireLowerCase' ||
+      property === 'requireUpperCase' ||
+      property === 'requireNumbers' ||
+      property === 'requireSpecialCharacters'
+    );
   }
 }

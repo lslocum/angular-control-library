@@ -12,3 +12,8 @@
 .ng-touched.ng-invalid {
   border-bottom: solid 1px red;
 }
+
+.error-message {
+  display: flex;
+  flex-direction: column;
+}

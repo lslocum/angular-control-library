@@ -168,11 +168,69 @@
     ></ng-container>
     <!-- 2 -->
     <ng-container
-    *ngTemplateOutlet="
-      step;
-      context: { step: numberProperties.step, changeFn: updateNumberProperties.bind(this) }
-    "
-  ></ng-container>
+      *ngTemplateOutlet="step; context: { step: numberProperties.step, changeFn: updateNumberProperties.bind(this) }"
+    ></ng-container>
+  </ng-container>
+
+  <!-- Password -->
+  <ng-container *ngIf="passwordProperties">
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        label;
+        context: { label: passwordProperties.label, changeFn: updatePasswordProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <!-- 3 -->
+    <ng-container
+      *ngTemplateOutlet="
+        minlength;
+        context: {
+          changeFn: updatePasswordProperties.bind(this),
+          label: 'Min Length',
+          minlength: passwordProperties.passwordRequirements.minlength,
+          property: 'minlength'
+        }
+      "
+    ></ng-container>
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        placeholder;
+        context: { placeholder: passwordProperties.placeholder, changeFn: updatePasswordProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container
+      *ngTemplateOutlet="
+        required;
+        context: { required: passwordProperties.required, changeFn: updatePasswordProperties.bind(this) }
+      "
+    ></ng-container>
+
+    <!-- 3 -->
+    <ng-container
+      *ngTemplateOutlet="
+        maxlength;
+        context: {
+          changeFn: updatePasswordProperties.bind(this),
+          label: 'Max Length',
+          maxlength: passwordProperties.passwordRequirements.maxlength,
+          property: 'maxlength'
+        }
+      "
+    ></ng-container>
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        appearance;
+        context: { appearance: passwordProperties.appearance, changeFn: updatePasswordProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container *ngTemplateOutlet="passwordRequirements"></ng-container>
   </ng-container>
 </div>
 <hr />
@@ -393,46 +451,42 @@
     />
   </span>
 </ng-template>
-<!--
-<ng-template #requireLowerCase>
-  <span *ngIf="requireLowerCase !== undefined">
+
+<ng-template #passwordRequirements>
+  <span *ngIf="passwordProperties.passwordRequirements.requireLowerCase !== undefined">
     <input
       type="checkbox"
       id="toggleLowerCase"
       name="toggleLowerCase"
       [value]="requireLowerCase"
-      (click)="toggleRequireLowerCase($event)"
+      (click)="updatePasswordProperties($event, 'requireLowerCase')"
     />
     <label for="toggleLowerCase">Require Lower Case</label>
   </span>
-</ng-template>
 
-<ng-template #requireNumbers>
-  <span *ngIf="requireNumbers !== undefined">
+  <span *ngIf="passwordProperties.passwordRequirements.requireNumbers !== undefined">
     <input
       type="checkbox"
       id="toggleNumbers"
       name="toggleNumbers"
       [value]="requireNumbers"
-      (click)="toggleRequireNumbers($event)"
+      (click)="updatePasswordProperties($event, 'requireNumbers')"
     />
     <label for="toggleNumbers">Require Numbers</label>
   </span>
-</ng-template>
 
-<ng-template #requireUpperCase>
-  <span *ngIf="requireUpperCase !== undefined">
+  <span *ngIf="passwordProperties.passwordRequirements.requireUpperCase !== undefined">
     <input
       type="checkbox"
       id="toggleUpperCase"
       name="toggleUpperCase"
       [value]="requireUpperCase"
-      (click)="toggleRequireUpperCase($event)"
+      (click)="updatePasswordProperties($event, 'requireUpperCase')"
     />
     <label for="toggleUpperCase">Require Upper Case</label>
   </span>
 </ng-template>
-
+<!--
 <ng-template #rows>
   <span *ngIf="rows !== undefined">
     <label for="rows">Number of Rows</label>
