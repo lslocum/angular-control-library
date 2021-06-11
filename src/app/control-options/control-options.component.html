@@ -292,6 +292,40 @@
       *ngTemplateOutlet="pattern; context: { pattern: phoneProperties.pattern, changeFn: updatePhoneProperties.bind(this) }"
     ></ng-container>
   </ng-container>
+
+  <!-- Radio -->
+  <ng-container *ngIf="radioProperties">
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="label; context: { label: radioProperties.label, changeFn: updateRadioProperties.bind(this) }"
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <!-- 3 -->
+    <ng-container
+      *ngTemplateOutlet="
+        color;
+        context: {
+          changeFn: updateRadioProperties.bind(this),
+          color: radioProperties.color
+        }
+      "
+    ></ng-container>
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+      direction;
+        context: { direction: radioProperties.direction, changeFn: updateRadioProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container
+      *ngTemplateOutlet="
+      labelPosition;
+        context: { labelPosition: radioProperties.labelPosition, changeFn: updateRadioProperties.bind(this) }
+      "
+    ></ng-container>
+  </ng-container>
 </div>
 <hr />
 
@@ -370,17 +404,17 @@
     <input type="number" id="cols" name="cols" [value]="cols" (click)="updateCols($event)" />
   </span>
 </ng-template>
-
-<ng-template #direction>
+-->
+<ng-template #direction let-direction="direction" let-changeFn="changeFn">
   <span *ngIf="direction !== undefined">
     <label for="direction">Direction</label>
-    <select id="direction" name="direction" [value]="direction" (change)="updateDirection($event)">
+    <select id="direction" name="direction" [value]="direction" (change)="changeFn($event, 'direction')">
       <option value="vertical">Vertical</option>
       <option value="horizontal">Horizontal</option>
     </select>
   </span>
 </ng-template>
--->
+
 <ng-template #disabled>
   <span *ngIf="disabled !== undefined">
     <input type="checkbox" id="disableToggle" name="disableToggle" [value]="disabled" (click)="disableControl()" />

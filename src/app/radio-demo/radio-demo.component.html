@@ -1,44 +1,24 @@
 <div *ngIf="selectedLibrary$ | async as selectedLibrary">
   <h1>Radio</h1>
   <app-control-options
-    [label]="label"
     [disabled]="disabled"
-    [labelPosition]="labelPosition"
-    [color]="color"
-    [direction]="direction"
-    (labelUpdated)="updateLabel($event)"
+    [radioProperties]="radioProperties"
     (disabledToggled)="disableControl($event)"
-    (colorUpdated)="colorUpdated($event)"
-    (labelPositionUpdated)="labelPositionUpdated($event)"
-    (directionUpdated)="directionUpdated($event)"
+    (radioPropertiesUpdated)="updateRadioProperties($event)"
   ></app-control-options>
 
   <div class="wrapper">
     <div [formGroup]="formGroup" class="form-group">
       <ng-container *ngIf="selectedLibrary === 'HTML'">
-        <lib-radio
-          [formControlName]="formControlName"
-          id="radioWithValue"
-          [name]="formControlName"
-          [label]="label"
-          [options]="options"
-          [nameProperty]="nameProperty"
-          [valueProperty]="valueProperty"
-        ></lib-radio>
+        <lib-radio [formControlName]="formControlName" [radioProperties]="radioProperties"></lib-radio>
       </ng-container>
+
       <ng-container *ngIf="selectedLibrary === 'Material'">
-        <matti-radio
-          [formControlName]="formControlName"
-          id="radioWithValue"
-          [name]="formControlName"
-          [label]="label"
-          [labelPosition]="labelPosition"
-          [color]="color"
-          [direction]="direction"
-          [options]="options"
-          [nameProperty]="nameProperty"
-          [valueProperty]="valueProperty"
-        ></matti-radio>
+        <matti-radio [formControlName]="formControlName" [radioProperties]="radioProperties"></matti-radio>
+      </ng-container>
+
+      <ng-container *ngIf="selectedLibrary === 'Prime-NG'">
+        <prime-radio [formControlName]="formControlName" [radioProperties]="radioProperties"></prime-radio>
       </ng-container>
     </div>
 
@@ -54,6 +34,9 @@
       <br />
       <label>Form Control Errors:</label>
       <span>{{ formGroup.get(formControlName).errors | json }}</span>
+      <br/><br/>
+      <i style="color: orange">Color only applies to Material</i>
     </div>
+
   </div>
 </div>

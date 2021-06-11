@@ -1,21 +1,31 @@
 <div class="form-control">
-  <label [for]="name" class="radio-group-label">{{ label }}</label>
-  <div class="radio-group">
-    <span *ngFor="let option of options">
+  <label [for]="radioProperties.name" class="radio-group-label">{{ radioProperties.label }}</label>
+  <div class="radio-group" [ngClass]="radioProperties.direction">
+    <span *ngFor="let option of radioProperties.options">
+      <ng-container *ngIf="radioProperties.labelPosition === 'before'">
+        <ng-container *ngTemplateOutlet="label; context: { option: option }"></ng-container>
+      </ng-container>
       <input
         type="radio"
-        [id]="id"
-        [name]="name"
         [disabled]="disabled"
-        [required]="required"
-        [value]="option[valueProperty]"
+        [id]="radioProperties.id"
+        [name]="radioProperties.name"
+        [ngClass]="radioProperties.color"
         [(ngModel)]="value"
+        [required]="radioProperties.required"
+        [value]="option[radioProperties.valueProperty]"
         (input)="onChange()"
         (change)="onChange()"
         (blur)="onTouchedCallback()"
         class="my-input my-radio"
       />
-      <label [for]="name">{{ option[nameProperty] }}</label>
+      <ng-container *ngIf="radioProperties.labelPosition === 'after'">
+        <ng-container *ngTemplateOutlet="label; context: { option: option }"></ng-container>
+      </ng-container>
     </span>
   </div>
 </div>
+
+<ng-template #label let-option="option">
+  <label [for]="option[radioProperties.nameProperty]">{{ option[radioProperties.nameProperty] }}</label>
+</ng-template>

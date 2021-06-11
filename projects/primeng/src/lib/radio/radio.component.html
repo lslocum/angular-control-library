@@ -1,0 +1,28 @@
+<label [for]="radioProperties.name">{{ radioProperties.label }}</label>
+
+<div class="p-field-radiobutton" [ngClass]="radioProperties.direction">
+  <span *ngFor="let option of radioProperties.options">
+    <ng-container *ngIf="radioProperties.labelPosition === 'before'">
+      <ng-container *ngTemplateOutlet="label; context: { option: option }"></ng-container>
+    </ng-container>
+    <p-radioButton
+      type="radio"
+      [disabled]="disabled"
+      [id]="radioProperties.id"
+      [name]="radioProperties.name"
+      [(ngModel)]="value"
+      [required]="radioProperties.required"
+      [value]="option[radioProperties.valueProperty]"
+      (input)="onChange()"
+      (change)="onChange()"
+      (blur)="onTouchedCallback()"
+    ></p-radioButton>
+    <ng-container *ngIf="radioProperties.labelPosition === 'after'">
+      <ng-container *ngTemplateOutlet="label; context: { option: option }"></ng-container>
+    </ng-container>
+  </span>
+</div>
+
+<ng-template #label let-option="option">
+  <label [for]="option[radioProperties.nameProperty]">{{ option[radioProperties.nameProperty] }}</label>
+</ng-template>

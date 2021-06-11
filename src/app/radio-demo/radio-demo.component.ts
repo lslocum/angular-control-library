@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+
+import { getDefaultRadio, IRadio } from 'projects/controls/src/lib/interfaces/radio-interface';
+
 import { LibraryService } from '../library.service';
 
 @Component({
@@ -15,41 +15,31 @@ export class RadioDemoComponent implements OnInit {
   formGroup: FormGroup;
   formControlName = 'radio';
   disabled = false;
-  label = 'Favorite Friend';
-  labelPosition: 'before' | 'after';
-  color: ThemePalette;
-  direction: 'vertical' | 'horizontal';
-
-  options = [
-    { name: 'Joey', id: '1' },
-    { name: 'Phoebe', id: '2' },
-    { name: 'Ross', id: '3' },
-    { name: 'Rachel', id: '4' },
-    { name: 'Monica', id: '5' },
-    { name: 'Chandler', id: '6' },
-  ];
-  nameProperty = 'name';
-  valueProperty = 'id';
+  radioProperties: IRadio;
 
   constructor(private libraryService: LibraryService) {
-    this.selectedLibrary$ = this.libraryService.selectedLibrary.pipe(
-      tap((lib) => {
-        if (lib === 'Material') {
-          this.color = 'accent';
-          this.labelPosition = 'before';
-          this.direction = 'vertical';
-        } else{
-          this.color = undefined;
-          this.labelPosition = undefined;
-          this.direction = undefined;
-        }
-      })
-    );
+    this.selectedLibrary$ = this.libraryService.selectedLibrary.asObservable();
   }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
       radio: new FormControl('2'),
+    });
+
+    this.radioProperties = getDefaultRadio({
+      id: this.formControlName,
+      label: 'Favorite Friend',
+      name: this.formControlName,
+      nameProperty: 'name',
+      options: [
+        { name: 'Joey', id: '1' },
+        { name: 'Phoebe', id: '2' },
+        { name: 'Ross', id: '3' },
+        { name: 'Rachel', id: '4' },
+        { name: 'Monica', id: '5' },
+        { name: 'Chandler', id: '6' },
+      ],
+      valueProperty: 'id',
     });
   }
 
@@ -63,19 +53,7 @@ export class RadioDemoComponent implements OnInit {
     this.disabled = value;
   }
 
-  updateLabel(value: string) {
-    this.label = value;
-  }
-
-  colorUpdated(value): void {
-    this.color = value;
-  }
-
-  labelPositionUpdated(value): void {
-    this.labelPosition = value;
-  }
-
-  directionUpdated(value): void {
-    this.direction = value;
+  updateRadioProperties(value: IRadio): void {
+    this.radioProperties = { ...value };
   }
 }

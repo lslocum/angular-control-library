@@ -1,19 +1,19 @@
-<label class="label">{{ label }}</label>
+<label class="label">{{ radioProperties.label }}</label>
 
 <mat-radio-group
-  [(ngModel)]="value"
-  [id]="id"
-  [name]="name"
+  [color]="radioProperties.color"
   [disabled]="disabled"
-  [required]="required"
-  [color]="color"
-  [labelPosition]="labelPosition"
-  [ngClass]="direction"
+  [id]="radioProperties.id"
+  [labelPosition]="radioProperties.labelPosition"
+  [name]="radioProperties.name"
+  [(ngModel)]="value"
+  [ngClass]="radioProperties.direction"
+  [required]="radioProperties.required"
   (input)="onChange()"
   (change)="onChange()"
   (blur)="onTouchedCallback()"
 >
-  <mat-radio-button *ngFor="let option of options" [value]="option[valueProperty]" [color]="color">
-    {{ option[nameProperty] }}
+  <mat-radio-button *ngFor="let option of radioProperties.options" [value]="option[radioProperties.valueProperty]" [color]="color">
+    {{ option[radioProperties.nameProperty] }}
   </mat-radio-button>
 </mat-radio-group>

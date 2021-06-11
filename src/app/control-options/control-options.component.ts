@@ -10,6 +10,7 @@ import { INumber } from 'projects/controls/src/lib/interfaces/number-interface';
 import { IPassword, IPasswordRequirements } from 'projects/controls/src/lib/interfaces/password-interface';
 import { IPhone } from 'projects/controls/src/lib/interfaces/phone-interface';
 import { Position } from 'projects/controls/src/lib/interfaces/position';
+import { IRadio } from 'projects/controls/src/lib/interfaces/radio-interface';
 
 @Component({
   selector: 'app-control-options',
@@ -24,6 +25,7 @@ export class ControlOptionsComponent implements OnInit {
   @Input() numberProperties: INumber;
   @Input() passwordProperties: IPassword;
   @Input() phoneProperties: IPhone;
+  @Input() radioProperties: IRadio;
 
   @Input() label?: string;
   @Input() placeholder?: string;
@@ -54,6 +56,7 @@ export class ControlOptionsComponent implements OnInit {
   @Output() numberPropertiesUpdated = new EventEmitter<INumber>();
   @Output() passwordPropertiesUpdated = new EventEmitter<IPassword>();
   @Output() phonePropertiesUpdated = new EventEmitter<IPhone>();
+  @Output() radioPropertiesUpdated = new EventEmitter<IRadio>();
 
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
@@ -240,6 +243,15 @@ export class ControlOptionsComponent implements OnInit {
     };
 
     this.phonePropertiesUpdated.emit(phoneProps);
+  }
+
+  updateRadioProperties(event: any, property: string): void {
+    const radioProps = {
+      ...this.radioProperties,
+      [property]: this.getUpdatedValue(event, this.radioProperties[property]),
+    };
+
+    this.radioPropertiesUpdated.emit(radioProps);
   }
 
   private getUpdatedValue(event: any, value: unknown): unknown {

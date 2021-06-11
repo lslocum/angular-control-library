@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { IRadio } from '../interfaces/radio-interface';
 
 @Component({
   selector: 'lib-radio',
@@ -7,12 +8,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
   styleUrls: ['./radio.component.scss'],
 })
 export class RadioComponent implements ControlValueAccessor {
-  @Input() id: string;
-  @Input() name: string;
-  @Input() label: string;
-  @Input() options: any[];
-  @Input() nameProperty: string;
-  @Input() valueProperty: string;
+  @Input() radioProperties: IRadio;
 
   disabled: boolean = false;
   value = '';

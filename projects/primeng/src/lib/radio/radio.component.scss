@@ -1,11 +1,3 @@
-.form-control {
-  display: flex;
-
-  .my-radio {
-    vertical-align: middle;
-  }
-}
-
 .vertical {
   display: flex;
   flex-flow: column;
@@ -14,4 +6,8 @@
 .horizontal {
   display: flex;
   flex-flow: row wrap;
+}
+
+label {
+  margin: 0 10px;
 }
