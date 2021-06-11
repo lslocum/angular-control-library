@@ -1,21 +1,21 @@
-<mat-form-field [appearance]="appearance">
-  <mat-label class="label">{{ label }}</mat-label>
+<mat-form-field [appearance]="phoneProperties.appearance">
+  <mat-label class="label">{{ phoneProperties.label }}</mat-label>
   <input
     matInput
     type="tel"
-    [id]="id"
-    [name]="name"
-    [placeholder]="placeholder"
-    [required]="required"
     [disabled]="disabled"
-    [minlength]="minlength"
-    [maxlength]="maxlength"
+    [id]="phoneProperties.id"
+    [maxlength]="phoneProperties.maxlength"
+    [minlength]="phoneProperties.minlength"
+    [name]="phoneProperties.name"
     [(ngModel)]="value"
+    [placeholder]="phoneProperties.placeholder"
+    [required]="phoneProperties.required"
     (input)="onChange()"
     (change)="onChange()"
     (blur)="onTouchedCallback()"
   />
 
-  <mat-error *ngIf="control.hasError('required')">{{ label }} required.</mat-error>
+  <mat-error *ngIf="control.hasError('required')">{{ phoneProperties.label }} required.</mat-error>
   <mat-error *ngIf="control.hasError('pattern')">Please enter a valid number.</mat-error>
 </mat-form-field>

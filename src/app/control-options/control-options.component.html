@@ -232,6 +232,66 @@
     <!-- 2 -->
     <ng-container *ngTemplateOutlet="passwordRequirements"></ng-container>
   </ng-container>
+
+  <!-- Phone -->
+  <ng-container *ngIf="phoneProperties">
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="label; context: { label: phoneProperties.label, changeFn: updatePhoneProperties.bind(this) }"
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <!-- 3 -->
+    <ng-container
+      *ngTemplateOutlet="
+        minlength;
+        context: {
+          changeFn: updatePhoneProperties.bind(this),
+          label: 'Min Length',
+          minlength: phoneProperties.minlength,
+          property: 'minlength'
+        }
+      "
+    ></ng-container>
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        placeholder;
+        context: { placeholder: phoneProperties.placeholder, changeFn: updatePhoneProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container
+      *ngTemplateOutlet="
+        required;
+        context: { required: phoneProperties.required, changeFn: updatePhoneProperties.bind(this) }
+      "
+    ></ng-container>
+
+    <!-- 3 -->
+    <ng-container
+      *ngTemplateOutlet="
+        maxlength;
+        context: {
+          changeFn: updatePhoneProperties.bind(this),
+          label: 'Max Length',
+          maxlength: phoneProperties.maxlength,
+          property: 'maxlength'
+        }
+      "
+    ></ng-container>
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        appearance;
+        context: { appearance: phoneProperties.appearance, changeFn: updatePhoneProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container
+      *ngTemplateOutlet="pattern; context: { pattern: phoneProperties.pattern, changeFn: updatePhoneProperties.bind(this) }"
+    ></ng-container>
+  </ng-container>
 </div>
 <hr />
 
@@ -431,14 +491,14 @@
     <label for="toggleRequired">Required</label>
   </span>
 </ng-template>
-<!--
-<ng-template #pattern>
+
+<ng-template #pattern let-pattern="pattern" let-changeFn="changeFn">
   <span *ngIf="pattern !== undefined">
     <label for="pattern">Pattern</label>
-    <input type="text" id="pattern" name="pattern" [value]="pattern" (change)="updatePattern($event)" />
+    <input type="text" id="pattern" name="pattern" [value]="pattern" (change)="changeFn($event, 'pattern')" />
   </span>
 </ng-template>
--->
+
 <ng-template #placeholder let-placeholder="placeholder" let-changeFn="changeFn">
   <span *ngIf="placeholder !== undefined">
     <label for="placeholder">Placeholder</label>

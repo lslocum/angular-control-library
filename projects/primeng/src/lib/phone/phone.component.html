@@ -1,6 +1,8 @@
-<div class="form-control" [class.required]="phoneProperties.required">
+<div class="p-field" [class.required]="phoneProperties.required" [ngClass]="appearanceClass">
   <label [for]="phoneProperties.name">{{ phoneProperties.label }}</label>
   <input
+    pInputText
+    class="p-inputtext"
     type="tel"
     class="my-input"
     [disabled]="disabled"
@@ -18,7 +20,7 @@
   />
 
   <div class="error-message" *ngIf="control.invalid">
-    <small *ngIf="control.hasError('required')">{{ phoneProperties.label }} is required.</small>
-    <small *ngIf="control.hasError('pattern')">Please enter a valid phone number</small>
+    <small class='p-error' *ngIf="control.hasError('required')">{{ phoneProperties.label }} is required.</small>
+    <small class='p-error' *ngIf="control.hasError('pattern') || control.hasError('minlength')">Please enter a valid phone number.</small>
   </div>
 </div>

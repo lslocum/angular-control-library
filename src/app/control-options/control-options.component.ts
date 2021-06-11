@@ -8,6 +8,7 @@ import { IDate } from 'projects/controls/src/lib/interfaces/date-interface';
 import { IEmail } from 'projects/controls/src/lib/interfaces/email-interface';
 import { INumber } from 'projects/controls/src/lib/interfaces/number-interface';
 import { IPassword, IPasswordRequirements } from 'projects/controls/src/lib/interfaces/password-interface';
+import { IPhone } from 'projects/controls/src/lib/interfaces/phone-interface';
 import { Position } from 'projects/controls/src/lib/interfaces/position';
 
 @Component({
@@ -22,6 +23,8 @@ export class ControlOptionsComponent implements OnInit {
   @Input() emailProperties: IEmail;
   @Input() numberProperties: INumber;
   @Input() passwordProperties: IPassword;
+  @Input() phoneProperties: IPhone;
+
   @Input() label?: string;
   @Input() placeholder?: string;
   @Input() required?: boolean;
@@ -50,6 +53,8 @@ export class ControlOptionsComponent implements OnInit {
   @Output() emailPropertiesUpdated = new EventEmitter<IEmail>();
   @Output() numberPropertiesUpdated = new EventEmitter<INumber>();
   @Output() passwordPropertiesUpdated = new EventEmitter<IPassword>();
+  @Output() phonePropertiesUpdated = new EventEmitter<IPhone>();
+
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
   @Output() disabledToggled = new EventEmitter<boolean>();
@@ -226,6 +231,15 @@ export class ControlOptionsComponent implements OnInit {
         };
 
     this.passwordPropertiesUpdated.emit(passwordProps);
+  }
+
+  updatePhoneProperties(event: any, property: string): void {
+    const phoneProps = {
+      ...this.phoneProperties,
+      [property]: this.getUpdatedValue(event, this.phoneProperties[property]),
+    };
+
+    this.phonePropertiesUpdated.emit(phoneProps);
   }
 
   private getUpdatedValue(event: any, value: unknown): unknown {

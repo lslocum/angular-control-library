@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { getDefaultPhone, IPhone } from 'projects/controls/src/lib/interfaces/phone-interface';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { LibraryService } from '../library.service';
@@ -11,30 +12,28 @@ import { LibraryService } from '../library.service';
 })
 export class PhoneDemoComponent implements OnInit {
   selectedLibrary$: Observable<string>;
+  disabled: boolean;
   formGroup: FormGroup;
   formControlName = 'phone';
-  label = 'Cell Phone';
-  placeholder = '555-555-5555';
-  pattern = validPhoneNumberPattern;
-  required = false;
-  disabled = false;
-  appearance: MatFormFieldAppearance;
+  phoneProperties: IPhone;
 
   constructor(private libraryService: LibraryService) {
-    this.selectedLibrary$ = this.libraryService.selectedLibrary.pipe(
-      tap((lib) => {
-        lib === 'Material' ? (this.appearance = 'standard') : undefined;
-      })
-    );
+    this.selectedLibrary$ = this.libraryService.selectedLibrary.asObservable();
   }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      phone: new FormControl(
-        '6204316000',
-        Validators.pattern(validPhoneNumberPattern)
-      ),
+      phone: new FormControl(),
     });
+
+    this.phoneProperties = getDefaultPhone({
+      appearance: 'standard',
+      id: this.formControlName,
+      label: 'Phone',
+      name: this.formControlName,
+      placeholder: '620-431-6000',
+    });
+    this.setValidators();
   }
 
   disableControl(value: boolean): void {
@@ -47,30 +46,27 @@ export class PhoneDemoComponent implements OnInit {
     this.disabled = value;
   }
 
-  toggleRequired(value: boolean) {
-    if (!value) {
-      this.formGroup.get(this.formControlName).setValidators(Validators.pattern(validPhoneNumberPattern));
-    } else {
-      this.formGroup
-        .get(this.formControlName)
-        .setValidators([Validators.pattern(validPhoneNumberPattern), Validators.required]);
+  updatePhoneProperties(value: IPhone): void {
+    this.phoneProperties = { ...value };
+    this.setValidators();
+  }
+
+  private setValidators(): void {
+    const baseValidators = [];
+
+    if (this.phoneProperties.minlength) {
+      baseValidators.push(Validators.minLength(this.phoneProperties.minlength));
     }
+
+    if (this.phoneProperties.pattern) {
+      baseValidators.push(Validators.pattern(this.phoneProperties.pattern));
+    }
+
+    if (this.phoneProperties.required) {
+      baseValidators.push(Validators.required);
+    }
+
+    this.formGroup.get(this.formControlName).setValidators(baseValidators);
     this.formGroup.get(this.formControlName).updateValueAndValidity();
-
-    this.required = value;
-  }
-
-  updateLabel(value: string) {
-    this.label = value;
-  }
-
-  updatePlaceholder(value: string) {
-    this.placeholder = value;
-  }
-
-  appearanceUpdated(value): void {
-    this.appearance = value;
   }
 }
-
-const validPhoneNumberPattern = '[0-9]{3}[0-9]{3}[0-9]{4}';

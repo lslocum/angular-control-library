@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NumberComponent } from './number.component';
+import { PhoneComponent } from './phone.component';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
-  declarations: [NumberComponent],
+  declarations: [PhoneComponent],
   imports: [CommonModule, FormsModule, InputTextModule],
-  exports: [NumberComponent],
+  exports: [PhoneComponent],
 })
-export class NumberModule {}
+export class PhoneModule {}

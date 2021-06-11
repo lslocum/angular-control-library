@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { IPhone } from 'projects/controls/src/lib/interfaces/phone-interface';
 import { stripPhoneNumberFormatting, formatPhoneNumber } from './format-phone-number';
 
 @Component({
@@ -8,17 +9,9 @@ import { stripPhoneNumberFormatting, formatPhoneNumber } from './format-phone-nu
   templateUrl: './phone.component.html',
 })
 export class PhoneComponent implements ControlValueAccessor {
-  @Input() appearance: MatFormFieldAppearance;
-  @Input() id: string;
-  @Input() label: string;
-  @Input() name: string;
-  @Input() placeholder: string = '';
-  @Input() required: boolean;
+  @Input() phoneProperties: IPhone;
 
   disabled: boolean = false;
-  minlength: number = 10;
-  maxlength: number = 12;
-  pattern: string = '[0-9]{3}[0-9]{3}[0-9]{4}';
   value = '';
 
   onChangeCallback = (_: any) => {};

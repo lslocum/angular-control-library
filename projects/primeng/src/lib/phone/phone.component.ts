@@ -1,15 +1,16 @@
-import { Component, Input, Optional, Self } from '@angular/core';
+import { Component, Input, Optional, Self, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { IPhone } from '../interfaces/phone-interface';
+
+import { IPhone } from 'projects/controls/src/lib/interfaces/phone-interface';
 
 @Component({
-  selector: 'lib-phone',
+  selector: 'prime-phone',
   templateUrl: './phone.component.html',
   styleUrls: ['./phone.component.scss'],
 })
 export class PhoneComponent implements ControlValueAccessor {
   @Input() phoneProperties: IPhone;
-
+  appearanceClass: string;
   disabled: boolean = false;
   value = '';
 
@@ -18,6 +19,14 @@ export class PhoneComponent implements ControlValueAccessor {
 
   constructor(@Self() @Optional() public control: NgControl) {
     this.control && (this.control.valueAccessor = this);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.phoneProperties) {
+      if (changes.phoneProperties.currentValue?.appearance) {
+        this.appearanceClass = changes.phoneProperties.currentValue.appearance === 'fill' ? 'p-input-filled' : '';
+      }
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -52,7 +61,6 @@ function stripPhoneNumberFormatting(value: string): string {
 
   return unformattedPhoneNumber;
 }
-
 function formatPhoneNumber(value: string): string {
   let unformattedNumber = stripPhoneNumberFormatting(value);
 
