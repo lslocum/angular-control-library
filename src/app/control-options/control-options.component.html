@@ -289,7 +289,10 @@
     ></ng-container>
     <!-- 2 -->
     <ng-container
-      *ngTemplateOutlet="pattern; context: { pattern: phoneProperties.pattern, changeFn: updatePhoneProperties.bind(this) }"
+      *ngTemplateOutlet="
+        pattern;
+        context: { pattern: phoneProperties.pattern, changeFn: updatePhoneProperties.bind(this) }
+      "
     ></ng-container>
   </ng-container>
 
@@ -314,19 +317,54 @@
     <!-- 1 -->
     <ng-container
       *ngTemplateOutlet="
-      direction;
+        direction;
         context: { direction: radioProperties.direction, changeFn: updateRadioProperties.bind(this) }
       "
     ></ng-container>
     <!-- 2 -->
     <ng-container
       *ngTemplateOutlet="
-      labelPosition;
+        labelPosition;
         context: { labelPosition: radioProperties.labelPosition, changeFn: updateRadioProperties.bind(this) }
       "
     ></ng-container>
   </ng-container>
+
+  <!-- Select -->
+  <ng-container *ngIf="selectProperties">
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="label; context: { label: selectProperties.label, changeFn: updateSelectProperties.bind(this) }"
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <!-- 3 -->
+    <ng-container
+      *ngTemplateOutlet="
+        appearance;
+        context: {
+          changeFn: updateSelectProperties.bind(this),
+          appearance: selectProperties.appearance
+        }
+      "
+    ></ng-container>
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        placeholder;
+        context: { placeholder: selectProperties.placeholder, changeFn: updateSelectProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container
+      *ngTemplateOutlet="
+        required;
+        context: { required: selectProperties.required, changeFn: updateSelectProperties.bind(this) }
+      "
+    ></ng-container>
+  </ng-container>
 </div>
+
 <hr />
 
 <ng-template #appearance let-appearance="appearance" let-changeFn="changeFn">
@@ -421,20 +459,6 @@
     <label for="disableToggle">Disabled</label>
   </span>
 </ng-template>
-<!--
-<ng-template #disableOptionCentering>
-  <span *ngIf="disableOptionCentering !== undefined">
-    <input
-      type="checkbox"
-      id="disableOptionCentering"
-      name="disableOptionCentering"
-      [value]="disableOptionCentering"
-      (click)="updateDisableOptionCentering()"
-    />
-    <label for="disableOptionCentering">Disable Option Centering</label>
-  </span>
-</ng-template>
--->
 
 <ng-template #hasIcon>
   <span *ngIf="buttonProperties?.hasIcon !== undefined">
@@ -491,14 +515,7 @@
     </select>
   </span>
 </ng-template>
-<!--
-<ng-template #loading>
-  <span *ngIf="loading !== undefined">
-    <input type="checkbox" id="loading" name="loading" [value]="loading" (click)="updateLoading($event)" />
-    <label for="loading">Loading</label>
-  </span>
-</ng-template>
--->
+
 <ng-template #maxlength let-maxlength="maxlength" let-changeFn="changeFn" let-label="label" let-property="property">
   <span *ngIf="maxlength !== undefined">
     <label for="maxlength">{{ label }}</label>
@@ -541,7 +558,7 @@
       id="placeholder"
       name="placeholder"
       [value]="placeholder"
-      (click)="changeFn($event, 'placeholder')"
+      (change)="changeFn($event, 'placeholder')"
     />
   </span>
 </ng-template>
@@ -585,21 +602,6 @@
   <span *ngIf="rows !== undefined">
     <label for="rows">Number of Rows</label>
     <input type="number" id="rows" name="rows" [value]="rows" (click)="updateRows($event)" />
-  </span>
-</ng-template>
-
-<ng-template #severity>
-  <span *ngIf="buttonProperties?.severity !== undefined">
-    <label for="severity">Severity (color)</label>
-    <select id="severity" name="severity" [value]="severity" (change)="updateSeverity($event)">
-      <option value=""></option>
-      <option value="secondary">Secondary</option>
-      <option value="success">Success</option>
-      <option value="info">Info</option>
-      <option value="warning">Warning</option>
-      <option value="help">Help</option>
-      <option value="danger">Danger</option>
-    </select>
   </span>
 </ng-template>
 -->

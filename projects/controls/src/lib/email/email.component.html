@@ -18,9 +18,9 @@
   />
 
   <div *ngIf="control.invalid" class="error-message">
-    <small class="p-error" *ngIf="control.hasError('required')">{{ emailProperties.label }} is required.</small>
-    <small class="p-error" *ngIf="control.hasError('email')">{{ value }} is not a valid email.</small>
-    <small class="p-error" *ngIf="control.hasError('minlength')">
+    <small *ngIf="control.hasError('required')">{{ emailProperties.label }} is required.</small>
+    <small *ngIf="control.hasError('email')">{{ value }} is not a valid email.</small>
+    <small *ngIf="control.hasError('minlength')">
       {{ emailProperties.label }} cannot be less than {{ emailProperties.minlength }}.
     </small>
   </div>

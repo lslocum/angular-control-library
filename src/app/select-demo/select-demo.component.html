@@ -1,49 +1,27 @@
 <div *ngIf="selectedLibrary$ | async as selectedLibrary">
   <h1>Select</h1>
   <app-control-options
-    [label]="label"
-    [placeholder]="placeholder"
     [disabled]="disabled"
-    [appearance]="appearance"
-    [disableOptionCentering]="disableOptionCentering"
-    [multiSelect]="multiple"
-    (labelUpdated)="updateLabel($event)"
-    (placeholderUpdated)="updatePlaceholder($event)"
+    [selectProperties]="selectProperties"
     (disabledToggled)="disableControl($event)"
-    (appearanceUpdated)="appearanceUpdated($event)"
-    (disableOptionCenteringUpdated)="disableOptionCenteringUpdated($event)"
-    (multiSelectToggled)="multiSelectToggled($event)"
+    (selectPropertiesUpdated)="updateSelectProperties($event)"
   ></app-control-options>
 
   <div class="wrapper">
     <div [formGroup]="formGroup" class="form-group">
       <ng-container *ngIf="selectedLibrary === 'HTML'">
-        <lib-select
-          formControlName="select"
-          id="selectWithValue"
-          name="select"
-          [label]="label"
-          [options]="options"
-          [nameProperty]="nameProperty"
-          [valueProperty]="valueProperty"
-        ></lib-select>
+        <lib-select formControlName="select" [selectProperties]="selectProperties"></lib-select>
       </ng-container>
+
       <ng-container *ngIf="selectedLibrary === 'Material'">
-        <matti-select
-          formControlName="select"
-          id="selectWithValue"
-          name="select"
-          [label]="label"
-          [placeholder]="placeholder"
-          [appearance]="appearance"
-          [disableOptionCentering]="disableOptionCentering"
-          [multiple]="multiple"
-          [options]="options"
-          [nameProperty]="nameProperty"
-          [valueProperty]="valueProperty"
-        ></matti-select>
+        <matti-select formControlName="select" [selectProperties]="selectProperties"></matti-select>
+      </ng-container>
+
+      <ng-container *ngIf="selectedLibrary === 'Prime-NG'">
+        <prime-select formControlName="select" [selectProperties]="selectProperties"></prime-select>
       </ng-container>
     </div>
+
     <div class="status">
       <label>Form Group Status:</label>
       <span>{{ formGroup.status }}</span>

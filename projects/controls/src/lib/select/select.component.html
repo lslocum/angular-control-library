@@ -1,17 +1,22 @@
-<div class="form-control">
-  <label [for]="name">{{ label }}</label>
+<div class="form-control" [class.required]="selectProperties.required">
+  <label [for]="selectProperties.name">{{ selectProperties.label }}</label>
   <select
-    [id]="id"
-    [name]="name"
-    [disabled]="disabled"
     class="my-input"
+    [disabled]="disabled"
+    [id]="selectProperties.id"
+    [name]="selectProperties.name"
+    [ngClass]="selectProperties.appearance"
     [(ngModel)]="value"
     (change)="onChange()"
   >
-    <ng-container *ngFor="let option of options">
-      <option [value]="option[valueProperty]">
-        {{ option[nameProperty] }}
+    <ng-container *ngFor="let option of selectProperties.options">
+      <option [value]="option[selectProperties.valueProperty]">
+        {{ option[selectProperties.nameProperty] }}
       </option>
     </ng-container>
   </select>
+
+  <div class="error-message" *ngIf="control.invalid">
+    <small *ngIf="control.hasError('required')">{{ selectProperties.label }} required.</small>
+  </div>
 </div>

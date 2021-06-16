@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { controlLibraries, controlLibraryTypes } from './library-types';
 import { LibraryService } from './library.service';
@@ -20,7 +19,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void{
-    this.libraryService.setControlLibrary(controlLibraryTypes[2]);
+    this.libraryService.setControlLibrary(controlLibraryTypes[0]);
   }
 
   updateControlLibrary(event): void {

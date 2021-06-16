@@ -1,16 +1,23 @@
-import { Component, Input, OnInit, Optional, Self } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  Optional,
+  Self,
+  SimpleChanges,
+} from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { ISelect } from 'projects/controls/src/lib/interfaces/select-interface';
 
 @Component({
-  selector: 'matti-select',
+  selector: 'prime-select',
   templateUrl: './select.component.html',
+  styleUrls: ['./select.component.scss'],
 })
 export class SelectComponent implements ControlValueAccessor {
   @Input() selectProperties: ISelect;
-
+  appearanceClass: string;
   disabled: boolean;
   value = '';
 
@@ -19,6 +26,14 @@ export class SelectComponent implements ControlValueAccessor {
 
   constructor(@Self() @Optional() public control: NgControl) {
     this.control && (this.control.valueAccessor = this);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.selectProperties) {
+      if (changes.selectProperties.currentValue?.appearance) {
+        this.appearanceClass = changes.selectProperties.currentValue.appearance === 'fill' ? 'p-input-filled' : '';
+      }
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -39,5 +54,6 @@ export class SelectComponent implements ControlValueAccessor {
 
   onChange() {
     this.onChangeCallback(this.value);
+    console.log('value on change', this.value);
   }
 }

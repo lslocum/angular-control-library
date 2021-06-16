@@ -11,6 +11,7 @@ import { IPassword, IPasswordRequirements } from 'projects/controls/src/lib/inte
 import { IPhone } from 'projects/controls/src/lib/interfaces/phone-interface';
 import { Position } from 'projects/controls/src/lib/interfaces/position';
 import { IRadio } from 'projects/controls/src/lib/interfaces/radio-interface';
+import { ISelect } from 'projects/controls/src/lib/interfaces/select-interface';
 
 @Component({
   selector: 'app-control-options',
@@ -26,6 +27,7 @@ export class ControlOptionsComponent implements OnInit {
   @Input() passwordProperties: IPassword;
   @Input() phoneProperties: IPhone;
   @Input() radioProperties: IRadio;
+  @Input() selectProperties: ISelect;
 
   @Input() label?: string;
   @Input() placeholder?: string;
@@ -34,20 +36,12 @@ export class ControlOptionsComponent implements OnInit {
   @Input() minlength?: string;
   @Input() maxlength?: string;
   @Input() pattern?: string;
-  @Input() requireLowerCase?: boolean;
-  @Input() requireUpperCase?: boolean;
-  @Input() requireNumbers?: boolean;
   @Input() cols?: number;
   @Input() rows?: number;
   @Input() wrap?: 'soft' | 'hard';
-  @Input() step?: number;
   /* Material Options */
   @Input() color?: ThemePalette;
-
   @Input() appearance?: MatFormFieldAppearance;
-  @Input() labelPosition?: Position;
-  @Input() direction?: 'vertical' | 'horizontal';
-  @Input() disableOptionCentering?: boolean;
 
   @Output() buttonPropertiesUpdated = new EventEmitter<IButton>();
   @Output() checkboxPropertiesUpdated = new EventEmitter<ICheckbox>();
@@ -57,6 +51,7 @@ export class ControlOptionsComponent implements OnInit {
   @Output() passwordPropertiesUpdated = new EventEmitter<IPassword>();
   @Output() phonePropertiesUpdated = new EventEmitter<IPhone>();
   @Output() radioPropertiesUpdated = new EventEmitter<IRadio>();
+  @Output() selectPropertiesUpdated = new EventEmitter<ISelect>();
 
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
@@ -65,21 +60,12 @@ export class ControlOptionsComponent implements OnInit {
   @Output() minlengthUpdated = new EventEmitter<string>();
   @Output() maxlengthUpdated = new EventEmitter<string>();
   @Output() patternUpdated = new EventEmitter<string>();
-  @Output() lowerCaseToggled = new EventEmitter<boolean>();
-  @Output() upperCaseToggled = new EventEmitter<boolean>();
-  @Output() numberToggled = new EventEmitter<boolean>();
   @Output() colsUpdated = new EventEmitter<number>();
   @Output() rowsUpdated = new EventEmitter<number>();
   @Output() wrapUpdated = new EventEmitter<string>();
-  @Output() stepUpdated = new EventEmitter<number>();
   /* Material Options */
   @Output() colorUpdated = new EventEmitter<ThemePalette>();
   @Output() appearanceUpdated = new EventEmitter<MatFormFieldAppearance>();
-  @Output() labelPositionUpdated = new EventEmitter<'before' | 'after'>();
-  @Output() directionUpdated = new EventEmitter<'vertical' | 'horizontal'>();
-  @Output() disableOptionCenteringUpdated = new EventEmitter<boolean>();
-
-  @Output() loadingUpdated = new EventEmitter<boolean>();
 
   ngOnInit(): void {
     if (this.buttonProperties) {
@@ -98,21 +84,6 @@ export class ControlOptionsComponent implements OnInit {
   toggleRequired(event) {
     this.requiredToggled.emit(!this.required);
     this.required = !this.required;
-  }
-
-  toggleRequireLowerCase(event) {
-    this.lowerCaseToggled.emit(!this.requireLowerCase);
-    this.requireLowerCase = !this.requireLowerCase;
-  }
-
-  toggleRequireUpperCase(event) {
-    this.upperCaseToggled.emit(!this.requireUpperCase);
-    this.requireUpperCase = !this.requireUpperCase;
-  }
-
-  toggleRequireNumbers(event) {
-    this.numberToggled.emit(!this.requireNumbers);
-    this.requireNumbers = !this.requireNumbers;
   }
 
   updateMinLength(event) {
@@ -147,10 +118,6 @@ export class ControlOptionsComponent implements OnInit {
     this.wrapUpdated.emit(event.target.value);
   }
 
-  updateStep(event) {
-    this.stepUpdated.emit(event.target.value);
-  }
-
   updateColor(event) {
     console.log('color');
     this.colorUpdated.emit(event.target.value);
@@ -158,19 +125,6 @@ export class ControlOptionsComponent implements OnInit {
 
   updateAppearance(event) {
     this.appearanceUpdated.emit(event.target.value);
-  }
-
-  updateLabelPosition(event) {
-    this.labelPositionUpdated.emit(event.target.value);
-  }
-
-  updateDirection(event) {
-    this.directionUpdated.emit(event.target.value);
-  }
-
-  updateDisableOptionCentering() {
-    this.disableOptionCenteringUpdated.emit(!this.disableOptionCentering);
-    this.disableOptionCentering = !this.disableOptionCentering;
   }
 
   updateButtonProperties(event: any, property: string): void {
@@ -252,6 +206,15 @@ export class ControlOptionsComponent implements OnInit {
     };
 
     this.radioPropertiesUpdated.emit(radioProps);
+  }
+
+  updateSelectProperties(event: any, property: string): void {
+    const selectProps = {
+      ...this.selectProperties,
+      [property]: this.getUpdatedValue(event, this.selectProperties[property]),
+    };
+    console.log('updateSelectProperties', selectProps);
+    this.selectPropertiesUpdated.emit(selectProps);
   }
 
   private getUpdatedValue(event: any, value: unknown): unknown {

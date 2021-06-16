@@ -19,11 +19,11 @@
   />
 
   <div *ngIf="control.invalid" class="error-message">
-    <small class="p-error" *ngIf="control.hasError('required')">{{ numberProperties.label }} is required.</small>
-    <small class="p-error" *ngIf="control.hasError('min')">
+    <small *ngIf="control.hasError('required')">{{ numberProperties.label }} is required.</small>
+    <small *ngIf="control.hasError('min')">
       {{ numberProperties.label }} cannot be less than {{ numberProperties.min }}
     </small>
-    <small class="p-error" *ngIf="control.hasError('max')">
+    <small *ngIf="control.hasError('max')">
       {{ numberProperties.label }} cannot be more than {{ numberProperties.min }}
     </small>
   </div>

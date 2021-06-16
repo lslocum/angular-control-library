@@ -7,6 +7,7 @@ import {
   Self,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { ISelect } from '../interfaces/select-interface';
 
 @Component({
   selector: 'lib-select',
@@ -14,14 +15,9 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
   styleUrls: ['./select.component.scss'],
 })
 export class SelectComponent implements ControlValueAccessor {
-  @Input() id: string;
-  @Input() name: string;
-  @Input() label: string;
-  @Input() options: any[];
-  @Input() nameProperty: string;
-  @Input() valueProperty: string;
+  @Input() selectProperties: ISelect;
 
-  disabled: boolean = false;
+  disabled: boolean;
   value = '';
 
   onChangeCallback = (_: any) => {};

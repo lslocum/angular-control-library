@@ -1,0 +1,18 @@
+<div class="p-field"  [class.required]="selectProperties.required" [ngClass]="appearanceClass">
+  <label [for]="selectProperties.name">{{ selectProperties.label }}</label>
+  <p-dropdown
+    [disabled]="disabled"
+    [filter]="true"
+    [filterBy]="selectProperties.nameProperty"
+    [(ngModel)]="value"
+    [optionLabel]="selectProperties.nameProperty"
+    [options]="selectProperties.options"
+    [placeholder]="selectProperties.placeholder"
+    [showClear]="true"
+    (onChange)="onChange()"
+  ></p-dropdown>
+
+  <div class="error-message" *ngIf="control.invalid">
+    <small class="p-error" *ngIf="control.hasError('required')">{{ selectProperties.label }} required.</small>
+  </div>
+</div>

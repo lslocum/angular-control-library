@@ -1,19 +1,20 @@
-<mat-form-field [appearance]="appearance">
-  <mat-label>{{ label }}</mat-label>
+<mat-form-field [appearance]="selectProperties.appearance">
+  <mat-label>{{ selectProperties.label }}</mat-label>
   <mat-select
-    [id]="id"
-    [name]="name"
+    [id]="selectProperties.id"
+    [name]="selectProperties.name"
     [disabled]="disabled"
-    [disableOptionCentering]="disableOptionCentering"
-    [disableRipple]="disableRipple"
-    [errorStateMatcher]="errorStateMatcher"
-    [panelClass]="panelClass"
-    [placeholder]="placeholder"
-    [required]="required"
+    [errorStateMatcher]="selectProperties.errorStateMatcher"
+    [panelClass]="selectProperties.panelClass"
+    [placeholder]="selectProperties.placeholder"
+    [required]="selectProperties.required"
     [(ngModel)]="value"
     (change)="onChange()"
   >
-    <mat-option *ngFor="let option of options" [value]="option[valueProperty]">{{ option[nameProperty] }}</mat-option>
+    <mat-option *ngFor="let option of selectProperties.options" [value]="option[selectProperties.valueProperty]">
+      {{ option[selectProperties.nameProperty] }}
+    </mat-option>
   </mat-select>
-</mat-form-field>
 
+  <mat-error *ngIf="control.hasError('required')">{{ selectProperties.label }} is required.</mat-error>
+</mat-form-field>
