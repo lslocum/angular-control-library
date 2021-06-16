@@ -1,14 +1,12 @@
-<div class="form-control" [class.required]="textboxProperties.required">
+<div class="p-field" [class.required]="textboxProperties.required" [ngClass]="appearanceClass">
   <label [for]="textboxProperties.name">{{ textboxProperties.label }}</label>
   <input
     type="text"
-    class="my-input"
     [disabled]="disabled"
     [id]="textboxProperties.id"
     [maxlength]="textboxProperties.maxlength"
     [minlength]="textboxProperties.minlength"
     [name]="textboxProperties.name"
-    [ngClass]="textboxProperties.appearance"
     [(ngModel)]="value"
     [pattern]="textboxProperties.pattern"
     [placeholder]="textboxProperties.placeholder"
@@ -16,13 +14,14 @@
     (input)="onChange()"
     (change)="onChange()"
     (blur)="onTouchedCallback()"
+    pInputText
   />
 
   <div class="error-message" *ngIf="control.invalid">
-    <small *ngIf="control.errors?.required">{{ textboxProperties.label }} is required.</small>
-    <small *ngIf="control.errors?.minlength">
-      {{ textboxProperties.label }} cannot be less than {{ textboxProperties.minlength }} characters.
+    <small class="p-error" *ngIf="control.errors?.required">{{ textboxProperties.label }} is required.</small>
+    <small class="p-error" *ngIf="control.errors?.minlength">
+      {{ textboxProperties.label }} cannot be more than {{ textboxProperties.minlength }} characters.
     </small>
-    <small *ngIf="control.errors?.pattern">Invalid {{ textboxProperties.label }}.</small>
+    <small class="p-error" *ngIf="control.errors?.pattern">Invalid {{ textboxProperties.label }}.</small>
   </div>
 </div>

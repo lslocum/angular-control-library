@@ -4,16 +4,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TextboxModule } from 'projects/controls/src/lib/textbox/textbox.module';
 import { TextboxModule as MaterialTextboxModule } from 'projects/material-controls/src/lib/textbox/textbox.module';
+import { TextboxModule as PrimeTextboxModule } from 'projects/primeng/src/lib/textbox/textbox.module';
 
 import { TextboxDemoRoutingModule } from './textbox-demo-routing.module';
 import { TextboxDemoComponent } from './textbox-demo.component';
 import { ControlOptionsModule } from '../control-options/control-options.module';
 
-
 @NgModule({
-  declarations: [
-    TextboxDemoComponent
-  ],
+  declarations: [TextboxDemoComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -21,7 +19,8 @@ import { ControlOptionsModule } from '../control-options/control-options.module'
     TextboxDemoRoutingModule,
     ControlOptionsModule,
     TextboxModule,
-    MaterialTextboxModule
-  ]
+    MaterialTextboxModule,
+    PrimeTextboxModule
+  ],
 })
-export class TextboxDemoModule { }
+export class TextboxDemoModule {}

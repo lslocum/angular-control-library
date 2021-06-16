@@ -1,53 +1,27 @@
 <div *ngIf="selectedLibrary$ | async as selectedLibrary">
   <h1>Textbox</h1>
   <app-control-options
-    [appearance]="appearance"
-    [label]="label"
-    [placeholder]="placeholder"
-    [required]="required"
     [disabled]="disabled"
-    [minlength]="minlength"
-    [maxlength]="maxlength"
-    [pattern]="pattern"
-    (appearanceUpdated)="appearanceUpdated($event)"
-    (labelUpdated)="updateLabel($event)"
-    (placeholderUpdated)="updatePlaceholder($event)"
+    [textboxProperties]="textboxProperties"
     (disabledToggled)="disableControl($event)"
-    (requiredToggled)="toggleRequired($event)"
-    (minlengthUpdated)="updateMinLength($event)"
-    (maxlengthUpdated)="updateMaxLength($event)"
+    (textboxPropertiesUpdated)="updateTextboxProperties($event)"
   ></app-control-options>
 
-  <div [formGroup]="formGroup" class="form-group">
-    <ng-container *ngIf="selectedLibrary === 'HTML'">
-      <lib-textbox
-        [formControlName]="formControlName"
-        id="textboxWithValue"
-        [name]="formControlName"
-        [label]="label"
-        [placeholder]="placeholder"
-        [required]="required"
-        [minlength]="minlength"
-        [maxlength]="maxlength"
-        [pattern]="pattern"
-      ></lib-textbox>
-    </ng-container>
-    <ng-container *ngIf="selectedLibrary === 'Material'">
-      <matti-textbox
-        [appearance]="appearance"
-        [formControlName]="formControlName"
-        id="textboxWithValue"
-        [name]="formControlName"
-        [label]="label"
-        [placeholder]="placeholder"
-        [required]="required"
-        [minlength]="minlength"
-        [maxlength]="maxlength"
-        [pattern]="pattern"
-      ></matti-textbox>
-    </ng-container>
-  </div>
   <div class="wrapper">
+    <div [formGroup]="formGroup" class="form-group">
+      <ng-container *ngIf="selectedLibrary === 'HTML'">
+        <lib-textbox [formControlName]="formControlName" [textboxProperties]="textboxProperties"></lib-textbox>
+      </ng-container>
+
+      <ng-container *ngIf="selectedLibrary === 'Material'">
+        <matti-textbox [formControlName]="formControlName" [textboxProperties]="textboxProperties"></matti-textbox>
+      </ng-container>
+
+      <ng-container *ngIf="selectedLibrary === 'Prime-NG'">
+        <prime-textbox [formControlName]="formControlName" [textboxProperties]="textboxProperties"></prime-textbox>
+      </ng-container>
+    </div>
+
     <div class="status">
       <label>Form Group Status:</label>
       <span>{{ formGroup.get(formControlName).status }}</span>

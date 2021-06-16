@@ -406,6 +406,74 @@
     <!-- 2 -->
     <ng-container *ngTemplateOutlet="wrap"></ng-container>
   </ng-container>
+
+  <!-- Textbox -->
+  <ng-container *ngIf="textboxProperties">
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        label;
+        context: { label: textboxProperties.label, changeFn: updateTextboxProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <!-- 3 -->
+    <ng-container
+      *ngTemplateOutlet="
+        appearance;
+        context: {
+          changeFn: updateTextboxProperties.bind(this),
+          appearance: textboxProperties.appearance
+        }
+      "
+    ></ng-container>
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        placeholder;
+        context: { placeholder: textboxProperties.placeholder, changeFn: updateTextboxProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container
+      *ngTemplateOutlet="
+        required;
+        context: { required: textboxProperties.required, changeFn: updateTextboxProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 3 -->
+    <ng-container
+      *ngTemplateOutlet="
+        pattern;
+        context: { pattern: textboxProperties.pattern, changeFn: updateTextboxProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        maxlength;
+        context: {
+          label: 'Max Length',
+          maxlength: textboxProperties.maxlength,
+          property: 'maxlength',
+          changeFn: updateTextboxProperties.bind(this)
+        }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container
+      *ngTemplateOutlet="
+        minlength;
+        context: {
+          label: 'Min Length',
+          minlength: textboxProperties.minlength,
+          property: 'minlength',
+          changeFn: updateTextboxProperties.bind(this)
+        }
+      "
+    ></ng-container>
+  </ng-container>
 </div>
 
 <hr />

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+
+import { getDefaultTextbox, ITextbox } from 'projects/controls/src/lib/interfaces/textbox-interface';
+
 import { LibraryService } from '../library.service';
 
 @Component({
@@ -11,30 +12,29 @@ import { LibraryService } from '../library.service';
 })
 export class TextboxDemoComponent implements OnInit {
   selectedLibrary$: Observable<string>;
+  disabled: boolean;
   formGroup: FormGroup;
   formControlName = 'textbox';
-  label = 'User Name';
-  placeholder = 'Enter user name';
-  minlength = '';
-  maxlength = '';
-  pattern = '[A-Za-z]+';
-  required = false;
-  disabled = false;
-  appearance: MatFormFieldAppearance;
+  textboxProperties: ITextbox;
 
   constructor(private libraryService: LibraryService) {
-    this.selectedLibrary$ = this.libraryService.selectedLibrary.pipe(
-      tap((lib) => {
-        lib === 'Material' ? (this.appearance = 'standard') : undefined;
-      })
-    );
+    this.selectedLibrary$ = this.libraryService.selectedLibrary.asObservable();
   }
-
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      textbox: new FormControl('', Validators.pattern(this.pattern)),
+      textbox: new FormControl(),
     });
+
+    this.textboxProperties = getDefaultTextbox({
+      id: this.formControlName,
+      label: 'Name',
+      name: this.formControlName,
+      pattern: '[A-Za-z]+',
+      placeholder: 'Your Name',
+    });
+
+    this.setValidators();
   }
 
   disableControl(value: boolean): void {
@@ -47,40 +47,27 @@ export class TextboxDemoComponent implements OnInit {
     this.disabled = value;
   }
 
-  toggleRequired(value: boolean) {
-    if (!value) {
-      this.formGroup.get(this.formControlName).clearValidators();
-    } else {
-      this.formGroup
-        .get(this.formControlName)
-        .setValidators(Validators.required);
+  updateTextboxProperties(value: ITextbox): void {
+    this.textboxProperties = { ...value };
+    this.setValidators();
+  }
+
+  private setValidators(): void {
+    const baseValidators = [];
+
+    if (this.textboxProperties.minlength) {
+      baseValidators.push(Validators.minLength(this.textboxProperties.minlength));
     }
+
+    if (this.textboxProperties.pattern) {
+      baseValidators.push(Validators.pattern(this.textboxProperties.pattern));
+    }
+
+    if (this.textboxProperties.required) {
+      baseValidators.push(Validators.required);
+    }
+
+    this.formGroup.get(this.formControlName).setValidators(baseValidators);
     this.formGroup.get(this.formControlName).updateValueAndValidity();
-
-    this.required = value;
-  }
-
-  updateMinLength(value: string) {
-    this.minlength = value;
-  }
-
-  updateMaxLength(value: string) {
-    this.maxlength = value;
-  }
-
-  updateLabel(value: string) {
-    this.label = value;
-  }
-
-  updatePlaceholder(value: string) {
-    this.placeholder = value;
-  }
-
-  updatePattern(value: string) {
-    this.pattern = value;
-  }
-
-  appearanceUpdated(value): void {
-    this.appearance = value;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 
@@ -7,19 +7,19 @@ import { ICheckbox } from 'projects/controls/src/lib/interfaces/checkbox-interfa
 import { IDate } from 'projects/controls/src/lib/interfaces/date-interface';
 import { IEmail } from 'projects/controls/src/lib/interfaces/email-interface';
 import { INumber } from 'projects/controls/src/lib/interfaces/number-interface';
-import { IPassword, IPasswordRequirements } from 'projects/controls/src/lib/interfaces/password-interface';
+import { IPassword } from 'projects/controls/src/lib/interfaces/password-interface';
 import { IPhone } from 'projects/controls/src/lib/interfaces/phone-interface';
-import { Position } from 'projects/controls/src/lib/interfaces/position';
 import { IRadio } from 'projects/controls/src/lib/interfaces/radio-interface';
 import { ISelect } from 'projects/controls/src/lib/interfaces/select-interface';
 import { ITextarea } from 'projects/controls/src/lib/interfaces/textarea-interface';
+import { ITextbox } from 'projects/controls/src/lib/interfaces/textbox-interface';
 
 @Component({
   selector: 'app-control-options',
   templateUrl: './control-options.component.html',
   styleUrls: ['./control-options.component.scss'],
 })
-export class ControlOptionsComponent implements OnInit {
+export class ControlOptionsComponent {
   @Input() buttonProperties: IButton;
   @Input() checkboxProperties: ICheckbox;
   @Input() dateProperties: IDate;
@@ -30,14 +30,12 @@ export class ControlOptionsComponent implements OnInit {
   @Input() radioProperties: IRadio;
   @Input() selectProperties: ISelect;
   @Input() textareaProperties: ITextarea;
+  @Input() textboxProperties: ITextbox;
 
   @Input() label?: string;
   @Input() placeholder?: string;
   @Input() required?: boolean;
   @Input() disabled?: boolean;
-  @Input() minlength?: string;
-  @Input() maxlength?: string;
-  @Input() pattern?: string;
   /* Material Options */
   @Input() color?: ThemePalette;
   @Input() appearance?: MatFormFieldAppearance;
@@ -52,6 +50,7 @@ export class ControlOptionsComponent implements OnInit {
   @Output() radioPropertiesUpdated = new EventEmitter<IRadio>();
   @Output() selectPropertiesUpdated = new EventEmitter<ISelect>();
   @Output() textareaPropertiesUpdated = new EventEmitter<ITextarea>();
+  @Output() textboxPropertiesUpdated = new EventEmitter<ITextbox>();
 
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
@@ -64,15 +63,6 @@ export class ControlOptionsComponent implements OnInit {
   @Output() colorUpdated = new EventEmitter<ThemePalette>();
   @Output() appearanceUpdated = new EventEmitter<MatFormFieldAppearance>();
 
-  ngOnInit(): void {
-    if (this.buttonProperties) {
-      this.label = this.buttonProperties.label;
-      this.color = this.buttonProperties.color;
-    }
-
-    console.log('password', this.passwordProperties);
-  }
-
   disableControl(event): void {
     this.disabled = !this.disabled;
     this.disabledToggled.emit(this.disabled);
@@ -83,33 +73,12 @@ export class ControlOptionsComponent implements OnInit {
     this.required = !this.required;
   }
 
-  updateMinLength(event) {
-    this.minlengthUpdated.emit(event.target.value);
-  }
-
-  updateMaxLength(event) {
-    this.maxlengthUpdated.emit(event.target.value);
-  }
-
   updateLabel(event) {
     this.labelUpdated.emit(event.target.value);
   }
 
   updatePlaceholder(event) {
     this.placeholderUpdated.emit(event.target.value);
-  }
-
-  updatePattern(event) {
-    this.patternUpdated.emit(event.target.value);
-  }
-
-  updateColor(event) {
-    console.log('color');
-    this.colorUpdated.emit(event.target.value);
-  }
-
-  updateAppearance(event) {
-    this.appearanceUpdated.emit(event.target.value);
   }
 
   updateButtonProperties(event: any, property: string): void {
@@ -209,6 +178,15 @@ export class ControlOptionsComponent implements OnInit {
     };
 
     this.textareaPropertiesUpdated.emit(textareaProps);
+  }
+
+  updateTextboxProperties(event: any, property: string): void {
+    const textboxProps = {
+      ...this.textboxProperties,
+      [property]: this.getUpdatedValue(event, this.textboxProperties[property]),
+    };
+
+    this.textboxPropertiesUpdated.emit(textboxProps);
   }
 
   private getUpdatedValue(event: any, value: unknown): unknown {

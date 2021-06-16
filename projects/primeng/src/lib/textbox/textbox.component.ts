@@ -1,16 +1,16 @@
-import { Component, Input, Optional, Self } from '@angular/core';
+import { Component, Input, OnChanges, Optional, Self, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
-import { ITextbox } from '../interfaces/textbox-interface';
+import { ITextbox } from 'projects/controls/src/lib/interfaces/textbox-interface';
 
 @Component({
-  selector: 'lib-textbox',
+  selector: 'prime-textbox',
   templateUrl: './textbox.component.html',
   styleUrls: ['./textbox.component.scss'],
 })
-export class TextboxComponent implements ControlValueAccessor {
+export class TextboxComponent implements ControlValueAccessor, OnChanges {
   @Input() textboxProperties: ITextbox;
-
+  appearanceClass: string;
   disabled: boolean;
   value = '';
 
@@ -19,6 +19,14 @@ export class TextboxComponent implements ControlValueAccessor {
 
   constructor(@Self() @Optional() public control: NgControl) {
     this.control && (this.control.valueAccessor = this);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.textboxProperties) {
+      if (changes.textboxProperties.currentValue?.appearance) {
+        this.appearanceClass = changes.textboxProperties.currentValue.appearance === 'fill' ? 'p-input-filled' : '';
+      }
+    }
   }
 
   registerOnChange(fn: any): void {
