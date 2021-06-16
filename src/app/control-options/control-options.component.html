@@ -474,6 +474,43 @@
       "
     ></ng-container>
   </ng-container>
+
+  <!-- Time -->
+  <ng-container *ngIf="timeProperties">
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        label;
+        context: { label: timeProperties.label, changeFn: updateTimeProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <!-- 3 -->
+    <ng-container
+      *ngTemplateOutlet="
+        appearance;
+        context: {
+          changeFn: updateTimeProperties.bind(this),
+          appearance: timeProperties.appearance
+        }
+      "
+    ></ng-container>
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        placeholder;
+        context: { placeholder: timeProperties.placeholder, changeFn: updateTimeProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container
+      *ngTemplateOutlet="
+        required;
+        context: { required: timeProperties.required, changeFn: updateTimeProperties.bind(this) }
+      "
+    ></ng-container>
+  </ng-container>
 </div>
 
 <hr />

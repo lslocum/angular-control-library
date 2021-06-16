@@ -1,38 +1,27 @@
 <div *ngIf="selectedLibrary$ | async as selectedLibrary">
   <h1>Time</h1>
   <app-control-options
-    [appearance]="appearance"
-    [label]="label"
-    [required]="required"
     [disabled]="disabled"
-    (appearanceUpdated)="appearanceUpdated($event)"
-    (labelUpdated)="updateLabel($event)"
+    [timeProperties]="timeProperties"
     (disabledToggled)="disableControl($event)"
-    (requiredToggled)="toggleRequired($event)"
+    (timePropertiesUpdated)="updateTimeProperties($event)"
   ></app-control-options>
 
-  <div [formGroup]="formGroup" class="form-group">
-    <ng-container *ngIf="selectedLibrary === 'HTML'">
-      <lib-time
-        [formControlName]="formControlName"
-        id="timeWithValue"
-        [name]="formControlName"
-        [label]="label"
-        [required]="required"
-      ></lib-time>
-    </ng-container>
-    <ng-container *ngIf="selectedLibrary === 'Material'">
-      <matti-time
-        [appearance]="appearance"
-        [formControlName]="formControlName"
-        id="timeWithValue"
-        [name]="formControlName"
-        [label]="label"
-        [required]="required"
-      ></matti-time>
-    </ng-container>
-  </div>
   <div class="wrapper">
+    <div [formGroup]="formGroup" class="form-group">
+      <ng-container *ngIf="selectedLibrary === 'HTML'">
+        <lib-time [formControlName]="formControlName" [timeProperties]="timeProperties"></lib-time>
+      </ng-container>
+
+      <ng-container *ngIf="selectedLibrary === 'Material'">
+        <matti-time [formControlName]="formControlName" [timeProperties]="timeProperties"></matti-time>
+      </ng-container>
+
+      <ng-container *ngIf="selectedLibrary === 'Prime-NG'">
+        <prime-time [formControlName]="formControlName" [timeProperties]="timeProperties"></prime-time>
+      </ng-container>
+    </div>
+
     <div class="status">
       <label>Form Group Status:</label>
       <span>{{ formGroup.get(formControlName).status }}</span>

@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TimeModule } from 'projects/controls/src/lib/time/time.module';
 import { TimeModule as MaterialTimeModule } from 'projects/material-controls/src/lib/time/time.module';
+import { TimeModule as PrimeTimeModule } from 'projects/primeng/src/lib/time/time.module';
 
 import { ControlOptionsModule } from '../control-options/control-options.module';
 import { TimeDemoRoutingModule } from './time-demo-routing.module';
@@ -19,6 +20,7 @@ import { TimeDemoComponent } from './time-demo.component';
     ControlOptionsModule,
     TimeModule,
     MaterialTimeModule,
+    PrimeTimeModule
   ],
 })
 export class TimeDemoModule {}

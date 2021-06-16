@@ -1,19 +1,16 @@
 import { Component, Input, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { ITime } from 'projects/controls/src/lib/interfaces/time-interface';
 
 @Component({
   selector: 'matti-time',
   templateUrl: './time.component.html',
 })
 export class TimeComponent implements ControlValueAccessor {
-  @Input() appearance: MatFormFieldAppearance;
-  @Input() id: string;
-  @Input() name: string;
-  @Input() label: string;
-  @Input() required: boolean = false;
+  @Input() timeProperties: ITime;
 
-  disabled: boolean = false;
+  disabled: boolean;
   value = '';
 
   onChangeCallback = (_: any) => {};

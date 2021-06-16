@@ -13,6 +13,7 @@ import { IRadio } from 'projects/controls/src/lib/interfaces/radio-interface';
 import { ISelect } from 'projects/controls/src/lib/interfaces/select-interface';
 import { ITextarea } from 'projects/controls/src/lib/interfaces/textarea-interface';
 import { ITextbox } from 'projects/controls/src/lib/interfaces/textbox-interface';
+import { ITime } from 'projects/controls/src/lib/interfaces/time-interface';
 
 @Component({
   selector: 'app-control-options',
@@ -20,6 +21,7 @@ import { ITextbox } from 'projects/controls/src/lib/interfaces/textbox-interface
   styleUrls: ['./control-options.component.scss'],
 })
 export class ControlOptionsComponent {
+  @Input() disabled: boolean;
   @Input() buttonProperties: IButton;
   @Input() checkboxProperties: ICheckbox;
   @Input() dateProperties: IDate;
@@ -31,18 +33,12 @@ export class ControlOptionsComponent {
   @Input() selectProperties: ISelect;
   @Input() textareaProperties: ITextarea;
   @Input() textboxProperties: ITextbox;
-
-  @Input() label?: string;
-  @Input() placeholder?: string;
-  @Input() required?: boolean;
-  @Input() disabled?: boolean;
-  /* Material Options */
-  @Input() color?: ThemePalette;
-  @Input() appearance?: MatFormFieldAppearance;
+  @Input() timeProperties: ITime;
 
   @Output() buttonPropertiesUpdated = new EventEmitter<IButton>();
   @Output() checkboxPropertiesUpdated = new EventEmitter<ICheckbox>();
   @Output() datePropertiesUpdated = new EventEmitter<IDate>();
+  @Output() disabledToggled = new EventEmitter<boolean>();
   @Output() emailPropertiesUpdated = new EventEmitter<IEmail>();
   @Output() numberPropertiesUpdated = new EventEmitter<INumber>();
   @Output() passwordPropertiesUpdated = new EventEmitter<IPassword>();
@@ -51,34 +47,11 @@ export class ControlOptionsComponent {
   @Output() selectPropertiesUpdated = new EventEmitter<ISelect>();
   @Output() textareaPropertiesUpdated = new EventEmitter<ITextarea>();
   @Output() textboxPropertiesUpdated = new EventEmitter<ITextbox>();
+  @Output() timePropertiesUpdated = new EventEmitter<ITime>();
 
-  @Output() labelUpdated = new EventEmitter<string>();
-  @Output() placeholderUpdated = new EventEmitter<string>();
-  @Output() disabledToggled = new EventEmitter<boolean>();
-  @Output() requiredToggled = new EventEmitter<boolean>();
-  @Output() minlengthUpdated = new EventEmitter<string>();
-  @Output() maxlengthUpdated = new EventEmitter<string>();
-  @Output() patternUpdated = new EventEmitter<string>();
-  /* Material Options */
-  @Output() colorUpdated = new EventEmitter<ThemePalette>();
-  @Output() appearanceUpdated = new EventEmitter<MatFormFieldAppearance>();
-
-  disableControl(event): void {
+  disableControl(): void {
     this.disabled = !this.disabled;
     this.disabledToggled.emit(this.disabled);
-  }
-
-  toggleRequired(event) {
-    this.requiredToggled.emit(!this.required);
-    this.required = !this.required;
-  }
-
-  updateLabel(event) {
-    this.labelUpdated.emit(event.target.value);
-  }
-
-  updatePlaceholder(event) {
-    this.placeholderUpdated.emit(event.target.value);
   }
 
   updateButtonProperties(event: any, property: string): void {
@@ -187,6 +160,15 @@ export class ControlOptionsComponent {
     };
 
     this.textboxPropertiesUpdated.emit(textboxProps);
+  }
+
+  updateTimeProperties(event: any, property: string): void {
+    const timeProps = {
+      ...this.timeProperties,
+      [property]: this.getUpdatedValue(event, this.timeProperties[property]),
+    };
+
+    this.timePropertiesUpdated.emit(timeProps);
   }
 
   private getUpdatedValue(event: any, value: unknown): unknown {

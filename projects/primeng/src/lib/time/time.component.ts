@@ -1,17 +1,16 @@
-import { Component, Input, Optional, Self } from '@angular/core';
+import { Component, Input, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-
-import { ITime } from '../interfaces/time-interface';
+import { ITime } from 'projects/controls/src/lib/interfaces/time-interface';
 
 @Component({
-  selector: 'lib-time',
+  selector: 'prime-time',
   templateUrl: './time.component.html',
-  styleUrls: ['./time.component.scss']
+  styleUrls: ['./time.component.scss'],
 })
 export class TimeComponent implements ControlValueAccessor {
   @Input() timeProperties: ITime;
 
-  disabled: boolean;
+  disabled: boolean = false;
   value = '';
 
   onChangeCallback = (_: any) => {};
@@ -35,6 +34,7 @@ export class TimeComponent implements ControlValueAccessor {
 
   writeValue(value: string): void {
     this.value = value;
+    this.onChange();
   }
 
   onChange() {

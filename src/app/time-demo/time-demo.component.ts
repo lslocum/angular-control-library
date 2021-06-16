@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { getDefaultTime, ITime } from 'projects/controls/src/lib/interfaces/time-interface';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { LibraryService } from '../library.service';
@@ -11,25 +12,26 @@ import { LibraryService } from '../library.service';
 })
 export class TimeDemoComponent implements OnInit {
   selectedLibrary$: Observable<string>;
-  appearance: MatFormFieldAppearance;
+  disabled = false;
   formGroup: FormGroup;
   formControlName = 'time';
-  label = 'Appt. Time';
-  required = false;
-  disabled = false;
+  timeProperties: ITime;
 
   constructor(private libraryService: LibraryService) {
-    this.selectedLibrary$ = this.libraryService.selectedLibrary.pipe(
-      tap((lib) => {
-        lib === 'Material' ? (this.appearance = 'standard') : undefined;
-      })
-    );
+    this.selectedLibrary$ = this.libraryService.selectedLibrary.asObservable();
   }
 
   ngOnInit(): void {
-    this.formGroup = new FormGroup({
-      time: new FormControl(),
+    this.formGroup = new FormGroup({ time: new FormControl() });
+
+    this.timeProperties = getDefaultTime({
+      id: this.formControlName,
+      label: 'Appointment Time',
+      name: this.formControlName,
+      placeholder: 'Pick a time',
     });
+
+    this.setValidators();
   }
 
   disableControl(value: boolean): void {
@@ -42,22 +44,19 @@ export class TimeDemoComponent implements OnInit {
     this.disabled = value;
   }
 
-  toggleRequired(value: boolean) {
-    if (!value) {
-      this.formGroup.get(this.formControlName).clearValidators();
-    } else {
-      this.formGroup.get(this.formControlName).setValidators(Validators.required);
+  updateTimeProperties(value: ITime) {
+    this.timeProperties = { ...value };
+    this.setValidators();
+  }
+
+  private setValidators(): void {
+    const baseValidators = [];
+
+    if (this.timeProperties.required) {
+      baseValidators.push(Validators.required);
     }
+
+    this.formGroup.get(this.formControlName).setValidators(baseValidators);
     this.formGroup.get(this.formControlName).updateValueAndValidity();
-
-    this.required = value;
-  }
-
-  updateLabel(value: string) {
-    this.label = value;
-  }
-
-  appearanceUpdated(value): void {
-    this.appearance = value;
   }
 }

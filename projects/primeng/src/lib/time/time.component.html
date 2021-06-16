@@ -1,0 +1,19 @@
+<div class="p-field" [class.required]="timeProperties.required">
+  <label [for]="timeProperties.name">{{ timeProperties.label }}</label>
+  <p-calendar
+    [disabled]="disabled"
+    [id]="timeProperties.id"
+    hourFormat="12"
+    [name]="timeProperties.name"
+    [(ngModel)]="value"
+    [placeholder]="timeProperties.placeholder"
+    [required]="timeProperties.required"
+    showTime="true"
+    timeOnly="true"
+    (onSelect)="writeValue($event)"
+  ></p-calendar>
+
+  <div class="error-message" *ngIf="control.invalid">
+    <small *ngIf="control.hasError('required')" class="p-error">{{ timeProperties.label }} is required.</small>
+  </div>
+</div>
