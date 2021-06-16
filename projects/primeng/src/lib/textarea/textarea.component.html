@@ -1,13 +1,12 @@
-<div class="form-control" [class.required]="textareaProperties.required">
+<div class="p-field" [class.required]="textareaProperties.required">
   <label [for]="textareaProperties.name">{{ textareaProperties.label }}</label>
   <textarea
-    class="my-textarea"
+    pInputTextarea
     [cols]="textareaProperties.cols"
     [disabled]="disabled"
     [id]="textareaProperties.id"
     [maxlength]="textareaProperties.maxlength"
     [name]="textareaProperties.name"
-    [ngClass]="textareaProperties.appearance"
     [(ngModel)]="value"
     [placeholder]="textareaProperties.placeholder"
     [required]="textareaProperties.required"
@@ -18,6 +17,6 @@
   ></textarea>
 
   <div class="error-message" *ngIf="control.invalid">
-    <small *ngIf="control.errors?.required">{{ textareaProperties.label }} is required.</small>
+    <small class="p-error" *ngIf="control.errors?.required">{{ textareaProperties.label }} is required.</small>
   </div>
 </div>

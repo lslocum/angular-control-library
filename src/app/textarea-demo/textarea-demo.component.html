@@ -1,51 +1,24 @@
 <div *ngIf="selectedLibrary$ | async as selectedLibrary">
   <h1>Textarea</h1>
   <app-control-options
-    [label]="label"
-    [placeholder]="placeholder"
-    [required]="required"
     [disabled]="disabled"
-    [cols]="cols"
-    [rows]="rows"
-    [wrap]="wrap"
-    [appearance]="appearance"
-    (labelUpdated)="updateLabel($event)"
-    (placeholderUpdated)="updatePlaceholder($event)"
+    [textareaProperties]="textareaProperties"
     (disabledToggled)="disableControl($event)"
-    (requiredToggled)="toggleRequired($event)"
-    (colsUpdated)="updateCols($event)"
-    (rowsUpdated)="updateRows($event)"
-    (appearanceUpdated)="appearanceUpdated($event)"
+    (textareaPropertiesUpdated)="updateTextareaProperties($event)"
   ></app-control-options>
 
   <div class="wrapper">
     <div [formGroup]="formGroup" class="form-group">
       <ng-container *ngIf="selectedLibrary === 'HTML'">
-        <lib-textarea
-          [formControlName]="formControlName"
-          id="textareaWithValue"
-          [name]="formControlName"
-          [label]="label"
-          [placeholder]="placeholder"
-          [required]="required"
-          [cols]="cols"
-          [rows]="rows"
-          [wrap]="wrap"
-        ></lib-textarea>
+        <lib-textarea [formControlName]="formControlName" [textareaProperties]="textareaProperties"></lib-textarea>
       </ng-container>
+
       <ng-container *ngIf="selectedLibrary === 'Material'">
-        <matti-textarea
-          [formControlName]="formControlName"
-          id="textareaWithValue"
-          [name]="formControlName"
-          [appearance]="appearance"
-          [label]="label"
-          [placeholder]="placeholder"
-          [required]="required"
-          [cols]="cols"
-          [rows]="rows"
-          [wrap]="wrap"
-        ></matti-textarea>
+        <matti-textarea [formControlName]="formControlName" [textareaProperties]="textareaProperties"></matti-textarea>
+      </ng-container>
+
+      <ng-container *ngIf="selectedLibrary === 'Prime-NG'">
+        <prime-textarea [formControlName]="formControlName" [textareaProperties]="textareaProperties"></prime-textarea>
       </ng-container>
     </div>
 

@@ -1,19 +1,21 @@
-<mat-form-field [appearance]="appearance">
-  <mat-label class="label">{{ label }}</mat-label>
+<mat-form-field [appearance]="textareaProperties.appearance">
+  <mat-label class="label">{{ textareaProperties.label }}</mat-label>
+
   <textarea
     matInput
-    [id]="id"
-    [name]="name"
+    [cols]="textareaProperties.cols"
     [disabled]="disabled"
-    [required]="required"
-    [cols]="cols"
-    [maxlength]="maxlength"
-    [rows]="rows"
-    [placeholder]="placeholder"
+    [id]="textareaProperties.id"
+    [name]="textareaProperties.name"
     [(ngModel)]="value"
+    [maxlength]="textareaProperties.maxlength"
+    [placeholder]="textareaProperties.placeholder"
+    [required]="textareaProperties.required"
+    [rows]="textareaProperties.rows"
     (input)="onChange()"
     (change)="onChange()"
     (blur)="onTouchedCallback()"
   ></textarea>
-  <mat-error *ngIf="control.hasError('required')">{{ label }} required.</mat-error>
+
+  <mat-error *ngIf="control.hasError('required')">{{ textareaProperties.label }} required.</mat-error>
 </mat-form-field>

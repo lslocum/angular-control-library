@@ -1,12 +1,11 @@
-import { Component, Input, OnInit, Optional, Self } from '@angular/core';
+import { Component, Input, OnChanges, Optional, Self, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { ITextarea } from 'projects/controls/src/lib/interfaces/textarea-interface';
 
 @Component({
-  selector: 'matti-textarea',
+  selector: 'prime-textarea',
   templateUrl: './textarea.component.html',
-  styles: [],
+  styleUrls: ['./textarea.component.scss'],
 })
 export class TextareaComponent implements ControlValueAccessor {
   @Input() textareaProperties: ITextarea;

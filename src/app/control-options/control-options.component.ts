@@ -12,6 +12,7 @@ import { IPhone } from 'projects/controls/src/lib/interfaces/phone-interface';
 import { Position } from 'projects/controls/src/lib/interfaces/position';
 import { IRadio } from 'projects/controls/src/lib/interfaces/radio-interface';
 import { ISelect } from 'projects/controls/src/lib/interfaces/select-interface';
+import { ITextarea } from 'projects/controls/src/lib/interfaces/textarea-interface';
 
 @Component({
   selector: 'app-control-options',
@@ -28,6 +29,7 @@ export class ControlOptionsComponent implements OnInit {
   @Input() phoneProperties: IPhone;
   @Input() radioProperties: IRadio;
   @Input() selectProperties: ISelect;
+  @Input() textareaProperties: ITextarea;
 
   @Input() label?: string;
   @Input() placeholder?: string;
@@ -36,9 +38,6 @@ export class ControlOptionsComponent implements OnInit {
   @Input() minlength?: string;
   @Input() maxlength?: string;
   @Input() pattern?: string;
-  @Input() cols?: number;
-  @Input() rows?: number;
-  @Input() wrap?: 'soft' | 'hard';
   /* Material Options */
   @Input() color?: ThemePalette;
   @Input() appearance?: MatFormFieldAppearance;
@@ -52,6 +51,7 @@ export class ControlOptionsComponent implements OnInit {
   @Output() phonePropertiesUpdated = new EventEmitter<IPhone>();
   @Output() radioPropertiesUpdated = new EventEmitter<IRadio>();
   @Output() selectPropertiesUpdated = new EventEmitter<ISelect>();
+  @Output() textareaPropertiesUpdated = new EventEmitter<ITextarea>();
 
   @Output() labelUpdated = new EventEmitter<string>();
   @Output() placeholderUpdated = new EventEmitter<string>();
@@ -60,9 +60,6 @@ export class ControlOptionsComponent implements OnInit {
   @Output() minlengthUpdated = new EventEmitter<string>();
   @Output() maxlengthUpdated = new EventEmitter<string>();
   @Output() patternUpdated = new EventEmitter<string>();
-  @Output() colsUpdated = new EventEmitter<number>();
-  @Output() rowsUpdated = new EventEmitter<number>();
-  @Output() wrapUpdated = new EventEmitter<string>();
   /* Material Options */
   @Output() colorUpdated = new EventEmitter<ThemePalette>();
   @Output() appearanceUpdated = new EventEmitter<MatFormFieldAppearance>();
@@ -104,18 +101,6 @@ export class ControlOptionsComponent implements OnInit {
 
   updatePattern(event) {
     this.patternUpdated.emit(event.target.value);
-  }
-
-  updateCols(event) {
-    this.colsUpdated.emit(event.target.value);
-  }
-
-  updateRows(event) {
-    this.rowsUpdated.emit(event.target.value);
-  }
-
-  updateWrap(event) {
-    this.wrapUpdated.emit(event.target.value);
   }
 
   updateColor(event) {
@@ -213,8 +198,17 @@ export class ControlOptionsComponent implements OnInit {
       ...this.selectProperties,
       [property]: this.getUpdatedValue(event, this.selectProperties[property]),
     };
-    console.log('updateSelectProperties', selectProps);
+
     this.selectPropertiesUpdated.emit(selectProps);
+  }
+
+  updateTextareaProperties(event: any, property: string): void {
+    const textareaProps = {
+      ...this.textareaProperties,
+      [property]: this.getUpdatedValue(event, this.textareaProperties[property]),
+    };
+
+    this.textareaPropertiesUpdated.emit(textareaProps);
   }
 
   private getUpdatedValue(event: any, value: unknown): unknown {

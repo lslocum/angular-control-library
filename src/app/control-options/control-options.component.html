@@ -363,6 +363,49 @@
       "
     ></ng-container>
   </ng-container>
+
+  <!-- Textarea -->
+  <ng-container *ngIf="textareaProperties">
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        label;
+        context: { label: textareaProperties.label, changeFn: updateTextareaProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <!-- 3 -->
+    <ng-container
+      *ngTemplateOutlet="
+        appearance;
+        context: {
+          changeFn: updateTextareaProperties.bind(this),
+          appearance: textareaProperties.appearance
+        }
+      "
+    ></ng-container>
+    <!-- 1 -->
+    <ng-container
+      *ngTemplateOutlet="
+        placeholder;
+        context: { placeholder: textareaProperties.placeholder, changeFn: updateTextareaProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 2 -->
+    <ng-container
+      *ngTemplateOutlet="
+        required;
+        context: { required: textareaProperties.required, changeFn: updateTextareaProperties.bind(this) }
+      "
+    ></ng-container>
+    <!-- 3 -->
+    <ng-container *ngTemplateOutlet="cols"></ng-container>
+    <!-- 1 -->
+    <ng-container *ngTemplateOutlet="rows"></ng-container>
+    <!-- 2 -->
+    <ng-container *ngTemplateOutlet="wrap"></ng-container>
+  </ng-container>
 </div>
 
 <hr />
@@ -435,14 +478,20 @@
     </select>
   </span>
 </ng-template>
-<!-- 
+
 <ng-template #cols>
-  <span *ngIf="cols !== undefined">
+  <span *ngIf="textareaProperties.cols !== undefined">
     <label for="cols">Number of Columns</label>
-    <input type="number" id="cols" name="cols" [value]="cols" (click)="updateCols($event)" />
+    <input
+      type="number"
+      id="cols"
+      name="cols"
+      [value]="textareaProperties.cols"
+      (click)="updateTextareaProperties($event, 'cols')"
+    />
   </span>
 </ng-template>
--->
+
 <ng-template #direction let-direction="direction" let-changeFn="changeFn">
   <span *ngIf="direction !== undefined">
     <label for="direction">Direction</label>
@@ -597,14 +646,20 @@
     <label for="toggleUpperCase">Require Upper Case</label>
   </span>
 </ng-template>
-<!--
+
 <ng-template #rows>
-  <span *ngIf="rows !== undefined">
+  <span *ngIf="textareaProperties.rows !== undefined">
     <label for="rows">Number of Rows</label>
-    <input type="number" id="rows" name="rows" [value]="rows" (click)="updateRows($event)" />
+    <input
+      type="number"
+      id="rows"
+      name="rows"
+      [value]="textareaProperties.rows"
+      (click)="updateTextareaProperties($event, 'rows')"
+    />
   </span>
 </ng-template>
--->
+
 <ng-template #step let-step="step" let-changeFn="changeFn">
   <span *ngIf="step !== undefined">
     <label for="step">Step</label>
@@ -623,12 +678,12 @@
   </span>
 </ng-template>
 
-<!-- <ng-template #wrap>
-  <span *ngIf="wrap !== undefined">
+<ng-template #wrap>
+  <span *ngIf="textareaProperties.wrap !== undefined">
     <label for="wrap">Wrap</label>
-    <select id="wrap" name="wrap" [value]="wrap" (change)="updateWrap($event)">
+    <select id="wrap" name="wrap" [value]="textareaProperties.wrap" (change)="updateTextareaProperties($event, 'wrap')">
       <option value="hard">Hard</option>
       <option value="soft">Soft</option>
     </select>
   </span>
-</ng-template> -->
+</ng-template>
