@@ -1,6 +1,7 @@
 $primary: hsl(188, 100%, 42%);
 $secondary: hsl(310, 90%, 50%);
 $tertiary: hsl(0, 0%, 50%);
+$warn: hsl(14, 66%, 49%);
 $font-color-dark: hsl(0, 0%, 50%);
 $font-color-light: hsl(0, 0%, 100%);
 
@@ -28,19 +29,51 @@ button {
 
 /* Button Display */
 .filled {
-  background-color: $primary;
-  color: $font-color-light;
+  &.primary {
+    background-color: $primary;
+    color: $font-color-light;
+  }
+  &.accent {
+    background-color: $secondary;
+    color: $font-color-light;
+  }
+  &.warn {
+    background-color: $warn;
+    color: $font-color-light;
+  }
 }
 
 .inverted {
-  background-color: $font-color-light;
-  color: $primary;
+  &.primary {
+    background-color: $font-color-light;
+    color: $primary;
+  }
+  &.accent {
+    background-color: $font-color-light;
+    color: $secondary;
+  }
+  &.warn {
+    background-color: $font-color-light;
+    color: $warn;
+  }
 }
 
 .outlined {
-  background-color: $font-color-light;
-  color: $primary;
-  border: 1px solid $primary;
+  &.primary {
+    background-color: $font-color-light;
+    color: $primary;
+    border: 1px solid $primary;
+  }
+  &.accent {
+    background-color: $font-color-light;
+    color: $secondary;
+    border: 1px solid $secondary;
+  }
+  &.warn {
+    background-color: $font-color-light;
+    color: $warn;
+    border: 1px solid $warn;
+  }
 }
 
 /* Button Type */
@@ -63,8 +96,17 @@ button {
 
 .link {
   background-color: transparent;
-  color: $primary;
   border: none;
+
+  &.primary {
+    color: $primary;
+  }
+  &.accent {
+    color: $secondary;
+  }
+  &.warn {
+    color: $warn;
+  }
 
   &:enabled:hover {
     border: none;

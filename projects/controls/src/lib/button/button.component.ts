@@ -27,6 +27,8 @@ export class ButtonComponent implements OnChanges {
       const { classes, display, hasShadow, isRounded, size, type } = changes.buttonProperties.currentValue;
       this.classList = classes ? classes : this.classes?.length ? this.classes : [];
 
+      this.classList.push(this.buttonProperties.color ?? 'primary');
+
       this.setDisplayClass(display);
       if (this.displayClass) {
         this.classList.push(this.displayClass);
