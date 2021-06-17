@@ -2,14 +2,12 @@
 <div *ngIf="selectedLibrary$ | async as selectedLibrary">
   <app-control-options
     [buttonProperties]="buttonProperties"
-    [disabled]="disabled"
     (buttonPropertiesUpdated)="buttonPropertiesUpdated($event)"
-    (disabledToggled)="toggleDisabled($event)"
     (labelUpdated)="labelUpdated($event)"
   ></app-control-options>
 
   <ng-container *ngIf="selectedLibrary === 'HTML'">
-    <lib-button id="button" [buttonProperties]="buttonProperties" [disabled]="disabled" (clicked)="buttonClicked()">
+    <lib-button id="button" [buttonProperties]="buttonProperties" (clicked)="buttonClicked()">
       <ng-container *ngIf="buttonProperties.type === 'text' || buttonProperties.type === 'link'">
         {{ buttonProperties.label }}
       </ng-container>
@@ -25,7 +23,6 @@
     <matti-button
       id="primaryBtn"
       [buttonProperties]="buttonProperties"
-      [disabled]="disabled"
       (clicked)="buttonClicked()"
     >
       <ng-container *ngIf="buttonProperties.type === 'icon' || buttonProperties.isRounded">
@@ -118,7 +115,6 @@
     <prime-button
       id="primaryBtn"
       [buttonProperties]="buttonProperties"
-      [disabled]="disabled"
       (clicked)="buttonClicked()"
     ></prime-button>
   </ng-container>

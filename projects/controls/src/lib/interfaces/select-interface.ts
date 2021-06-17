@@ -24,7 +24,7 @@ export function getDefaultSelect(overrides?: Partial<ISelect>): ISelect {
       name: null,
       nameProperty: null,
       options: [],
-      placeholder: null,
+      placeholder: '',
       required: false,
       valueProperty: null,
     },

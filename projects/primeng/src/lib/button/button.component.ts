@@ -14,7 +14,6 @@ import {
 })
 export class ButtonComponent implements OnChanges {
   @Input() buttonProperties: IButton;
-  @Input() disabled: boolean;
   @Input() id: string;
   @Output() clicked: EventEmitter<void> = new EventEmitter();
 

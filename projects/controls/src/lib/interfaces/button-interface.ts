@@ -10,6 +10,7 @@ export interface IButton {
   badgeClass?: string;
   classes?: string[];
   color?: ButtonColor;
+  disabled: boolean;
   display: ButtonDisplay;
   hasShadow?: boolean;
   icon?: string;
@@ -24,6 +25,7 @@ export interface IButton {
 export function getDefaultButton(overrides?: Partial<IButton>): IButton {
   return Object.assign(
     {
+      disabled: false,
       display: 'filled',
       hasShadow: false,
     },

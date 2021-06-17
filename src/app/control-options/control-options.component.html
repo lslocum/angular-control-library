@@ -3,792 +3,571 @@
 <div class="toggle-options">
   <!-- Button -->
   <ng-container *ngIf="buttonProperties">
-    <ng-container *ngTemplateOutlet="buttonDisplay"></ng-container>
-    <ng-container *ngTemplateOutlet="buttonType"></ng-container>
-    <ng-container *ngTemplateOutlet="disabled"></ng-container>
-    <ng-container *ngTemplateOutlet="badgeNumber"></ng-container>
-    <ng-container
-      *ngTemplateOutlet="color; context: { color: buttonProperties.color, changeFn: updateButtonProperties.bind(this) }"
-    ></ng-container>
-    <ng-container
-      *ngTemplateOutlet="label; context: { label: buttonProperties.label, changeFn: updateButtonProperties.bind(this) }"
-    ></ng-container>
-    <ng-container *ngTemplateOutlet="hasIcon"></ng-container>
-    <ng-container *ngTemplateOutlet="hasShadow"></ng-container>
-    <ng-container *ngTemplateOutlet="isRounded"></ng-container>
-    <ng-container *ngTemplateOutlet="size"></ng-container>
+    <!-- 1 -->
+    <app-checkbox
+      label="Disabled"
+      propertyName="disabled"
+      [value]="buttonProperties.disabled"
+      (update)="updateButtonProperties($event)"
+    ></app-checkbox>
+    <!-- 2 -->
+    <app-text
+      label="Label"
+      propertyName="label"
+      [value]="buttonProperties.label"
+      (update)="updateButtonProperties($event)"
+    ></app-text>
+    <!-- 3 -->
+    <span *ngIf="buttonProperties?.type !== undefined">
+      <label for="buttonType">Button Type</label>
+      <select
+        id="buttonType"
+        name="buttonType"
+        [value]="buttonProperties.type"
+        (change)="updateButtonProperties($event, 'type')"
+      >
+        <option value="text">Text</option>
+        <option value="icon">Icon</option>
+        <option value="textWithIcon">Text With Icon</option>
+        <option value="link">Link</option>
+      </select>
+    </span>
+    <!-- 1 -->
+    <app-checkbox
+      label="Has Shadow"
+      propertyName="hasShadow"
+      [value]="buttonProperties.hasShadow"
+      (update)="updateButtonProperties($event)"
+    ></app-checkbox>
+    <!-- 2 -->
+    <app-color [color]="buttonProperties.color" (update)="updateButtonProperties($event)"></app-color>
+    <!-- 3 -->
+    <span *ngIf="buttonProperties?.display !== undefined">
+      <label for="buttonDisplay">Button Display Type</label>
+      <select
+        id="buttonDisplay"
+        name="buttonDisplay"
+        [value]="buttonProperties.display"
+        (change)="updateButtonProperties($event, 'display')"
+      >
+        <option value="filled">Filled</option>
+        <option value="outlined">Outlined</option>
+        <option value="inverted">Inverted</option>
+      </select>
+    </span>
+    <!-- 1 -->
+    <app-checkbox
+      label="Round"
+      propertyName="isRounded"
+      [value]="buttonProperties.isRounded"
+      (update)="updateButtonProperties($event)"
+    ></app-checkbox>
+    <!-- 2 -->
+    <span *ngIf="buttonProperties?.size !== undefined">
+      <label for="size">Size</label>
+      <select id="size" name="size" [value]="buttonProperties.size" (change)="updateButtonProperties($event, 'size')">
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+      </select>
+    </span>
   </ng-container>
 
   <!-- Checkbox -->
   <ng-container *ngIf="checkboxProperties">
-    <ng-container
-      *ngTemplateOutlet="
-        label;
-        context: { label: checkboxProperties.label, changeFn: updateCheckboxProperties.bind(this) }
-      "
-    ></ng-container>
-    <ng-container *ngTemplateOutlet="disabled"></ng-container>
-    <ng-container
-      *ngTemplateOutlet="
-        labelPosition;
-        context: { labelPosition: checkboxProperties.labelPosition, changeFn: updateCheckboxProperties.bind(this) }
-      "
-    ></ng-container>
-    <ng-container
-      *ngTemplateOutlet="
-        color;
-        context: { color: checkboxProperties.color, changeFn: updateCheckboxProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      [value]="checkboxProperties.label"
+      propertyName="label"
+      label="Label"
+      (update)="updateCheckboxProperties($event)"
+    ></app-text>
+    <app-checkbox
+      label="Disabled"
+      propertyName="disabled"
+      [value]="disabled"
+      (update)="disableControl($event)"
+    ></app-checkbox>
+    <app-label-position
+      [position]="checkboxProperties.labelPosition"
+      (update)="updateCheckboxProperties($event)"
+    ></app-label-position>
+    <app-color [color]="checkboxProperties.color" (update)="updateCheckboxProperties($event)"></app-color>
   </ng-container>
 
   <!-- Date -->
   <ng-container *ngIf="dateProperties">
-    <ng-container
-      *ngTemplateOutlet="label; context: { label: dateProperties.label, changeFn: updateDateProperties.bind(this) }"
-    ></ng-container>
-    <ng-container *ngTemplateOutlet="disabled"></ng-container>
-    <ng-container
-      *ngTemplateOutlet="
-        required;
-        context: { required: dateProperties.required, changeFn: updateDateProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      [value]="dateProperties.label"
+      propertyName="label"
+      label="Label"
+      (update)="updateDateProperties($event)"
+    ></app-text>
+    <app-checkbox
+      label="Disabled"
+      propertyName="disabled"
+      [value]="disabled"
+      (update)="disableControl($event)"
+    ></app-checkbox>
+    <app-checkbox
+      label="Required"
+      propertyName="required"
+      [value]="dateProperties.required"
+      (update)="updateDateProperties($event)"
+    ></app-checkbox>
   </ng-container>
 
   <!-- Email -->
   <ng-container *ngIf="emailProperties">
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="label; context: { label: emailProperties.label, changeFn: updateEmailProperties.bind(this) }"
-    ></ng-container>
+    <app-text
+      propertyName="label"
+      label="Label"
+      [value]="emailProperties.label"
+      (update)="updateEmailProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <app-checkbox
+      label="Disabled"
+      propertyName="disabled"
+      [value]="disabled"
+      (update)="disableControl($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container
-      *ngTemplateOutlet="
-        minlength;
-        context: {
-          changeFn: updateEmailProperties.bind(this),
-          label: 'Min Length',
-          minlength: emailProperties.minlength,
-          property: 'minlength'
-        }
-      "
-    ></ng-container>
+    <app-number
+      label="Min Length"
+      propertyName="minlength"
+      [value]="emailProperties.minlength"
+      (update)="updateEmailProperties($event)"
+    ></app-number>
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        placeholder;
-        context: { placeholder: emailProperties.placeholder, changeFn: updateEmailProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      [value]="emailProperties.placeholder"
+      propertyName="placeholder"
+      label="Placeholder"
+      (update)="updateEmailProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container
-      *ngTemplateOutlet="
-        required;
-        context: { required: emailProperties.required, changeFn: updateEmailProperties.bind(this) }
-      "
-    ></ng-container>
-
+    <app-checkbox
+      label="Required"
+      propertyName="required"
+      [value]="emailProperties.required"
+      (update)="updateEmailProperties($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container
-      *ngTemplateOutlet="
-        maxlength;
-        context: {
-          changeFn: updateEmailProperties.bind(this),
-          label: 'Max Length',
-          maxlength: emailProperties.maxlength,
-          property: 'maxlength'
-        }
-      "
-    ></ng-container>
+    <app-number
+      label="Max Length"
+      propertyName="maxlength"
+      [value]="emailProperties.maxlength"
+      (update)="updateEmailProperties($event)"
+    ></app-number>
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        appearance;
-        context: { appearance: emailProperties.appearance, changeFn: updateEmailProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-appearance [appearance]="emailProperties.appearance" (update)="updateEmailProperties($event)"></app-appearance>
   </ng-container>
 
   <!-- Number -->
   <ng-container *ngIf="numberProperties">
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="label; context: { label: numberProperties.label, changeFn: updateNumberProperties.bind(this) }"
-    ></ng-container>
+    <app-text
+      [value]="numberProperties.label"
+      propertyName="label"
+      label="Label"
+      (update)="updateNumberProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <app-checkbox
+      label="Disabled"
+      propertyName="disabled"
+      [value]="disabled"
+      (update)="disableControl($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container
-      *ngTemplateOutlet="
-        minlength;
-        context: {
-          changeFn: updateNumberProperties.bind(this),
-          label: 'Min',
-          minlength: numberProperties.min,
-          property: 'min'
-        }
-      "
-    ></ng-container>
+    <app-number
+      label="Min"
+      propertyName="min"
+      [value]="numberProperties.min"
+      (update)="updateNumberProperties($event)"
+    ></app-number>
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        placeholder;
-        context: { placeholder: numberProperties.placeholder, changeFn: updateNumberProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      [value]="numberProperties.placeholder"
+      propertyName="placeholder"
+      label="Placeholder"
+      (update)="updateNumberProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container
-      *ngTemplateOutlet="
-        required;
-        context: { required: numberProperties.required, changeFn: updateNumberProperties.bind(this) }
-      "
-    ></ng-container>
-
+    <app-checkbox
+      label="Required"
+      propertyName="required"
+      [value]="numberProperties.required"
+      (update)="updateNumberProperties($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container
-      *ngTemplateOutlet="
-        maxlength;
-        context: {
-          changeFn: updateNumberProperties.bind(this),
-          label: 'Max',
-          maxlength: numberProperties.max,
-          property: 'max'
-        }
-      "
-    ></ng-container>
+    <app-number
+      label="Max"
+      propertyName="max"
+      [value]="numberProperties.max"
+      (update)="updateNumberProperties($event)"
+    ></app-number>
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        appearance;
-        context: { appearance: numberProperties.appearance, changeFn: updateNumberProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-appearance
+      [appearance]="numberProperties.appearance"
+      (update)="updateNumberProperties($event)"
+    ></app-appearance>
     <!-- 2 -->
-    <ng-container
-      *ngTemplateOutlet="step; context: { step: numberProperties.step, changeFn: updateNumberProperties.bind(this) }"
-    ></ng-container>
+    <app-number
+      label="Step"
+      propertyName="step"
+      [value]="numberProperties.step"
+      (update)="updateNumberProperties($event)"
+    ></app-number>
   </ng-container>
 
   <!-- Password -->
   <ng-container *ngIf="passwordProperties">
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        label;
-        context: { label: passwordProperties.label, changeFn: updatePasswordProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      [value]="passwordProperties.label"
+      propertyName="label"
+      label="Label"
+      (update)="updatePasswordProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <app-checkbox
+      label="Disabled"
+      propertyName="disabled"
+      [value]="disabled"
+      (update)="disableControl($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container
-      *ngTemplateOutlet="
-        minlength;
-        context: {
-          changeFn: updatePasswordProperties.bind(this),
-          label: 'Min Length',
-          minlength: passwordProperties.passwordRequirements.minlength,
-          property: 'minlength'
-        }
-      "
-    ></ng-container>
+    <app-number
+      label="Min Length"
+      propertyName="minlength"
+      [value]="passwordProperties.passwordRequirements.minlength"
+      (update)="updatePasswordProperties($event)"
+    ></app-number>
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        placeholder;
-        context: { placeholder: passwordProperties.placeholder, changeFn: updatePasswordProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      [value]="passwordProperties.placeholder"
+      propertyName="placeholder"
+      label="Placeholder"
+      (update)="updatePasswordProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container
-      *ngTemplateOutlet="
-        required;
-        context: { required: passwordProperties.required, changeFn: updatePasswordProperties.bind(this) }
-      "
-    ></ng-container>
-
+    <app-checkbox
+      label="Required"
+      propertyName="required"
+      [value]="passwordProperties.required"
+      (update)="updatePasswordProperties($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container
-      *ngTemplateOutlet="
-        maxlength;
-        context: {
-          changeFn: updatePasswordProperties.bind(this),
-          label: 'Max Length',
-          maxlength: passwordProperties.passwordRequirements.maxlength,
-          property: 'maxlength'
-        }
-      "
-    ></ng-container>
+    <app-number
+      label="Max Length"
+      propertyName="maxlength"
+      [value]="passwordProperties.passwordRequirements.maxlength"
+      (update)="updatePasswordProperties($event)"
+    ></app-number>
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        appearance;
-        context: { appearance: passwordProperties.appearance, changeFn: updatePasswordProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-appearance
+      [appearance]="passwordProperties.appearance"
+      (update)="updatePasswordProperties($event)"
+    ></app-appearance>
     <!-- 2 -->
-    <ng-container *ngTemplateOutlet="passwordRequirements"></ng-container>
+    <app-checkbox
+      label="Require Lower Case"
+      propertyName="requireLowerCase"
+      [value]="passwordProperties.passwordRequirements.requireLowerCase"
+      (update)="updatePasswordProperties($event)"
+    ></app-checkbox>
+    <!-- 3 -->
+    <app-checkbox
+      label="Require Numbers"
+      propertyName="requireNumbers"
+      [value]="passwordProperties.passwordRequirements.requireNumbers"
+      (update)="updatePasswordProperties($event)"
+    ></app-checkbox>
+    <!-- 1 -->
+    <app-checkbox
+      label="Require Upper Case"
+      propertyName="requireUpperCase"
+      [value]="passwordProperties.passwordRequirements.requireUpperCase"
+      (update)="updatePasswordProperties($event)"
+    ></app-checkbox>
   </ng-container>
 
   <!-- Phone -->
   <ng-container *ngIf="phoneProperties">
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="label; context: { label: phoneProperties.label, changeFn: updatePhoneProperties.bind(this) }"
-    ></ng-container>
+    <app-text
+      [value]="phoneProperties.label"
+      propertyName="label"
+      label="Label"
+      (update)="updatePhoneProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <app-checkbox
+      label="Disabled"
+      propertyName="disabled"
+      [value]="disabled"
+      (update)="disableControl($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container
-      *ngTemplateOutlet="
-        minlength;
-        context: {
-          changeFn: updatePhoneProperties.bind(this),
-          label: 'Min Length',
-          minlength: phoneProperties.minlength,
-          property: 'minlength'
-        }
-      "
-    ></ng-container>
+    <app-number
+      label="Min Length"
+      propertyName="minlength"
+      [value]="phoneProperties.minlength"
+      (update)="updatePhoneProperties($event)"
+    ></app-number>
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        placeholder;
-        context: { placeholder: phoneProperties.placeholder, changeFn: updatePhoneProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      label="Placeholder"
+      propertyName="placeholder"
+      [value]="phoneProperties.placeholder"
+      (update)="updatePhoneProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container
-      *ngTemplateOutlet="
-        required;
-        context: { required: phoneProperties.required, changeFn: updatePhoneProperties.bind(this) }
-      "
-    ></ng-container>
-
+    <app-checkbox
+      label="Required"
+      propertyName="required"
+      [value]="phoneProperties.required"
+      (update)="updatePhoneProperties($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container
-      *ngTemplateOutlet="
-        maxlength;
-        context: {
-          changeFn: updatePhoneProperties.bind(this),
-          label: 'Max Length',
-          maxlength: phoneProperties.maxlength,
-          property: 'maxlength'
-        }
-      "
-    ></ng-container>
+    <app-number
+      label="Max Length"
+      propertyName="maxlength"
+      [value]="phoneProperties.maxlength"
+      (update)="updatePhoneProperties($event)"
+    ></app-number>
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        appearance;
-        context: { appearance: phoneProperties.appearance, changeFn: updatePhoneProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-appearance [appearance]="phoneProperties.appearance" (update)="updatePhoneProperties($event)"></app-appearance>
     <!-- 2 -->
-    <ng-container
-      *ngTemplateOutlet="
-        pattern;
-        context: { pattern: phoneProperties.pattern, changeFn: updatePhoneProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      [value]="phoneProperties.pattern"
+      propertyName="pattern"
+      label="Pattern"
+      (update)="updatePhoneProperties($event)"
+    ></app-text>
   </ng-container>
 
   <!-- Radio -->
   <ng-container *ngIf="radioProperties">
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="label; context: { label: radioProperties.label, changeFn: updateRadioProperties.bind(this) }"
-    ></ng-container>
+    <app-text
+      [value]="radioProperties.label"
+      propertyName="label"
+      label="Label"
+      (update)="updateRadioProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <app-checkbox
+      label="Disabled"
+      propertyName="disabled"
+      [value]="disabled"
+      (update)="disableControl($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container
-      *ngTemplateOutlet="
-        color;
-        context: {
-          changeFn: updateRadioProperties.bind(this),
-          color: radioProperties.color
-        }
-      "
-    ></ng-container>
+    <app-color [color]="radioProperties.color" (update)="updateRadioProperties($event)"></app-color>
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        direction;
-        context: { direction: radioProperties.direction, changeFn: updateRadioProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-direction [direction]="radioProperties.direction" (update)="updateRadioProperties($event)"></app-direction>
     <!-- 2 -->
-    <ng-container
-      *ngTemplateOutlet="
-        labelPosition;
-        context: { labelPosition: radioProperties.labelPosition, changeFn: updateRadioProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-label-position
+      [labelPosition]="radioProperties.labelPosition"
+      (update)="updateRadioProperties($event)"
+    ></app-label-position>
   </ng-container>
 
   <!-- Select -->
   <ng-container *ngIf="selectProperties">
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="label; context: { label: selectProperties.label, changeFn: updateSelectProperties.bind(this) }"
-    ></ng-container>
+    <app-text
+      [value]="selectProperties.label"
+      propertyName="label"
+      label="Label"
+      (update)="updateSelectProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <app-checkbox
+      label="Disabled"
+      propertyName="disabled"
+      [value]="disabled"
+      (update)="disableControl($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container
-      *ngTemplateOutlet="
-        appearance;
-        context: {
-          changeFn: updateSelectProperties.bind(this),
-          appearance: selectProperties.appearance
-        }
-      "
-    ></ng-container>
+    <app-appearance
+      [appearance]="selectProperties.appearance"
+      (update)="updateSelectProperties($event)"
+    ></app-appearance>
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        placeholder;
-        context: { placeholder: selectProperties.placeholder, changeFn: updateSelectProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      [value]="selectProperties.placeholder"
+      propertyName="placeholder"
+      label="Placeholder"
+      (update)="updateSelectProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container
-      *ngTemplateOutlet="
-        required;
-        context: { required: selectProperties.required, changeFn: updateSelectProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-checkbox
+      label="Required"
+      propertyName="required"
+      [value]="selectProperties.required"
+      (update)="updateSelectProperties($event)"
+    ></app-checkbox>
   </ng-container>
 
   <!-- Textarea -->
   <ng-container *ngIf="textareaProperties">
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        label;
-        context: { label: textareaProperties.label, changeFn: updateTextareaProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      label="Label"
+      propertyName="label"
+      [value]="textareaProperties.label"
+      (update)="updateTextareaProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <app-checkbox
+      label="Disabled"
+      propertyName="disabled"
+      [value]="disabled"
+      (update)="disableControl($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container
-      *ngTemplateOutlet="
-        appearance;
-        context: {
-          changeFn: updateTextareaProperties.bind(this),
-          appearance: textareaProperties.appearance
-        }
-      "
-    ></ng-container>
+    <app-appearance
+      [appearance]="textareaProperties.appearance"
+      (update)="updateTextareaProperties($event)"
+    ></app-appearance>
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        placeholder;
-        context: { placeholder: textareaProperties.placeholder, changeFn: updateTextareaProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      label="Placeholder"
+      propertyName="placeholder"
+      [value]="textareaProperties.placeholder"
+      (update)="updateTextareaProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container
-      *ngTemplateOutlet="
-        required;
-        context: { required: textareaProperties.required, changeFn: updateTextareaProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-checkbox
+      label="Required"
+      propertyName="required"
+      [value]="textareaProperties.required"
+      (update)="updateTextareaProperties($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container *ngTemplateOutlet="cols"></ng-container>
+    <app-number
+      label="Columns"
+      propertyName="cols"
+      [value]="textareaProperties.cols"
+      (update)="updateTextareaProperties($event)"
+    ></app-number>
     <!-- 1 -->
-    <ng-container *ngTemplateOutlet="rows"></ng-container>
+    <app-number
+      label="Rows"
+      propertyName="rows"
+      [value]="textareaProperties.rows"
+      (update)="updateTextareaProperties($event)"
+    ></app-number>
     <!-- 2 -->
-    <ng-container *ngTemplateOutlet="wrap"></ng-container>
+    <span *ngIf="textareaProperties.wrap !== undefined">
+      <label for="wrap">Wrap</label>
+      <select
+        id="wrap"
+        name="wrap"
+        [value]="textareaProperties.wrap"
+        (update)="updateTextareaProperties($event, 'wrap')"
+      >
+        <option value="hard">Hard</option>
+        <option value="soft">Soft</option>
+      </select>
+    </span>
   </ng-container>
 
   <!-- Textbox -->
   <ng-container *ngIf="textboxProperties">
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        label;
-        context: { label: textboxProperties.label, changeFn: updateTextboxProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      label="Label"
+      propertyName="label"
+      [value]="textboxProperties.label"
+      (update)="updateTextboxProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <app-checkbox
+      label="Disabled"
+      propertyName="disabled"
+      [value]="disabled"
+      (update)="disableControl($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container
-      *ngTemplateOutlet="
-        appearance;
-        context: {
-          changeFn: updateTextboxProperties.bind(this),
-          appearance: textboxProperties.appearance
-        }
-      "
-    ></ng-container>
+    <app-appearance
+      [appearance]="textboxProperties.appearance"
+      (update)="updateTextboxProperties($event)"
+    ></app-appearance>
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        placeholder;
-        context: { placeholder: textboxProperties.placeholder, changeFn: updateTextboxProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      label="placeholder"
+      propertyName="placeholder"
+      [value]="textboxProperties.placeholder"
+      (update)="updateTextboxProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container
-      *ngTemplateOutlet="
-        required;
-        context: { required: textboxProperties.required, changeFn: updateTextboxProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-checkbox
+      label="Required"
+      propertyName="required"
+      [value]="textboxProperties.required"
+      (update)="updateTextboxProperties($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container
-      *ngTemplateOutlet="
-        pattern;
-        context: { pattern: textboxProperties.pattern, changeFn: updateTextboxProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      label="Pattern"
+      propertyName="pattern"
+      [value]="textboxProperties.pattern"
+      (update)="updateTextboxProperties($event)"
+    ></app-text>
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        maxlength;
-        context: {
-          label: 'Max Length',
-          maxlength: textboxProperties.maxlength,
-          property: 'maxlength',
-          changeFn: updateTextboxProperties.bind(this)
-        }
-      "
-    ></ng-container>
+    <app-number
+      label="Max Length"
+      propertyName="maxlength"
+      [value]="textboxProperties.maxlength"
+      (update)="updateTextboxProperties($event)"
+    ></app-number>
     <!-- 2 -->
-    <ng-container
-      *ngTemplateOutlet="
-        minlength;
-        context: {
-          label: 'Min Length',
-          minlength: textboxProperties.minlength,
-          property: 'minlength',
-          changeFn: updateTextboxProperties.bind(this)
-        }
-      "
-    ></ng-container>
+    <app-number
+      label="Min Length"
+      propertyName="minlength"
+      [value]="textboxProperties.minlength"
+      (update)="updateTextboxProperties($event)"
+    ></app-number>
   </ng-container>
 
   <!-- Time -->
   <ng-container *ngIf="timeProperties">
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        label;
-        context: { label: timeProperties.label, changeFn: updateTimeProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      label="Label"
+      propertyName="label"
+      [value]="timeProperties.label"
+      (update)="updateTimeProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container *ngTemplateOutlet="disabled"></ng-container>
+    <app-checkbox
+      label="Disabled"
+      propertyName="disabled"
+      [value]="disabled"
+      (update)="disableControl($event)"
+    ></app-checkbox>
     <!-- 3 -->
-    <ng-container
-      *ngTemplateOutlet="
-        appearance;
-        context: {
-          changeFn: updateTimeProperties.bind(this),
-          appearance: timeProperties.appearance
-        }
-      "
-    ></ng-container>
+    <app-appearance [appearance]="timeProperties.appearance" (update)="updateTimeProperties($event)"></app-appearance>
     <!-- 1 -->
-    <ng-container
-      *ngTemplateOutlet="
-        placeholder;
-        context: { placeholder: timeProperties.placeholder, changeFn: updateTimeProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-text
+      label="Placeholder"
+      propertyName="placeholder"
+      [value]="timeProperties.placeholder"
+      (update)="updateTimeProperties($event)"
+    ></app-text>
     <!-- 2 -->
-    <ng-container
-      *ngTemplateOutlet="
-        required;
-        context: { required: timeProperties.required, changeFn: updateTimeProperties.bind(this) }
-      "
-    ></ng-container>
+    <app-checkbox
+      label="Required"
+      propertyName="required"
+      [value]="timeProperties.required"
+      (update)="updateTimeProperties($event)"
+    ></app-checkbox>
   </ng-container>
 </div>
 
 <hr />
-
-<ng-template #appearance let-appearance="appearance" let-changeFn="changeFn">
-  <span *ngIf="appearance !== undefined">
-    <label for="appearance">Appearance</label>
-    <select id="appearance" name="appearance" [value]="appearance" (change)="changeFn($event, 'appearance')">
-      <option value="legacy">Legacy</option>
-      <option value="standard">Standard</option>
-      <option value="fill">Fill</option>
-      <option value="outline">Outline</option>
-    </select>
-  </span>
-</ng-template>
-
-<ng-template #badgeNumber>
-  <span *ngIf="buttonProperties?.badgeNumber !== undefined">
-    <label for="badgeNumber">Badge Number</label>
-    <input
-      type="number"
-      id="badgeNumber"
-      name="badgeNumber"
-      [value]="buttonProperties.badgeNumber"
-      (change)="updateButtonProperties($event, 'badgeNumber')"
-    />
-  </span>
-</ng-template>
-
-<ng-template #buttonDisplay>
-  <span *ngIf="buttonProperties?.display !== undefined">
-    <label for="buttonDisplay">Button Display Type</label>
-    <select
-      id="buttonDisplay"
-      name="buttonDisplay"
-      [value]="buttonProperties.display"
-      (change)="updateButtonProperties($event, 'display')"
-    >
-      <option value="filled">Filled</option>
-      <option value="outlined">Outlined</option>
-      <option value="inverted">Inverted</option>
-    </select>
-  </span>
-</ng-template>
-
-<ng-template #buttonType>
-  <span *ngIf="buttonProperties?.type !== undefined">
-    <label for="buttonType">Button Type</label>
-    <select
-      id="buttonType"
-      name="buttonType"
-      [value]="buttonProperties.type"
-      (change)="updateButtonProperties($event, 'type')"
-    >
-      <option value="text">Text</option>
-      <option value="icon">Icon</option>
-      <option value="textWithIcon">Text With Icon</option>
-      <option value="link">Link</option>
-    </select>
-  </span>
-</ng-template>
-
-<ng-template #color let-color="color" let-changeFn="changeFn">
-  <span *ngIf="color !== undefined">
-    <label for="color">Color</label>
-    <select id="color" name="color" [value]="color" (change)="changeFn($event, 'color')">
-      <option value="primary">Primary</option>
-      <option value="accent">Accent</option>
-      <option value="warn">Warn</option>
-    </select>
-  </span>
-</ng-template>
-
-<ng-template #cols>
-  <span *ngIf="textareaProperties.cols !== undefined">
-    <label for="cols">Number of Columns</label>
-    <input
-      type="number"
-      id="cols"
-      name="cols"
-      [value]="textareaProperties.cols"
-      (click)="updateTextareaProperties($event, 'cols')"
-    />
-  </span>
-</ng-template>
-
-<ng-template #direction let-direction="direction" let-changeFn="changeFn">
-  <span *ngIf="direction !== undefined">
-    <label for="direction">Direction</label>
-    <select id="direction" name="direction" [value]="direction" (change)="changeFn($event, 'direction')">
-      <option value="vertical">Vertical</option>
-      <option value="horizontal">Horizontal</option>
-    </select>
-  </span>
-</ng-template>
-
-<ng-template #disabled>
-  <span *ngIf="disabled !== undefined">
-    <input type="checkbox" id="disableToggle" name="disableToggle" [value]="disabled" (click)="disableControl()" />
-    <label for="disableToggle">Disabled</label>
-  </span>
-</ng-template>
-
-<ng-template #hasIcon>
-  <span *ngIf="buttonProperties?.hasIcon !== undefined">
-    <input
-      type="checkbox"
-      id="hasIcon"
-      name="hasIcon"
-      [value]="buttonProperties.hasIcon"
-      (click)="updateButtonProperties(null, 'hasIcon')"
-    />
-    <label for="hasIcon">Has Icon</label>
-  </span>
-</ng-template>
-
-<ng-template #hasShadow>
-  <span *ngIf="buttonProperties?.hasShadow !== undefined">
-    <input
-      type="checkbox"
-      id="hasShadow"
-      name="hasShadow"
-      [value]="buttonProperties.hasShadow"
-      (click)="updateButtonProperties(null, 'hasShadow')"
-    />
-    <label for="hasShadow">Has Shadow</label>
-  </span>
-</ng-template>
-
-<ng-template #isRounded>
-  <span *ngIf="buttonProperties?.isRounded !== undefined">
-    <input
-      type="checkbox"
-      id="isRounded"
-      name="isRounded"
-      [value]="buttonProperties.isRounded"
-      (click)="updateButtonProperties(null, 'isRounded')"
-    />
-    <label for="isRounded">Rounded Corners</label>
-  </span>
-</ng-template>
-
-<ng-template #label let-label="label" let-changeFn="changeFn">
-  <span *ngIf="label !== undefined">
-    <label for="label">Label</label>
-    <input type="text" id="label" name="label" [value]="label" (change)="changeFn($event, 'label')" />
-  </span>
-</ng-template>
-
-<ng-template #labelPosition let-position="labelPosition" let-changeFn="changeFn">
-  <span *ngIf="position !== undefined">
-    <label for="labelPosition">Label Position</label>
-    <select id="labelPosition" name="labelPosition" [value]="position" (change)="changeFn($event, 'labelPosition')">
-      <option value="before">Before</option>
-      <option value="after">After</option>
-    </select>
-  </span>
-</ng-template>
-
-<ng-template #maxlength let-maxlength="maxlength" let-changeFn="changeFn" let-label="label" let-property="property">
-  <span *ngIf="maxlength !== undefined">
-    <label for="maxlength">{{ label }}</label>
-    <input type="number" id="maxlength" name="maxlength" [value]="maxlength" (change)="changeFn($event, property)" />
-  </span>
-</ng-template>
-
-<ng-template #minlength let-minlength="minlength" let-changeFn="changeFn" let-label="label" let-property="property">
-  <span *ngIf="minlength !== undefined">
-    <label for="minlength">{{ label }}</label>
-    <input type="number" id="minlength" name="minlength" [value]="minlength" (change)="changeFn($event, property)" />
-  </span>
-</ng-template>
-
-<ng-template #required let-required="required" let-changeFn="changeFn">
-  <span *ngIf="required !== undefined">
-    <input
-      type="checkbox"
-      id="toggleRequired"
-      name="toggleRequired"
-      [value]="required"
-      (click)="changeFn($event, 'required')"
-    />
-    <label for="toggleRequired">Required</label>
-  </span>
-</ng-template>
-
-<ng-template #pattern let-pattern="pattern" let-changeFn="changeFn">
-  <span *ngIf="pattern !== undefined">
-    <label for="pattern">Pattern</label>
-    <input type="text" id="pattern" name="pattern" [value]="pattern" (change)="changeFn($event, 'pattern')" />
-  </span>
-</ng-template>
-
-<ng-template #placeholder let-placeholder="placeholder" let-changeFn="changeFn">
-  <span *ngIf="placeholder !== undefined">
-    <label for="placeholder">Placeholder</label>
-    <input
-      type="text"
-      id="placeholder"
-      name="placeholder"
-      [value]="placeholder"
-      (change)="changeFn($event, 'placeholder')"
-    />
-  </span>
-</ng-template>
-
-<ng-template #passwordRequirements>
-  <span *ngIf="passwordProperties.passwordRequirements.requireLowerCase !== undefined">
-    <input
-      type="checkbox"
-      id="toggleLowerCase"
-      name="toggleLowerCase"
-      [value]="requireLowerCase"
-      (click)="updatePasswordProperties($event, 'requireLowerCase')"
-    />
-    <label for="toggleLowerCase">Require Lower Case</label>
-  </span>
-
-  <span *ngIf="passwordProperties.passwordRequirements.requireNumbers !== undefined">
-    <input
-      type="checkbox"
-      id="toggleNumbers"
-      name="toggleNumbers"
-      [value]="requireNumbers"
-      (click)="updatePasswordProperties($event, 'requireNumbers')"
-    />
-    <label for="toggleNumbers">Require Numbers</label>
-  </span>
-
-  <span *ngIf="passwordProperties.passwordRequirements.requireUpperCase !== undefined">
-    <input
-      type="checkbox"
-      id="toggleUpperCase"
-      name="toggleUpperCase"
-      [value]="requireUpperCase"
-      (click)="updatePasswordProperties($event, 'requireUpperCase')"
-    />
-    <label for="toggleUpperCase">Require Upper Case</label>
-  </span>
-</ng-template>
-
-<ng-template #rows>
-  <span *ngIf="textareaProperties.rows !== undefined">
-    <label for="rows">Number of Rows</label>
-    <input
-      type="number"
-      id="rows"
-      name="rows"
-      [value]="textareaProperties.rows"
-      (click)="updateTextareaProperties($event, 'rows')"
-    />
-  </span>
-</ng-template>
-
-<ng-template #step let-step="step" let-changeFn="changeFn">
-  <span *ngIf="step !== undefined">
-    <label for="step">Step</label>
-    <input type="number" id="step" name="step" [value]="step" (change)="changeFn($event, 'step')" />
-  </span>
-</ng-template>
-
-<ng-template #size>
-  <span *ngIf="buttonProperties?.size !== undefined">
-    <label for="size">Size</label>
-    <select id="size" name="size" [value]="buttonProperties.size" (change)="updateButtonProperties($event, 'size')">
-      <option value="small">Small</option>
-      <option value="medium">Medium</option>
-      <option value="large">Large</option>
-    </select>
-  </span>
-</ng-template>
-
-<ng-template #wrap>
-  <span *ngIf="textareaProperties.wrap !== undefined">
-    <label for="wrap">Wrap</label>
-    <select id="wrap" name="wrap" [value]="textareaProperties.wrap" (change)="updateTextareaProperties($event, 'wrap')">
-      <option value="hard">Hard</option>
-      <option value="soft">Soft</option>
-    </select>
-  </span>
-</ng-template>

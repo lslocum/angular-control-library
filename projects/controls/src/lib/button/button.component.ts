@@ -9,7 +9,6 @@ import { ButtonDisplay, ButtonSize, ButtonTypes, IButton } from '../interfaces/b
 export class ButtonComponent implements OnChanges {
   @Input() buttonProperties: IButton;
   @Input() id: string;
-  @Input() disabled: boolean = true;
   @Output() clicked: EventEmitter<void> = new EventEmitter();
 
   classList: string[];

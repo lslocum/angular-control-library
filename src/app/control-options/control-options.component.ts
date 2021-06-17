@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 import { IButton } from 'projects/controls/src/lib/interfaces/button-interface';
 import { ICheckbox } from 'projects/controls/src/lib/interfaces/checkbox-interface';
@@ -49,130 +47,142 @@ export class ControlOptionsComponent {
   @Output() textboxPropertiesUpdated = new EventEmitter<ITextbox>();
   @Output() timePropertiesUpdated = new EventEmitter<ITime>();
 
-  disableControl(): void {
-    this.disabled = !this.disabled;
+  disableControl(event): void {
+    this.disabled = event.value;
     this.disabledToggled.emit(this.disabled);
   }
 
   updateButtonProperties(event: any, property: string): void {
+    const prop: string = event['property'] ? event.property : property;
     const buttonProps = {
       ...this.buttonProperties,
-      [property]: this.getUpdatedValue(event, this.buttonProperties[property]),
+      [prop]: this.getUpdatedValue(event, this.buttonProperties[prop]),
     };
 
     this.buttonPropertiesUpdated.emit(buttonProps);
   }
 
   updateCheckboxProperties(event: any, property: string): void {
+    const prop: string = event['property'] ? event.property : property;
     const checkboxProps = {
       ...this.checkboxProperties,
-      [property]: this.getUpdatedValue(event, this.checkboxProperties[property]),
+      [prop]: this.getUpdatedValue(event, this.checkboxProperties[prop]),
     };
 
     this.checkboxPropertiesUpdated.emit(checkboxProps);
   }
 
   updateDateProperties(event: any, property: string): void {
+    const prop: string = event['property'] ? event.property : property;
     const dateProps = {
       ...this.dateProperties,
-      [property]: this.getUpdatedValue(event, this.dateProperties[property]),
+      [prop]: this.getUpdatedValue(event, this.dateProperties[prop]),
     };
 
     this.datePropertiesUpdated.emit(dateProps);
   }
 
   updateEmailProperties(event: any, property: string): void {
+    const prop: string = event['property'] ? event.property : property;
     const emailProps = {
       ...this.emailProperties,
-      [property]: this.getUpdatedValue(event, this.emailProperties[property]),
+      [prop]: this.getUpdatedValue(event, this.emailProperties[prop]),
     };
 
     this.emailPropertiesUpdated.emit(emailProps);
   }
 
   updateNumberProperties(event: any, property: string): void {
+    const prop: string = event['property'] ? event.property : property;
     const numberProps = {
       ...this.numberProperties,
-      [property]: this.getUpdatedValue(event, this.numberProperties[property]),
+      [prop]: this.getUpdatedValue(event, this.numberProperties[prop]),
     };
 
     this.numberPropertiesUpdated.emit(numberProps);
   }
 
   updatePasswordProperties(event: any, property: string): void {
-    const changeIsPasswordRequirements = this.changeIsPasswordRequirements(property);
+    const prop: string = event['property'] ? event.property : property;
+    const changeIsPasswordRequirements = this.changeIsPasswordRequirements(prop);
     const passwordProps: IPassword = changeIsPasswordRequirements
       ? {
           ...this.passwordProperties,
           passwordRequirements: {
             ...this.passwordProperties.passwordRequirements,
-            [property]: this.getUpdatedValue(event, this.passwordProperties.passwordRequirements[property]),
+            [prop]: this.getUpdatedValue(event, this.passwordProperties.passwordRequirements[prop]),
           },
         }
       : {
           ...this.passwordProperties,
-          [property]: this.getUpdatedValue(event, this.passwordProperties[property]),
+          [prop]: this.getUpdatedValue(event, this.passwordProperties[prop]),
         };
 
     this.passwordPropertiesUpdated.emit(passwordProps);
   }
 
   updatePhoneProperties(event: any, property: string): void {
+    const prop: string = event['property'] ? event.property : property;
     const phoneProps = {
       ...this.phoneProperties,
-      [property]: this.getUpdatedValue(event, this.phoneProperties[property]),
+      [prop]: this.getUpdatedValue(event, this.phoneProperties[prop]),
     };
 
     this.phonePropertiesUpdated.emit(phoneProps);
   }
 
   updateRadioProperties(event: any, property: string): void {
+    const prop: string = event['property'] ? event.property : property;
     const radioProps = {
       ...this.radioProperties,
-      [property]: this.getUpdatedValue(event, this.radioProperties[property]),
+      [prop]: this.getUpdatedValue(event, this.radioProperties[prop]),
     };
 
     this.radioPropertiesUpdated.emit(radioProps);
   }
 
   updateSelectProperties(event: any, property: string): void {
+    const prop: string = event['property'] ? event.property : property;
     const selectProps = {
       ...this.selectProperties,
-      [property]: this.getUpdatedValue(event, this.selectProperties[property]),
+      [prop]: this.getUpdatedValue(event, this.selectProperties[prop]),
     };
 
     this.selectPropertiesUpdated.emit(selectProps);
   }
 
   updateTextareaProperties(event: any, property: string): void {
+    const prop: string = event['property'] ? event.property : property;
     const textareaProps = {
       ...this.textareaProperties,
-      [property]: this.getUpdatedValue(event, this.textareaProperties[property]),
+      [prop]: this.getUpdatedValue(event, this.textareaProperties[prop]),
     };
 
     this.textareaPropertiesUpdated.emit(textareaProps);
   }
 
   updateTextboxProperties(event: any, property: string): void {
+    const prop: string = event['property'] ? event.property : property;
     const textboxProps = {
       ...this.textboxProperties,
-      [property]: this.getUpdatedValue(event, this.textboxProperties[property]),
+      [prop]: this.getUpdatedValue(event, this.textboxProperties[prop]),
     };
 
     this.textboxPropertiesUpdated.emit(textboxProps);
   }
 
   updateTimeProperties(event: any, property: string): void {
+    const prop: string = event['property'] ? event.property : property;
     const timeProps = {
       ...this.timeProperties,
-      [property]: this.getUpdatedValue(event, this.timeProperties[property]),
+      [prop]: this.getUpdatedValue(event, this.timeProperties[prop]),
     };
 
     this.timePropertiesUpdated.emit(timeProps);
   }
 
   private getUpdatedValue(event: any, value: unknown): unknown {
-    return typeof value === 'boolean' ? !value : event.target.value;
+    return typeof value === 'boolean' ? !value : event['value'] ? event.value : event.target.value;
   }
 
   private changeIsPasswordRequirements(property: string): boolean {

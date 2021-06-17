@@ -26,7 +26,7 @@ export function getDefaultPassword(overrides?: Partial<IPassword>): IPassword {
       id: null,
       label: null,
       name: null,
-      placeholder: null,
+      placeholder: '',
       required: false,
       passwordRequirements: {
         minlength: null,

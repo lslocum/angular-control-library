@@ -22,7 +22,7 @@ export function getDefaultTextbox(overrides?: Partial<ITextbox>): ITextbox {
       minlength: null,
       name: null,
       pattern: null,
-      placeholder: null,
+      placeholder: '',
       required: false,
     },
     overrides

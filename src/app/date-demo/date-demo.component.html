@@ -2,6 +2,7 @@
   <h1>Date</h1>
   <app-control-options
     [dateProperties]="dateProperties"
+    [disabled]="disabled"
     (datePropertiesUpdated)="updateDateProperties($event)"
     (disabledToggled)="disableControl($event)"
   ></app-control-options>

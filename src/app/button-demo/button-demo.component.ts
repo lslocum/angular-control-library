@@ -15,48 +15,22 @@ import { LibraryService } from '../library.service';
 export class ButtonDemoComponent {
   selectedLibrary$: Observable<string>;
   buttonProperties: IButton;
-  disabled = false;
-  label: string;
 
   constructor(private libraryService: LibraryService) {
     this.selectedLibrary$ = this.libraryService.selectedLibrary.pipe(
       tap((lib) => {
-        switch (lib) {
-          case controlLibraryTypes[controlLibraryTypes.HTML]:
-            this.buttonProperties = getDefaultButton({
-              display: 'filled',
-              hasShadow: false,
-              icon: null,
-              isRounded: false,
-              label: 'Click me!',
-              size: 'medium',
-              type: 'text',
-            });
-            break;
-          case controlLibraryTypes[controlLibraryTypes.Material]:
-            this.buttonProperties = getDefaultButton({
-              color: 'primary',
-              display: 'filled',
-              hasShadow: false,
-              icon: null,
-              isRounded: false,
-              label: 'Click me!',
-              size: 'medium',
-              type: 'text',
-            });
-            break;
-          case controlLibraryTypes[controlLibraryTypes['Prime-NG']]:
-            this.buttonProperties = getDefaultButton({
-              color: 'primary',
-              display: 'filled',
-              hasShadow: false,
-              icon: 'pi pi-heart',
-              isRounded: false,
-              label: 'Click me!',
-              size: 'medium',
-              type: 'text',
-            });
-            break;
+        this.buttonProperties = getDefaultButton({
+          color: 'primary',
+          display: 'filled',
+          hasShadow: false,
+          icon: null,
+          isRounded: false,
+          label: 'Click me!',
+          size: 'medium',
+          type: 'text',
+        });
+        if (lib === controlLibraryTypes[controlLibraryTypes['Prime-NG']]) {
+          this.buttonProperties.icon = 'pi pi-heart';
         }
       })
     );
@@ -68,13 +42,5 @@ export class ButtonDemoComponent {
 
   buttonPropertiesUpdated(value): void {
     this.buttonProperties = { ...value };
-  }
-
-  labelUpdated(value) {
-    this.buttonProperties = { ...this.buttonProperties, label: value };
-  }
-
-  toggleDisabled(value: boolean): void {
-    this.disabled = value;
   }
 }

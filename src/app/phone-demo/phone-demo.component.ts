@@ -12,7 +12,7 @@ import { LibraryService } from '../library.service';
 })
 export class PhoneDemoComponent implements OnInit {
   selectedLibrary$: Observable<string>;
-  disabled: boolean;
+  disabled: boolean = false;
   formGroup: FormGroup;
   formControlName = 'phone';
   phoneProperties: IPhone;

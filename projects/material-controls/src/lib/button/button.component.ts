@@ -8,9 +8,7 @@ import { IButton } from 'projects/controls/src/lib/interfaces/button-interface';
 })
 export class ButtonComponent implements OnChanges {
   @Input() buttonProperties: IButton;
-  @Input() disabled: boolean = true;
   @Input() id: string;
-  @Input() ngClass: string[] = [];
   @Output() clicked: EventEmitter<void> = new EventEmitter();
 
   color: ThemePalette;

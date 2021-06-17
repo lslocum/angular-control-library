@@ -21,7 +21,7 @@ export function getDefaultNumber(overrides?: Partial<INumber>): INumber {
       max: null,
       min: null,
       name: null,
-      placeholder: null,
+      placeholder: '',
       required: false,
       step: null,
     },

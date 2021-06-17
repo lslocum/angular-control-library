@@ -45,7 +45,7 @@ export class NumberDemoComponent implements OnInit {
   }
 
   private setValidators(): void {
-    const baseValidators = [Validators.email];
+    const baseValidators = [];
 
     if (this.numberProperties.min) {
       baseValidators.push(Validators.min(this.numberProperties.min));

@@ -16,7 +16,7 @@ export function getDefaultTime(overrides?: Partial<ITime>): ITime {
       id: null,
       label: null,
       name: null,
-      placeholder: null,
+      placeholder: '',
       required: false,
     },
     overrides

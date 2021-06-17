@@ -12,7 +12,7 @@ import { LibraryService } from '../library.service';
 })
 export class TextareaDemoComponent implements OnInit {
   selectedLibrary$: Observable<string>;
-  disabled: boolean;
+  disabled: boolean = false;
   formGroup: FormGroup;
   formControlName = 'textarea';
   textareaProperties: ITextarea;

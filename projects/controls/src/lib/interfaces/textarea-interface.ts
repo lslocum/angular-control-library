@@ -22,7 +22,7 @@ export function getDefaultTextarea(overrides?: Partial<ITextarea>): ITextarea {
       label: null,
       maxlength: null,
       name: null,
-      placeholder: null,
+      placeholder: '',
       required: false,
       rows: 2,
       wrap: 'hard',
