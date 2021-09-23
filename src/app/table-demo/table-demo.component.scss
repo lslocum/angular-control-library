@@ -1,0 +1,29 @@
+.row-badge {
+  font-variant: small-caps;
+  padding: 10px;
+  border-radius: 10%;
+
+  &.status-unqualified {
+    background-color: lavender;
+  }
+
+  &.status-proposal {
+    background-color: coral;
+  }
+
+  &.status-qualified {
+    background-color: plum;
+  }
+
+  &.status-new {
+    background-color: cornflowerblue;
+  }
+
+  &.status-renewal {
+    background-color: lemonchiffon;
+  }
+
+  &.status-negotiation {
+    background-color: deeppink;
+  }
+}

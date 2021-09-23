@@ -1,0 +1,143 @@
+<p-table
+  #dt
+  [(selection)]="selectedRows"
+  [columns]="columns"
+  [currentPageReportTemplate]="options.currentPageReportTemplate"
+  [dataKey]="options.dataKey"
+  [filterDelay]="options.filterDelay"
+  [frozenColumns]="frozenColumns"
+  [globalFilterFields]="options.globalFilterFields"
+  [loading]="options.loading"
+  [paginator]="options.paginator"
+  [reorderableColumns]="options.reorderableColumns"
+  [resizableColumns]="options.resizableColumns"
+  [rowHover]="true"
+  [rows]="options.rowCount"
+  [rowsPerPageOptions]="options.rowsPerPageOptions"
+  [showCurrentPageReport]="options.showCurrentPageReport"
+  [styleClass]="options.styleClass"
+  [value]="data"
+  columnResizeMode="expand"
+  (onColReorder)="reorderColumns($event)"
+>
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+      <p-multiSelect
+        [options]="selectableColumns"
+        [value]="selectedColumns"
+        filter="false"
+        optionLabel="label"
+        selectedItemsLabel="{0} columns selected"
+        class="mutli-select"
+        placeholder="Choose Columns"
+        (onChange)="filterColumns($event.value)"
+      ></p-multiSelect>
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          (input)="dt.filterGlobal($event.target.value, 'contains')"
+          placeholder="Global Search"
+        />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <ng-container *ngIf="options.selectMode === 'multi'">
+        <th class="checkbox-column"></th>
+      </ng-container>
+      <ng-container *ngFor="let column of selectedColumns">
+        <th [pSortableColumn]="column.fieldName" pResizableColumn pReorderableColumn>
+          {{ column.label }}
+          <ng-container *ngIf="column.sortable">
+            <p-sortIcon [field]="column.fieldName"></p-sortIcon>
+          </ng-container>
+        </th>
+      </ng-container>
+    </tr>
+
+    <tr>
+      <ng-container *ngIf="options.selectMode === 'multi'">
+        <th class="checkbox-column">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+      </ng-container>
+      <ng-container *ngFor="let column of selectedColumns">
+        <th>
+          <ng-container *ngIf="column.filterable">
+            <ng-container [ngSwitch]="column.fieldType">
+              <ng-container *ngSwitchCase="'text'">
+                <input
+                  pInputText
+                  [type]="column.fieldType"
+                  (input)="onFilterChange($event.target.value, column)"
+                  [placeholder]="'Filter ' + column.label"
+                  class="p-column-filter"
+                />
+              </ng-container>
+              <ng-container *ngSwitchCase="'dropdown'">
+                <p-multiSelect
+                  [options]="column.filterOptions.dropdownValues.options"
+                  [optionLabel]="column.filterOptions.dropdownValues.label"
+                  placeholder="All"
+                  [showClear]="true"
+                  styleClass="p-column-filter"
+                  (onChange)="onDropdownFilter($event.value, column)"
+                >
+                  <ng-template let-option pTemplate="item">
+                    <div class="p-multiselect-representative-option">
+                      <span class="p-ml-1">{{ option[column.filterOptions.dropdownValues.label] }}</span>
+                    </div>
+                  </ng-template>
+                </p-multiSelect>
+              </ng-container>
+              <ng-container *ngSwitchCase="'date'">
+                <p-calendar
+                  (onSelect)="onDateSelect($event, column)"
+                  (onClearClick)="dt.filter('', column.fieldName, 'equals')"
+                  [showButtonBar]="true"
+                  styleClass="p-column-filter"
+                  placeholder="Date"
+                  [readonlyInput]="true"
+                  dateFormat="mm/dd/yy"
+                ></p-calendar>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </th>
+      </ng-container>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-row>
+    <tr class="p-selectable-row">
+      <td *ngIf="options.selectMode === 'multi'">
+        <p-tableCheckbox [value]="row"></p-tableCheckbox>
+      </td>
+
+      <ng-container *ngFor="let column of selectedColumns">
+        <ng-container *ngIf="column.templateRef; else noRef">
+          <ng-container *ngTemplateOutlet="column.templateRef; context: { row: row }"></ng-container>
+        </ng-container>
+        <ng-template #noRef let-row;>
+          <td>
+            <span class="p-column-title">{{ column.label }}</span>
+            <span *ngIf="column.fieldType !== 'date'; else dateDisplay">
+              {{ row[column.fieldName] }}
+            </span>
+            <ng-template #dateDisplay>
+              {{ row[column.fieldName] | date: 'MM/dd/yyyy' }}
+            </ng-template>
+          </td>
+        </ng-template>
+      </ng-container>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8">{{ options.emptyTableMessage }}</td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -15,9 +15,9 @@
     (change)="onChange()"
     (blur)="onTouchedCallback()"
   />
-  <div *ngIf="control.invalid">
+  <!-- <div *ngIf="control.invalid"> -->
     <mat-error *ngIf="control.hasError('required')">{{ emailProperties.label }} is required.</mat-error>
     <mat-error *ngIf="control.hasError('email')">{{ value }} is not a valid email.</mat-error>
     <mat-error *ngIf="control.hasError('minlength')">{{ emailProperties.label }} cannot be less than {{ emailProperties.minlength }}.</mat-error>
-  </div>
+  <!-- </div> -->
 </mat-form-field>

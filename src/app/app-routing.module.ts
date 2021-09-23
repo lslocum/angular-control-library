@@ -75,6 +75,11 @@ const routes: Routes = [
       import('./password-demo/password-demo.module').then((m) => m.PasswordDemoModule),
   },
   {
+    path: 'table',
+    loadChildren: () =>
+      import('./table-demo/table-demo.module').then((m) => m.TableDemoModule),
+  },
+  {
     path: '**',
     redirectTo: 'button',
   },

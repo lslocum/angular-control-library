@@ -1,0 +1,31 @@
+<prime-table [data]="data" [options]="tableOptions" [columns]="tableColumns">
+  <ng-template #countryName let-row="row">
+    <td>
+      <span class="p-column-title">Country</span>
+      <span class="image-text">{{ row.country?.name }}</span>
+    </td>
+  </ng-template>
+  <ng-template #representativeName let-row="row">
+    <td>
+      <span class="p-column-title">Representative</span>
+      <span class="image-text">{{ row.representative?.name }}</span>
+    </td>
+  </ng-template>
+  <ng-template #activity let-row="row">
+    <td>
+      <span class="p-column-title">Activity</span>
+      <p-progressBar [value]="row.activity" [showValue]="false"></p-progressBar>
+    </td>
+  </ng-template>
+  <ng-template #status let-row="row">
+    <td>
+      <span class="p-column-title">Status</span>
+      <p-badge [class]="'row-badge status-' + row.status" [value]="row.status">{{ row.status }}</p-badge>
+    </td>
+  </ng-template>
+  <ng-template #button let-row="row">
+    <td style="text-align: center">
+      <button pButton type="button" class="p-button-secondary" icon="pi pi-cog" (click)="onButtonClick()"></button>
+    </td>
+  </ng-template>
+</prime-table>
