@@ -79,6 +79,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./table-demo/table-demo.module').then((m) => m.TableDemoModule),
   },
+  { path: 'banner', loadChildren: () => import('./banner-demo/banner-demo.module').then(m => m.BannerDemoModule) },
+  { path: 'toast', loadChildren: () => import('./toast-demo/toast-demo/toast-demo.module').then(m => m.ToastDemoModule) },
   {
     path: '**',
     redirectTo: 'button',

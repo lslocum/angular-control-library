@@ -23,6 +23,7 @@
     </div>
   </header>
   <nav class="app-outlet">
+    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./banner']">Banner</a>
     <a mat-list-item routerLinkActive="active-route" [routerLink]="['./button']">Button</a>
     <a mat-list-item routerLinkActive="active-route" [routerLink]="['./checkbox']">Checkbox</a>
     <a mat-list-item routerLinkActive="active-route" [routerLink]="['./date']">Date</a>
@@ -36,6 +37,7 @@
     <a mat-list-item routerLinkActive="active-route" [routerLink]="['./textarea']">Textarea</a>
     <a mat-list-item routerLinkActive="active-route" [routerLink]="['./textbox']">Textbox</a>
     <a mat-list-item routerLinkActive="active-route" [routerLink]="['./time']">Time</a>
+    <a mat-list-item routerLinkActive="active-route" [routerLink]="['./toast']">Notifications</a>
   </nav>
   <main class="app-outlet">
     <router-outlet></router-outlet>

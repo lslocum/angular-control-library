@@ -1,0 +1,18 @@
+<div *ngIf="title" class="p-dialog-title">
+  <i class="pi pi-exclamation-circle icon"></i>
+  <span class="header">{{ title }}</span>
+</div>
+
+<div class="p-dialog-content">
+  <span *ngIf="!title"><i class="pi pi-exclamation-circle icon"></i></span>
+  {{ message }}
+
+  <p>
+    If you continue to experience this issue, please
+    <a href="mailto:support@321moonshot.com">contact support.</a>
+  </p>
+</div>
+
+<div class="p-dialog-footer">
+  <button pButton pRipple (click)="ref.close()" label="OK" styleClass="p-button-text"></button>
+</div>

@@ -1,0 +1,29 @@
+<div><prime-toast></prime-toast></div>
+
+<p-confirmDialog [style]="{ width: '50vw' }" [baseZIndex]="10000"></p-confirmDialog>
+<div class="buttons">
+  <button type="button" pButton pRipple (click)="showInformation()" label="Open Banner" class="p-button-info"></button>
+  <button type="button" pButton pRipple (click)="showSuccess()" label="Open Toast" class="p-button-success"></button>
+  <button
+    (click)="showConfirm()"
+    type="button"
+    pButton
+    pRipple
+    icon="pi pi-check"
+    class="p-button-warning"
+    label="Confirm"
+  ></button>
+  <button
+    (click)="showError()"
+    type="button"
+    pButton
+    pRipple
+    type="button"
+    label="Show Error"
+    class="p-button-danger"
+  ></button>
+</div>
+
+<div class="banner">
+  <prime-banner></prime-banner>
+</div>
